@@ -4,7 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:huzz/core/constants/app_strings.dart';
+import 'package:huzz/core/services/firebase/firebase_dynamic_linking.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
@@ -17,60 +19,22 @@ class CreateTeamSuccess extends StatefulWidget {
 }
 
 class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
-  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   final controller = Get.find<AuthRepository>();
   final _businessController = Get.find<BusinessRespository>();
-  bool isLoadingTeamInviteLink = false;
+  // bool isLoadingTeamInviteLink = false;
   String? values, teamInviteLink, busName;
 
   @override
   void initState() {
-    controller.checkTeamInvite();
+    FirebaseDynamicLinkService().initDynamicLinks();
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
     busName = _businessController.selectedBusiness.value!.businessName;
-    shareBusinessIdLink(value.toString());
-  }
-
-  Future<void> shareBusinessIdLink(String businessId) async {
-    if (controller.onlineStatus == OnlineStatus.Onilne) {
-      try {
-        setState(() {
-          isLoadingTeamInviteLink = true;
-        });
-        final url = "https://huzz.africa/businessId=$businessId";
-        final DynamicLinkParameters parameters = DynamicLinkParameters(
-          uriPrefix: 'https://huzz.page.link',
-          link: Uri.parse(url),
-          androidParameters: const AndroidParameters(
-            packageName: AppStrings.appId,
-            minimumVersion: 1,
-          ),
-          iosParameters: const IOSParameters(
-            bundleId: AppStrings.appId,
-            appStoreId: "1596574133",
-            minimumVersion: '1',
-          ),
-        );
-        final shortLink = await dynamicLinks.buildShortLink(parameters);
-        teamInviteLink = shortLink.shortUrl.toString();
-        setState(() {
-          isLoadingTeamInviteLink = false;
-        });
-        Share.share(
-            'You have been invited to manage $busName on Huzz. Click this: ${teamInviteLink!}',
-            subject: 'Share team invite link');
-      } catch (error) {
-        Get.snackbar("Error occured", error.toString());
-        setState(() {
-          isLoadingTeamInviteLink = false;
-        });
-      }
-    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final dynamicLinkService = context.read<FirebaseDynamicLinkService>();
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: Padding(
@@ -98,9 +62,16 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
             const Spacer(),
             InkWell(
               onTap: () {
-                shareBusinessIdLink(_businessController
-                    .selectedBusiness.value!.businessId
-                    .toString());
+                dynamicLinkService.shareBusinessIdLink(
+                  businessId: _businessController
+                      .selectedBusiness.value!.businessId
+                      .toString(),
+                  teamId: _businessController.selectedBusiness.value!.teamId
+                      .toString(),
+                  businessName: _businessController
+                      .selectedBusiness.value!.businessName
+                      .toString(),
+                );
               },
               child: Container(
                 height: 55,
@@ -111,7 +82,8 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(
-                  child: isLoadingTeamInviteLink
+                  child: dynamicLinkService.dynamicLinkStatus ==
+                          DynamicLinkStatus.loading
                       ? const LoadingWidget(color: Colors.white)
                       : Text(
                           'Share invite link',

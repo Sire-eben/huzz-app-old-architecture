@@ -25,11 +25,11 @@ class InformationDialog extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.info_outline_rounded,
           size: 27,
         ),
-        SizedBox(height: 7),
+        const SizedBox(height: 7),
         Text(
           "Manage member authorization for your business team",
           textAlign: TextAlign.center,
@@ -97,14 +97,9 @@ class _UpdateMemberState extends State<UpdateMember> {
 
   @override
   void initState() {
-    controller.checkTeamInvite();
-
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
-    print('BusinessId: $value');
     final teamId = _businessController.selectedBusiness.value!.teamId;
-    print('Business TeamId: $teamId');
-    print(widget.team!.toJson());
 
     _roleSet = widget.team!.roleSet!;
     _authoritySet = widget.team!.authoritySet!;
@@ -235,7 +230,7 @@ class _UpdateMemberState extends State<UpdateMember> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -263,19 +258,19 @@ class _UpdateMemberState extends State<UpdateMember> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             EditDetails(
               name: 'Name:',
               value: widget.team!.email,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             EditDetails(
               name: 'Phone:',
               value: '+${widget.team!.phoneNumber}',
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -287,7 +282,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                       fontSize: 12,
                     ),
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   SvgPicture.asset(
                     "assets/images/info.svg",
                     height: 15,
@@ -296,7 +291,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ExpandableWidget(
               info: () {
                 Platform.isIOS
@@ -304,11 +299,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: InformationDialog(),
+                          content: const InformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK",
-                                style: TextStyle(color: AppColors.primaryColor),),
+                              child: const Text(
+                                "OK",
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -317,11 +314,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: InformationDialog(),
+                          content: const InformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK",
-                                style: TextStyle(color: AppColors.primaryColor),),
+                              child: const Text(
+                                "OK",
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -352,8 +351,6 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _roleSet.removeWhere((element) {
                         return element == 'MANAGE_CUSTOMER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageCustomer = true;
                       _isMCView = true;
@@ -365,17 +362,15 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('CREATE_CUSTOMER');
                       _authoritySet.add('VIEW_CUSTOMER');
                       _roleSet.add('MANAGE_CUSTOMER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isManageCustomer == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.backgroundColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.backgroundColor,
                       ),
@@ -388,22 +383,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_CUSTOMER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMCView = true;
                       _authoritySet.add('VIEW_CUSTOMER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMCView == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -416,22 +407,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_CUSTOMER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMCCreate = true;
                       _authoritySet.add('CREATE_CUSTOMER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMCCreate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -444,22 +431,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_CUSTOMER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMCUpdate = true;
                       _authoritySet.add('UPDATE_CUSTOMER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMCUpdate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -472,22 +455,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_CUSTOMER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMCDelete = true;
                       _authoritySet.add('DELETE_CUSTOMER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMCDelete == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -524,8 +503,6 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _roleSet.removeWhere((element) {
                         return element == 'MANAGE_PRODUCT';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageProduct = true;
                       _isMPView = true;
@@ -537,17 +514,15 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('CREATE_PRODUCT');
                       _authoritySet.add('VIEW_PRODUCT');
                       _roleSet.add('MANAGE_PRODUCT');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isManageProduct == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.backgroundColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.backgroundColor,
                       ),
@@ -560,22 +535,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_PRODUCT';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMPView = true;
                       _authoritySet.add('VIEW_PRODUCT');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMPView == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -588,22 +559,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_PRODUCT';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMPCreate = true;
                       _authoritySet.add('CREATE_PRODUCT');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMPCreate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -616,22 +583,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_PRODUCT';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMPUpdate = true;
                       _authoritySet.add('UPDATE_PRODUCT');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMPUpdate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -644,22 +607,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_PRODUCT';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMPDelete = true;
                       _authoritySet.add('DELETE_PRODUCT');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMPDelete == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -696,8 +655,6 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _roleSet.removeWhere((element) {
                         return element == 'MANAGE_BUSINESS_TRANSACTIONS';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageBusiness = true;
                       _isMBusView = true;
@@ -709,17 +666,15 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('CREATE_BUSINESS_TRANSACTION');
                       _authoritySet.add('VIEW_BUSINESS_TRANSACTION');
                       _roleSet.add('MANAGE_BUSINESS_TRANSACTIONS');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isManageBusiness == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.backgroundColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.backgroundColor,
                       ),
@@ -732,22 +687,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_BUSINESS_TRANSACTION';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBusView = true;
                       _authoritySet.add('VIEW_BUSINESS_TRANSACTION');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMBusView == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -760,22 +711,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_BUSINESS_TRANSACTION';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBusCreate = true;
                       _authoritySet.add('CREATE_BUSINESS_TRANSACTION');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMBusCreate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -788,22 +735,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_BUSINESS_TRANSACTION';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBusUpdate = true;
                       _authoritySet.add('UPDATE_BUSINESS_TRANSACTION');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMBusUpdate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -816,22 +759,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_BUSINESS_TRANSACTION';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBusDelete = true;
                       _authoritySet.add('DELETE_BUSINESS_TRANSACTION');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMBusDelete == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -868,8 +807,6 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _roleSet.removeWhere((element) {
                         return element == 'MANAGE_BANK_INFO';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageBank = true;
                       _isMBankView = true;
@@ -881,17 +818,15 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('CREATE_BANK_INFO');
                       _authoritySet.add('VIEW_BANK_INFO');
                       _roleSet.add('MANAGE_BANK_INFO');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isManageBank == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.backgroundColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.backgroundColor,
                       ),
@@ -904,22 +839,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_BANK_INFO';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBankView = true;
                       _authoritySet.add('VIEW_BANK_INFO');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMBankView == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -932,22 +863,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_BANK_INFO';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBankCreate = true;
                       _authoritySet.add('CREATE_BANK_INFO');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMBankCreate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -960,22 +887,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_BANK_INFO';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBankUpdate = true;
                       _authoritySet.add('UPDATE_BANK_INFO');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMBankUpdate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -988,22 +911,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_BANK_INFO';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBankDelete = true;
                       _authoritySet.add('DELETE_BANK_INFO');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMBankDelete == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -1040,8 +959,6 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _roleSet.removeWhere((element) {
                         return element == 'MANAGE_TEAM';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageTeam = true;
                       _isMTView = true;
@@ -1053,17 +970,15 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('CREATE_TEAM_MEMBER');
                       _authoritySet.add('VIEW_TEAM_MEMBER');
                       _roleSet.add('MANAGE_TEAM');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isManageTeam == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.backgroundColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.backgroundColor,
                       ),
@@ -1076,22 +991,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_TEAM_MEMBER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMTView = true;
                       _authoritySet.add('VIEW_TEAM_MEMBER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMTView == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -1104,22 +1015,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_TEAM_MEMBER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMTCreate = true;
                       _authoritySet.add('CREATE_TEAM_MEMBER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMTCreate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -1132,22 +1039,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_TEAM_MEMBER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMTUpdate = true;
                       _authoritySet.add('UPDATE_TEAM_MEMBER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMTUpdate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -1160,22 +1063,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_TEAM_MEMBER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMTDelete = true;
                       _authoritySet.add('DELETE_TEAM_MEMBER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMTDelete == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -1212,9 +1111,6 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _roleSet.removeWhere((element) {
                         return element == 'MANAGE_DEBTOR';
                       });
-
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageDebtor = true;
                       _isMDView = true;
@@ -1226,17 +1122,15 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('CREATE_DEBTOR');
                       _authoritySet.add('VIEW_DEBTOR');
                       _roleSet.add('MANAGE_DEBTOR');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isManageDebtor == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.backgroundColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.backgroundColor,
                       ),
@@ -1249,22 +1143,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_DEBTOR';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMDView = true;
                       _authoritySet.add('VIEW_DEBTOR');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMDView == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -1277,22 +1167,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_DEBTOR';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMDCreate = true;
                       _authoritySet.add('CREATE_DEBTOR');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMDCreate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -1305,22 +1191,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_DEBTOR';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMDUpdate = true;
                       _authoritySet.add('UPDATE_DEBTOR');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMDUpdate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -1333,22 +1215,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_DEBTOR';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMDDelete = true;
                       _authoritySet.add('DELETE_DEBTOR');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMDDelete == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -1385,8 +1263,6 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_BUSINESS_INVOICE';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageInvoice = true;
                       _isMInvView = true;
@@ -1398,17 +1274,15 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('UPDATE_BUSINESS_INVOICE');
                       _authoritySet.add('CREATE_BUSINESS_INVOICE');
                       _authoritySet.add('VIEW_BUSINESS_INVOICE');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isManageInvoice == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.backgroundColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.backgroundColor,
                       ),
@@ -1421,22 +1295,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_BUSINESS_INVOICE';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMInvView = true;
                       _authoritySet.add('VIEW_BUSINESS_INVOICE');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMInvView == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -1449,22 +1319,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_BUSINESS_INVOICE';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMInvCreate = true;
                       _authoritySet.add('CREATE_BUSINESS_INVOICE');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMInvCreate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -1477,22 +1343,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_BUSINESS_INVOICE';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMInvUpdate = true;
                       _authoritySet.add('UPDATE_BUSINESS_INVOICE');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMInvUpdate == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -1505,22 +1367,18 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_BUSINESS_INVOICE';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMInvDelete = true;
                       _authoritySet.add('DELETE_BUSINESS_INVOICE');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
                 child: _isMInvDelete == true
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_box,
                         color: AppColors.blackColor,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check_box_outline_blank,
                         color: AppColors.blackColor,
                       ),
@@ -1532,7 +1390,7 @@ class _UpdateMemberState extends State<UpdateMember> {
               bR: 10,
               role: _isManageInvoice,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             // ListView.builder(
             //     shrinkWrap: true,
             //     physics: ScrollPhysics(),
@@ -1742,7 +1600,7 @@ class _UpdateMemberState extends State<UpdateMember> {
             //         role: manageCustomer,
             //       );
             //     }),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Obx(() {
               return InkWell(
                 onTap: () {
@@ -1759,9 +1617,9 @@ class _UpdateMemberState extends State<UpdateMember> {
                 },
                 child: Container(
                   height: 55,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10),
@@ -1772,8 +1630,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                         ? Container(
                             width: 30,
                             height: 30,
-                            child:
-                                LoadingWidget(),
+                            child: const LoadingWidget(),
                           )
                         : Text(
                             'Update Privilege',
@@ -1787,7 +1644,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                 ),
               );
             }),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -1816,7 +1673,7 @@ class EditDetails extends StatelessWidget {
               fontSize: 12,
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Text(
             value!,
             style: GoogleFonts.inter(

@@ -26,7 +26,6 @@ class _MoreState extends State<More> {
   @override
   void initState() {
     super.initState();
-    _authController.checkTeamInvite();
   }
 
   @override
@@ -121,7 +120,8 @@ class _MoreState extends State<More> {
             ),
             InkWell(
               onTap: (() {
-                Get.to(() => const JoinBusinessTeam());
+                // Get.to({"routeName": "/JoinBusinessTeam"});
+                Get.toNamed('/JoinBusinessTeam');
               }),
               child: MoreWidget(
                 image: 'assets/images/call.png',

@@ -29,41 +29,41 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
     super.initState();
   }
 
-  Future<void> shareReferralLink(String referralCode) async {
-    try {
-      setState(() {
-        isLoadingReferralLink = true;
-      });
-      final appId = "com.app.huzz";
-      final url = "https://huzz.africa/referralCode=$referralCode";
-      final DynamicLinkParameters parameters = DynamicLinkParameters(
-        uriPrefix: 'https://huzz.page.link',
-        link: Uri.parse(url),
-        androidParameters: AndroidParameters(
-          packageName: appId,
-          minimumVersion: 1,
-        ),
-        iosParameters: IOSParameters(
-          bundleId: appId,
-          appStoreId: "1596574133",
-          minimumVersion: '1',
-        ),
-      );
-      final shortLink = await dynamicLinks.buildShortLink(parameters);
-      referralLink = shortLink.shortUrl.toString();
-      print('referral Link: ${shortLink.shortUrl.toString()}');
-      setState(() {
-        isLoadingReferralLink = false;
-      });
-      Share.share(shortLink.shortUrl.toString(),
-          subject: 'Share referral link');
-    } catch (error) {
-      print(error.toString());
-      setState(() {
-        isLoadingReferralLink = false;
-      });
-    }
-  }
+  // Future<void> shareReferralLink(String referralCode) async {
+  //   try {
+  //     setState(() {
+  //       isLoadingReferralLink = true;
+  //     });
+  //     final appId = "com.app.huzz";
+  //     final url = "https://huzz.africa/referralCode=$referralCode";
+  //     final DynamicLinkParameters parameters = DynamicLinkParameters(
+  //       uriPrefix: 'https://huzz.page.link',
+  //       link: Uri.parse(url),
+  //       androidParameters: AndroidParameters(
+  //         packageName: appId,
+  //         minimumVersion: 1,
+  //       ),
+  //       iosParameters: IosParameters(
+  //         bundleId: appId,
+  //         appStoreId: "1596574133",
+  //         minimumVersion: '1',
+  //       ),
+  //     );
+  //     final shortLink = await dynamicLinks.buildShortLink(parameters);
+  //     referralLink = shortLink.shortUrl.toString();
+  //     print('referral Link: ${shortLink.shortUrl.toString()}');
+  //     setState(() {
+  //       isLoadingReferralLink = false;
+  //     });
+  //     Share.share(shortLink.shortUrl.toString(),
+  //         subject: 'Share referral link');
+  //   } catch (error) {
+  //     print(error.toString());
+  //     setState(() {
+  //       isLoadingReferralLink = false;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -241,7 +241,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                           InkWell(
                             onTap: () {
                               print(referralData.referralCode);
-                              shareReferralLink(referralData.referralCode);
+                              // shareReferralLink(referralData.referralCode);
                             }
                             //     {
                             //   Share.share(referralLink!,

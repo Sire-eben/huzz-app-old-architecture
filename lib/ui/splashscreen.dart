@@ -1,14 +1,19 @@
 import 'dart:async';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/core/services/firebase/firebase_dynamic_linking.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/generated/assets.gen.dart';
 import 'package:huzz/ui/auth/sign_in.dart';
 import 'package:huzz/ui/business/create_business.dart';
 import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/ui/onboarding_main..dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/ui/team/join_team.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,6 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    FirebaseDynamicLinkService().initDynamicLinks();
     startTime();
   }
 
@@ -39,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
         print('Business List: ${_controller.user!.businessList!.length}');
         Get.off(() => const CreateBusiness());
       } else {
-        _controller.checkTeamInvite();
+        FirebaseDynamicLinkService().initDynamicLinks();
         Get.off(() => Dashboard());
       }
     } else {

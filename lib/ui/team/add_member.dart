@@ -1,18 +1,18 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:country_picker/country_picker.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/services/firebase/firebase_dynamic_linking.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/widget/expandable_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/roles_model.dart';
+import 'package:provider/provider.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../model/user_teamInvite_model.dart';
 import '../widget/custom_form_field.dart';
@@ -52,7 +52,6 @@ class AddMember extends StatefulWidget {
 }
 
 class _AddMemberState extends State<AddMember> {
-  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   final List _authoritySet = [];
   final List _roleSet = [];
   final List _selectedIndex = [];
@@ -82,35 +81,11 @@ class _AddMemberState extends State<AddMember> {
 
   @override
   void initState() {
-    controller.checkTeamInvite();
+    context.read<FirebaseDynamicLinkService>().initDynamicLinks();
 
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
-    shareBusinessIdLink(value.toString());
-  }
-
-  Future<void> shareBusinessIdLink(String businessId) async {
-    if (controller.onlineStatus == OnlineStatus.Onilne) {
-      try {
-        final appId = "com.app.huzz";
-        final url = "https://huzz.africa/businessId=$businessId";
-        final DynamicLinkParameters parameters = DynamicLinkParameters(
-          uriPrefix: 'https://huzz.page.link',
-          link: Uri.parse(url),
-          androidParameters: AndroidParameters(
-            packageName: appId,
-            minimumVersion: 1,
-          ),
-          iosParameters: IOSParameters(
-            bundleId: appId,
-            appStoreId: "1596574133",
-            minimumVersion: '1',
-          ),
-        );
-        final shortLink = await dynamicLinks.buildShortLink(parameters);
-        teamInviteLink = shortLink.shortUrl.toString();
-      } catch (error) {}
-    }
+    // shareBusinessIdLink(value.toString());
   }
 
   @override

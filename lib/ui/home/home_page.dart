@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,6 +8,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/services/firebase/firebase_dynamic_linking.dart';
 import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/util.dart';
@@ -27,10 +26,10 @@ import 'package:huzz/ui/home/records.dart';
 import 'package:huzz/ui/settings/notification.dart';
 import 'package:huzz/ui/settings/settings.dart';
 import 'package:huzz/data/model/business.dart';
-import 'package:huzz/ui/team/join_team.dart';
 import 'package:huzz/ui/wallet/create_bank_account.dart';
 import 'package:huzz/ui/wallet/wallet.dart';
 import 'package:number_display/number_display.dart';
+import 'package:provider/provider.dart';
 import 'package:random_color/random_color.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/team_repository.dart';
@@ -90,47 +89,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    _authController.checkTeamInvite();
-    WidgetsBinding.instance.addObserver(this);
+    context.read<FirebaseDynamicLinkService>().initDynamicLinks();
     super.initState();
-  }
-
-  late Timer _timerLink;
-
-  @override
-  BuildContext get context => super.context;
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      _timerLink = Timer(const Duration(milliseconds: 1), () {
-        _retrieveDynamicLink();
-      });
-    }
-  }
-
-  Future<void> _retrieveDynamicLink() async {
-    final PendingDynamicLinkData? data =
-        await FirebaseDynamicLinks.instance.getInitialLink();
-
-    try {
-      final Uri deepLink = data!.link;
-      // ignore: unnecessary_null_comparison
-      if (deepLink != null) {
-        Get.to(const JoinBusinessTeam());
-      } else {
-        return;
-      }
-    } catch (error) {
-      print(error.toString());
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      // debugPrint(teamController.teamMember.toJson());
-      _authController.checkTeamInvite();
       _authController.checkDeletedTeamBusiness();
       // print('Team Status: ${teamController.teamMembersStatus.value}');
       return Scaffold(
