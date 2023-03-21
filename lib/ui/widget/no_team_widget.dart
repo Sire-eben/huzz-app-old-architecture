@@ -22,7 +22,7 @@ class NoTeamWidget extends GetView<TeamRepository> {
             right: MediaQuery.of(context).size.height * 0.03,
             bottom: MediaQuery.of(context).size.height * 0.02),
         decoration: BoxDecoration(
-            color: Color(0xffF5F5F5),
+            color: const Color(0xffF5F5F5),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(width: 2, color: Colors.grey.withOpacity(0.2))),
         child: Center(
@@ -31,7 +31,7 @@ class NoTeamWidget extends GetView<TeamRepository> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset('assets/images/users.svg'),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
@@ -41,7 +41,7 @@ class NoTeamWidget extends GetView<TeamRepository> {
                     color: Colors.black,
                     fontWeight: FontWeight.w600),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Text(
@@ -58,15 +58,15 @@ class NoTeamWidget extends GetView<TeamRepository> {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Obx(() {
                 return InkWell(
                   onTap: () {
                     final value = _businessController.selectedBusiness.value;
-                    print(value!.businessName!);
-                    controller.createTeam(value.businessId!);
+                    // print(value!.businessName!);
+                    controller.createTeam(value!.businessId!);
                   },
                   child: Container(
                     height: 55,
@@ -77,12 +77,7 @@ class NoTeamWidget extends GetView<TeamRepository> {
                     ),
                     child: (controller.addingTeamMemberStatus ==
                             AddingTeamStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: Center(
-                                child: LoadingWidget()),
-                          )
+                        ? const LoadingWidget()
                         : Center(
                             child: Text(
                               'Create Team',

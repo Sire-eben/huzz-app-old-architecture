@@ -57,7 +57,6 @@ class _CustomerTabViewState extends State<CustomerTabView>
   @override
   void initState() {
     super.initState();
-    _authController.checkTeamInvite();
 
     _tabController = TabController(length: 2, vsync: this)
       ..addListener(() {
@@ -95,8 +94,10 @@ class _CustomerTabViewState extends State<CustomerTabView>
                               _tabController.index),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK",
-                                style: TextStyle(color: AppColors.primaryColor),),
+                              child: const Text(
+                                "OK",
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -109,8 +110,10 @@ class _CustomerTabViewState extends State<CustomerTabView>
                               _tabController.index),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK",
-                                style: TextStyle(color: AppColors.primaryColor),),
+                              child: const Text(
+                                "OK",
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
                               onPressed: () => Get.back(),
                             ),
                           ],

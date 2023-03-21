@@ -25,49 +25,12 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
 
   @override
   void initState() {
-    controller.checkTeamInvite();
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
     print('BusinessId: $value');
     busName = _businessController.selectedBusiness.value!.businessName;
     final teamId = _businessController.selectedBusiness.value!.teamId;
     print('Business TeamId: $teamId');
-    shareBusinessIdLink(value.toString());
-  }
-
-  Future<void> shareBusinessIdLink(String businessId) async {
-    if (controller.onlineStatus == OnlineStatus.Onilne) {
-      try {
-        setState(() {
-          isLoadingTeamInviteLink = true;
-        });
-        final url = "https://huzz.africa/businessId=$businessId";
-        final DynamicLinkParameters parameters = DynamicLinkParameters(
-          uriPrefix: 'https://huzz.page.link',
-          link: Uri.parse(url),
-          androidParameters: const AndroidParameters(
-            packageName: AppStrings.appId,
-            minimumVersion: 1,
-          ),
-          iosParameters: const IOSParameters(
-            bundleId: AppStrings.appId,
-            appStoreId: "1596574133",
-            minimumVersion: '1',
-          ),
-        );
-        final shortLink = await dynamicLinks.buildShortLink(parameters);
-        teamInviteLink = shortLink.shortUrl.toString();
-        print('invite link: $teamInviteLink');
-        setState(() {
-          isLoadingTeamInviteLink = false;
-        });
-      } catch (error) {
-        print(error.toString());
-        setState(() {
-          isLoadingTeamInviteLink = false;
-        });
-      }
-    }
   }
 
   @override

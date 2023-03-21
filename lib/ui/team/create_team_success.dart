@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:huzz/core/constants/app_strings.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:huzz/core/services/firebase/dynamic_link_api.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
+import 'package:provider/provider.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
 
@@ -16,65 +16,26 @@ class CreateTeamSuccess extends StatefulWidget {
 }
 
 class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
-  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   final controller = Get.find<AuthRepository>();
   final _businessController = Get.find<BusinessRespository>();
-  bool isLoadingTeamInviteLink = false;
+  // bool isLoadingTeamInviteLink = false;
   String? values, teamInviteLink, busName;
 
   @override
   void initState() {
-    controller.checkTeamInvite();
+    context.read<DynamicLinksApi>().handleDynamicLink();
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
-    print('BusinessId: $value');
     busName = _businessController.selectedBusiness.value!.businessName;
-    final teamId = _businessController.selectedBusiness.value!.teamId;
-    print('Business TeamId: $teamId');
-    shareBusinessIdLink(value.toString());
-  }
-
-  Future<void> shareBusinessIdLink(String businessId) async {
-    if (controller.onlineStatus == OnlineStatus.Onilne) {
-      try {
-        setState(() {
-          isLoadingTeamInviteLink = true;
-        });
-        final url = "https://huzz.africa/businessId=$businessId";
-        final DynamicLinkParameters parameters = DynamicLinkParameters(
-          uriPrefix: 'https://huzz.page.link',
-          link: Uri.parse(url),
-          androidParameters: const AndroidParameters(
-            packageName: AppStrings.appId,
-            minimumVersion: 1,
-          ),
-          iosParameters: const IOSParameters(
-            bundleId: AppStrings.appId,
-            appStoreId: "1596574133",
-            minimumVersion: '1',
-          ),
-        );
-        final shortLink = await dynamicLinks.buildShortLink(parameters);
-        teamInviteLink = shortLink.shortUrl.toString();
-        print('invite link: $teamInviteLink');
-        setState(() {
-          isLoadingTeamInviteLink = false;
-        });
-      } catch (error) {
-        print(error.toString());
-        setState(() {
-          isLoadingTeamInviteLink = false;
-        });
-      }
-    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final dynamicLinkService = context.read<DynamicLinksApi>();
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.2),
@@ -89,20 +50,19 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
                 ),
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Center(
               child: Image.asset(
                 'assets/images/checker.png',
               ),
             ),
-            Spacer(),
             const Spacer(),
             InkWell(
               onTap: () {
-                print(teamInviteLink);
-                Share.share(
-                    'You have been invited to manage $busName on Huzz. Click this: ${teamInviteLink!}',
-                    subject: 'Share team invite link');
+                dynamicLinkService.createTeamInviteLink(
+                    businessId: _businessController
+                        .selectedBusiness.value!.businessId
+                        .toString());
               },
               child: Container(
                 height: 55,
@@ -113,10 +73,9 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(
-                  child: isLoadingTeamInviteLink
-                      ? const CircularProgressIndicator(
-                          color: Colors.white,
-                        )
+                  child: dynamicLinkService.dynamicLinkStatus ==
+                          DynamicLinkStatus.loading
+                      ? const LoadingWidget(color: Colors.white)
                       : Text(
                           'Share invite link',
                           style: GoogleFonts.inter(
@@ -150,7 +109,7 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
           ],

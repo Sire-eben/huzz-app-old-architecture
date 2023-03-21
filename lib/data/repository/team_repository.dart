@@ -8,9 +8,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/api_link.dart';
+import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/ui/team/team_updated_confirmation.dart';
 import 'package:huzz/ui/team/create_team_success.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -27,6 +29,8 @@ enum UpdateTeamStatus { Loading, Error, Success, Empty }
 enum TeamMemberStatus { Loading, Error, UnAuthorized, Success, Empty }
 
 enum DeleteTeamStatus { Loading, Error, Success, Empty }
+
+enum JoinTeamStatus { Loading, Available, Error, Empty, Success }
 
 enum TeamStatus { Loading, Available, Error, Empty, UnAuthorized }
 
@@ -45,6 +49,7 @@ class TeamRepository extends GetxController {
   final _deleteTeamMemberStatus = DeleteTeamStatus.Empty.obs;
   final _updatingTeamMemberStatus = UpdateTeamStatus.Empty.obs;
   final _teamStatus = TeamStatus.Empty.obs;
+  final _joinTeamStatus = JoinTeamStatus.Empty.obs;
   final teamMembersStatus = TeamMemberStatus.Empty.obs;
   final hasTeamInviteDeeplink = false.obs;
 
@@ -60,6 +65,7 @@ class TeamRepository extends GetxController {
   List<Teams> get onlineBusinessTeam => _onlineBusinessTeam.value;
   List<Teams> pendingBusinessTeam = [];
   AddingTeamStatus get addingTeamMemberStatus => _addingTeamMemberStatus.value;
+  JoinTeamStatus get joinTeamMemberStatus => _joinTeamStatus.value;
   DeleteTeamStatus get deleteTeamMemberStatus => _deleteTeamMemberStatus.value;
   UpdateTeamStatus get updatingTeamMemberStatus =>
       _updatingTeamMemberStatus.value;
@@ -272,7 +278,7 @@ class TeamRepository extends GetxController {
                                             child: Text(
                                           item.displayName.isEmpty
                                               ? ""
-                                              : '${item.displayName[0]}',
+                                              : item.displayName[0],
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
@@ -292,7 +298,7 @@ class TeamRepository extends GetxController {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "${item.displayName}",
+                                          item.displayName,
                                           style: GoogleFonts.inter(
                                               fontSize: 12,
                                               // ,
@@ -301,7 +307,7 @@ class TeamRepository extends GetxController {
                                         ),
                                         Text(
                                           (item.phones.isNotEmpty)
-                                              ? "${item.phones.first.number}"
+                                              ? item.phones.first.number
                                               : "No Phone Number",
                                           style: GoogleFonts.inter(
                                               fontSize: 12,
@@ -447,7 +453,7 @@ class TeamRepository extends GetxController {
                                             child: Text(
                                           item.displayName.isEmpty
                                               ? ""
-                                              : '${item.displayName[0]}',
+                                              : item.displayName[0],
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
@@ -467,7 +473,7 @@ class TeamRepository extends GetxController {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "${item.displayName}",
+                                          item.displayName,
                                           style: GoogleFonts.inter(
                                               fontSize: 12,
                                               // ,
@@ -476,7 +482,7 @@ class TeamRepository extends GetxController {
                                         ),
                                         Text(
                                           (item.phones.isNotEmpty)
-                                              ? "${item.phones.first.number}"
+                                              ? item.phones.first.number
                                               : "No Phone Number",
                                           style: GoogleFonts.inter(
                                               fontSize: 12,
@@ -514,10 +520,8 @@ class TeamRepository extends GetxController {
                           ? contactList.length
                           : searchResult.length,
                     )
-                  : Container(
-                      child: const Center(
-                        child: Text("No Contact(s) Found"),
-                      ),
+                  : const Center(
+                      child: Text("No Contact(s) Found"),
                     ),
             ),
           ],
@@ -567,6 +571,8 @@ class TeamRepository extends GetxController {
   Future inviteTeamMember(String businessId, Map<String, dynamic> item) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       inviteTeamMemberOnline(businessId, item);
+    } else {
+      Get.snackbar("Error", "You are not connected to the internet");
     }
   }
 
@@ -575,7 +581,6 @@ class TeamRepository extends GetxController {
     try {
       _addingTeamMemberStatus(AddingTeamStatus.Loading);
       var value = _businessController.selectedBusiness.value;
-      debugPrint("trying to invite team members: ${jsonEncode(item)}");
       var response = await http.post(
           Uri.parse('${ApiLink.inviteTeamMember}/${value!.businessId}'),
           body: json.encode(item),
@@ -605,11 +610,111 @@ class TeamRepository extends GetxController {
         }
       } else {
         var json = jsonDecode(response.body);
-        Get.snackbar('Error', json['message']);
+        Get.snackbar('Error', 'Something went wrong.');
+        print(json['message']);
         _addingTeamMemberStatus(AddingTeamStatus.Error);
       }
     } catch (error) {
       _addingTeamMemberStatus(AddingTeamStatus.Error);
+      Get.snackbar("Error", "Error inviting team, try again!");
+      debugPrint('add team feature error ${error.toString()}');
+    }
+  }
+
+  Future joinTeamWithInviteLink({
+    required BuildContext context,
+    required String businessIdFromInvite,
+    required String teamInviteUrl,
+  }) async {
+    try {
+      _joinTeamStatus(JoinTeamStatus.Loading);
+      notifyChildrens();
+      final bodyDto = {
+        "phoneNumber": _userController.countryText +
+            _userController.phoneNumberController.text.trim(),
+        // "teamId": _businessController.selectedBusiness.value!.teamId,
+        "email": _userController.emailController.text.trim(),
+        "teamInviteUrl": teamInviteUrl,
+
+        "roleSet": [
+          "MANAGE_CUSTOMER",
+          "MANAGE_BANK_INFO",
+          "MANAGE_BUSINESS_TRANSACTIONS",
+          "MANAGE_PRODUCT",
+          "MANAGE_BUSINESS_INVOICE",
+          "MANAGE_REMINDERS",
+          "MANAGE_TEAM",
+          "MANAGE_DEBTOR"
+        ],
+        "authoritySet": [
+          "UPDATE_BANK_INFO",
+          "ALL_BUSINESS_INVOICE_OPERATIONS",
+          "CREATE_PRODUCT",
+          "CREATE_BUSINESS_INVOICE",
+          "CREATE_BANK_INFO",
+          "UPDATE_BUSINESS_INVOICE",
+          "CREATE_BUSINESS_TRANSACTION",
+          "UPDATE_DEBTOR",
+          "ALL_TEAM_OPERATIONS",
+          "VIEW_CUSTOMER",
+          "UPDATE_BUSINESS_TRANSACTION",
+          "UPDATE_TEAM_MEMBER",
+          "DELETE_CUSTOMER",
+          "ALL_PRODUCT_OPERATIONS",
+          "UPDATE_CUSTOMER",
+          "VIEW_PRODUCT",
+          "DELETE_BUSINESS_TRANSACTION",
+          "CREATE_TEAM_MEMBER",
+          "VIEW_BUSINESS_TRANSACTION_OVERVIEW",
+          "ALL_BUSINESS_TRANSACTION_OPERATIONS",
+          "DELETE_BUSINESS_INVOICE",
+          "ALL_BANK_INFO_OPERATIONS",
+          "ALL_DEBTORS_OPERATIONS",
+          "VIEW_BANK_INFO",
+          "DELETE_BANK_INFO",
+          "VIEW_DEBTOR",
+          "VIEW_BUSINESS_INVOICE",
+          "UPDATE_PRODUCT",
+          "DELETE_DEBTOR",
+          "CREATE_CUSTOMER",
+          "VIEW_BUSINESS_TRANSACTION",
+          "DELETE_TEAM_MEMBER",
+          "VIEW_TEAM_MEMBER",
+          "DELETE_PRODUCT",
+          "CREATE_DEBTOR",
+          "ALL_CUSTOMERS_OPERATIONS"
+        ],
+        "teamMemberStatus": "INVITE_LINK_SENT",
+      };
+      var response = await http.post(
+          Uri.parse('${ApiLink.inviteTeamMember}/$businessIdFromInvite'),
+          body: json.encode(bodyDto),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${_userController.token}"
+          });
+
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+
+        context.pushOff(Dashboard());
+        if (json['success']) {
+          Get.snackbar('Success', json['message']);
+          _joinTeamStatus(JoinTeamStatus.Success);
+          notifyChildrens();
+          var teamMemberId = json['data']['id'];
+          debugPrint('Added Member MemberId: ${json['data']['id']}');
+          updateTeamInviteStatusOnline(teamMemberId, bodyDto);
+        }
+      } else {
+        var json = jsonDecode(response.body);
+        Get.snackbar('Error', json['message']);
+        _joinTeamStatus(JoinTeamStatus.Error);
+        notifyChildrens();
+      }
+    } catch (error) {
+      _joinTeamStatus(JoinTeamStatus.Error);
+      notifyChildrens();
       Get.snackbar("Error", "Error inviting team, try again!");
       debugPrint('add team feature error ${error.toString()}');
     }

@@ -24,8 +24,6 @@ class _NoPermissionTeamState extends State<NoPermissionTeam> {
   void initState() {
     firstName = controller.user!.firstName!;
     lastName = controller.user!.lastName!;
-
-    controller.checkTeamInvite();
     super.initState();
   }
 
