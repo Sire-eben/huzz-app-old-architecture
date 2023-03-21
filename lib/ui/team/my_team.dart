@@ -231,8 +231,6 @@ class _MyTeamState extends State<MyTeam> {
                                                 ? Obx(() {
                                                     return GestureDetector(
                                                         onTap: () {
-                                                          print(
-                                                              'deleting team member: ${item.toJson()}');
                                                           _deleteTeamMemberDialog(
                                                               context, item);
                                                         },
