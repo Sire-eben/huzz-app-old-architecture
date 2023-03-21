@@ -173,9 +173,7 @@ class _MyTeamState extends State<MyTeam> {
                             backgroundColor: _randomColor.randomColor(),
                             child: Text(
                               _businessController
-                                  .selectedBusiness.value!.businessName
-                                  .toString()
-                                  .getInitials(),
+                                  .selectedBusiness.value!.businessName![0],
                               style: TextStyles.h4.copyWith(
                                 color: Colors.white,
                                 fontSize: 15,
