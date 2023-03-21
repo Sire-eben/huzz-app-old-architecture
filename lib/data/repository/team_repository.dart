@@ -8,9 +8,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/api_link.dart';
+import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/ui/team/team_updated_confirmation.dart';
 import 'package:huzz/ui/team/create_team_success.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -620,6 +622,7 @@ class TeamRepository extends GetxController {
   }
 
   Future joinTeamWithInviteLink({
+    required BuildContext context,
     required String businessIdFromInvite,
     required String teamInviteUrl,
   }) async {
@@ -694,7 +697,7 @@ class TeamRepository extends GetxController {
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
 
-        Get.back();
+        context.pushOff(Dashboard());
         if (json['success']) {
           Get.snackbar('Success', json['message']);
           _joinTeamStatus(JoinTeamStatus.Success);

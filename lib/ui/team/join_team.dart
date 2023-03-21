@@ -60,6 +60,7 @@ class _JoinBusinessTeamState extends State<JoinBusinessTeam> {
               label: "Yes",
               action: () {
                 teamController.joinTeamWithInviteLink(
+                  context: context,
                   businessIdFromInvite: widget.businessId,
                   teamInviteUrl: widget.teamInviteUrl,
                 );
