@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_strings.dart';
-import 'package:huzz/core/services/firebase/firebase_dynamic_linking.dart';
+import 'package:huzz/core/services/firebase/dynamic_link_api.dart';
 import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
@@ -44,6 +44,8 @@ class NoAccessDialog extends StatelessWidget {
 }
 
 class MyTeam extends StatefulWidget {
+  static const String routeName = "myTeam";
+
   const MyTeam({Key? key}) : super(key: key);
 
   @override
@@ -66,7 +68,7 @@ class _MyTeamState extends State<MyTeam> {
     firstName = controller.user!.firstName!;
     lastName = controller.user!.lastName!;
     phone = controller.user!.phoneNumber!;
-    context.read<FirebaseDynamicLinkService>().initDynamicLinks();
+    context.read<DynamicLinksApi>().handleDynamicLink();
     super.initState();
 
     List<Teams> team = _teamController.onlineBusinessTeam
@@ -81,7 +83,7 @@ class _MyTeamState extends State<MyTeam> {
 
   @override
   Widget build(BuildContext context) {
-    final dynamicLinkService = context.read<FirebaseDynamicLinkService>();
+    final dynamicLinkService = context.read<DynamicLinksApi>();
     return Obx(() {
       final value = _businessController.selectedBusiness.value;
 
@@ -124,18 +126,22 @@ class _MyTeamState extends State<MyTeam> {
                   ),
                   actions: [
                     IconButton(
-                      onPressed: () {
-                        dynamicLinkService.shareBusinessIdLink(
+                      onPressed: () async {
+                        final deeplink =
+                            await dynamicLinkService.createTeamInviteLink(
                           businessId: _businessController
                               .selectedBusiness.value!.businessId
-                              .toString(),
-                          teamId: _businessController
-                              .selectedBusiness.value!.teamId
                               .toString(),
                           businessName: _businessController
                               .selectedBusiness.value!.businessName
                               .toString(),
+                          teamId: _businessController
+                              .selectedBusiness.value!.teamId
+                              .toString(),
                         );
+                        Share.share(
+                            'You have been invited to manage ${_businessController.selectedBusiness.value!.businessName} on Huzz. Click this: $deeplink',
+                            subject: 'Share team invite link');
                       },
                       icon: const Icon(
                         Icons.share,

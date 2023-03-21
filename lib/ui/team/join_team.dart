@@ -12,15 +12,15 @@ import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/app_scaffold.dart';
 
 class JoinBusinessTeam extends StatefulWidget {
+  final String businessId;
   final String businessName;
   final String teamId;
-  final String businessId;
 
   const JoinBusinessTeam(
       {super.key,
+      required this.businessId,
       required this.businessName,
-      required this.teamId,
-      required this.businessId});
+      required this.teamId});
 
   @override
   State<JoinBusinessTeam> createState() => _JoinBusinessTeamState();

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/services/firebase/firebase_dynamic_linking.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
@@ -81,8 +80,6 @@ class _AddMemberState extends State<AddMember> {
 
   @override
   void initState() {
-    context.read<FirebaseDynamicLinkService>().initDynamicLinks();
-
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
     // shareBusinessIdLink(value.toString());

@@ -8,7 +8,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/core/services/firebase/firebase_dynamic_linking.dart';
+import 'package:huzz/core/services/firebase/dynamic_link_api.dart';
 import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/util.dart';
@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    context.read<FirebaseDynamicLinkService>().initDynamicLinks();
+    context.read<DynamicLinksApi>().handleDynamicLink();
     super.initState();
   }
 

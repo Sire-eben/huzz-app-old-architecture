@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:huzz/core/constants/app_strings.dart';
-import 'package:huzz/core/services/firebase/firebase_dynamic_linking.dart';
+import 'package:huzz/core/services/firebase/dynamic_link_api.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
 
@@ -26,7 +23,7 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
 
   @override
   void initState() {
-    FirebaseDynamicLinkService().initDynamicLinks();
+    context.read<DynamicLinksApi>().handleDynamicLink();
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
     busName = _businessController.selectedBusiness.value!.businessName;
@@ -34,7 +31,7 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
 
   @override
   Widget build(BuildContext context) {
-    final dynamicLinkService = context.read<FirebaseDynamicLinkService>();
+    final dynamicLinkService = context.read<DynamicLinksApi>();
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: Padding(
@@ -62,7 +59,7 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
             const Spacer(),
             InkWell(
               onTap: () {
-                dynamicLinkService.shareBusinessIdLink(
+                dynamicLinkService.createTeamInviteLink(
                   businessId: _businessController
                       .selectedBusiness.value!.businessId
                       .toString(),
