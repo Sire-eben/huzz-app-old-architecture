@@ -14,6 +14,7 @@ import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/ui/onboarding_main..dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/ui/team/join_team.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,7 +28,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    FirebaseDynamicLinkService().initDynamicLinks();
     startTime();
   }
 
@@ -42,10 +42,9 @@ class _SplashScreenState extends State<SplashScreen> {
     } else if (_controller.authStatus == AuthStatus.Authenticated) {
       if (_controller.user!.businessList!.isEmpty ||
           _controller.user!.businessList!.isEmpty) {
-        print('Business List: ${_controller.user!.businessList!.length}');
         Get.off(() => const CreateBusiness());
       } else {
-        FirebaseDynamicLinkService().initDynamicLinks();
+        context.read<FirebaseDynamicLinkService>().initDynamicLinks();
         Get.off(() => Dashboard());
       }
     } else {

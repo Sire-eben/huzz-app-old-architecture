@@ -29,6 +29,6 @@ class AppBinding extends Bindings {
     Get.put(BankAccountRepository(), permanent: true);
     Get.put(InvoiceRespository(), permanent: true);
     Get.put(TeamRepository(), permanent: true);
-    Get.put(NotificationRepository(), permanent: true);
+    // Get.put(NotificationRepository(), permanent: true);
   }
 }

@@ -66,8 +66,7 @@ class _MyTeamState extends State<MyTeam> {
     firstName = controller.user!.firstName!;
     lastName = controller.user!.lastName!;
     phone = controller.user!.phoneNumber!;
-
-    FirebaseDynamicLinkService().initDynamicLinks();
+    context.read<FirebaseDynamicLinkService>().initDynamicLinks();
     super.initState();
 
     List<Teams> team = _teamController.onlineBusinessTeam

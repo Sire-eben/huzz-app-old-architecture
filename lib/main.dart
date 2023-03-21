@@ -13,7 +13,6 @@ import 'ui/splashscreen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseDynamicLinks.instance;
   runApp(const HuzzApp());
 }
 

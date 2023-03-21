@@ -19,6 +19,8 @@ class FirebaseDynamicLinkService extends ChangeNotifier {
 
       if (deeplink != null) {
         handleTeamInviteLink(deeplink);
+      } else {
+        print("No dynamic link found");
       }
     }, onError: (OnLinkErrorException e) async {
       print("We got error $e");
