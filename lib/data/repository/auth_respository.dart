@@ -676,34 +676,7 @@ class AuthRepository extends GetxController {
         //  Mtoken=Rx(token);
 
         this.user = user;
-
-        // DateTime date = DateTime.now();
-
-        // DateTime expireToken = DateTime(date.year, date.month + 1, date.day);
-
-        // pref!.setDateTokenExpired(expireToken);
-
-        // _authStatus(AuthStatus.Authenticated);
-
-        // final _businessController = Get.find<BusinessRespository>();
-        // _businessController.setBusinessList(user.businessList!);
-        // Mtoken(token);
-        // print("user business length ${user.businessList!.length}");
-        // if (user.businessList!.isEmpty || user.businessList == null) {
-        //   Get.off(() => CreateBusiness());
-        // } else {
-        //   Get.offAll(() => Dashboard());
-        // }
       }
-
-      // else if (response.statusCode == 401) {
-      //   Get.snackbar("Login Error", "Invalid Credential ");
-      //   _signinStatus(SigninStatus.Error);
-      // } else {
-      //   Get.snackbar(
-      //       "Login Error", "Something have occurred try again later.. ");
-      //   _signinStatus(SigninStatus.Error);
-      // }
     } catch (ex) {
       _signinStatus(SigninStatus.Error);
     }

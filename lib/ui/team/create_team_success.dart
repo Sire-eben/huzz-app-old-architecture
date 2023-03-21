@@ -60,15 +60,9 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
             InkWell(
               onTap: () {
                 dynamicLinkService.createTeamInviteLink(
-                  businessId: _businessController
-                      .selectedBusiness.value!.businessId
-                      .toString(),
-                  teamId: _businessController.selectedBusiness.value!.teamId
-                      .toString(),
-                  businessName: _businessController
-                      .selectedBusiness.value!.businessName
-                      .toString(),
-                );
+                    businessId: _businessController
+                        .selectedBusiness.value!.businessId
+                        .toString());
               },
               child: Container(
                 height: 55,

@@ -13,10 +13,12 @@ import 'package:huzz/ui/app_scaffold.dart';
 
 class JoinBusinessTeam extends StatefulWidget {
   final String businessId;
+  final String teamInviteUrl;
 
   const JoinBusinessTeam({
     super.key,
     required this.businessId,
+    required this.teamInviteUrl,
   });
 
   @override
@@ -57,14 +59,19 @@ class _JoinBusinessTeamState extends State<JoinBusinessTeam> {
             Button(
               label: "Yes",
               action: () {
-                teamController.joinTeamWithInviteLink();
+                teamController.joinTeamWithInviteLink(
+                  businessIdFromInvite: widget.businessId,
+                  teamInviteUrl: widget.teamInviteUrl,
+                );
               },
             ),
             const Gap(Insets.lg),
             AppOutlineButton(
               action: () => context.pushOff(Dashboard()),
               label: "No",
-            )
+            ),
+            const Gap(Insets.lg),
+            Text("You joined using ${widget.teamInviteUrl}")
           ],
         ),
       ),

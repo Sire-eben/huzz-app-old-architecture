@@ -30,43 +30,6 @@ class DynamicLinksApi extends ChangeNotifier {
     );
   }
 
-  Future<String> createTeamInviteLink({
-    required String businessId,
-    required String teamId,
-    required String businessName,
-  }) async {
-    try {
-      _dynamicLinkStatus = DynamicLinkStatus.loading;
-      notifyListeners();
-
-      final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
-        uriPrefix: 'https://huzz.page.link',
-        link: Uri.parse(
-            'https://huzz.africa/teamInvite?businessId=$businessId?teamId=$teamId?businessName=$businessName'),
-        androidParameters: AndroidParameters(
-          packageName: AppStrings.appId,
-          minimumVersion: 1,
-        ),
-        iosParameters: IosParameters(
-          bundleId: AppStrings.appId,
-          appStoreId: AppStrings.appStoreId,
-          minimumVersion: '1',
-        ),
-      );
-
-      final ShortDynamicLink shortLink =
-          await dynamicLinkParameters.buildShortLink();
-      final Uri dynamicUrl = shortLink.shortUrl;
-      _dynamicLinkStatus = DynamicLinkStatus.done;
-      notifyListeners();
-      return dynamicUrl.toString();
-    } catch (error) {
-      _dynamicLinkStatus = DynamicLinkStatus.failed;
-      notifyListeners();
-      rethrow;
-    }
-  }
-
   void handleSuccessLinking(PendingDynamicLinkData? data) {
     final Uri deepLink = data!.link;
 
@@ -74,16 +37,41 @@ class DynamicLinksApi extends ChangeNotifier {
       var isInvite = deepLink.pathSegments.contains('teamInvite');
       if (isInvite) {
         var businessId = deepLink.queryParameters['businessId'];
-        var teamId = deepLink.queryParameters['teamId'];
-        var businessName = deepLink.queryParameters['businessName'];
+        // var teamId = deepLink.queryParameters['teamId'];
+        // var businessName = deepLink.queryParameters['businessName'];
         if (businessId != null) {
           Get.to(
             JoinBusinessTeam(
               businessId: businessId,
+              teamInviteUrl: deepLink.toString(),
             ),
           );
         }
       }
     }
+  }
+
+  Future<String> createTeamInviteLink({
+    required String businessId,
+  }) async {
+    final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
+      uriPrefix: 'https://huzz.page.link',
+      link: Uri.parse('https://huzz.africa/teamInvite?businessId=$businessId'),
+      androidParameters: AndroidParameters(
+        packageName: AppStrings.appId,
+        minimumVersion: 1,
+      ),
+      iosParameters: IosParameters(
+        bundleId: AppStrings.appId,
+        appStoreId: AppStrings.appStoreId,
+        minimumVersion: '1',
+      ),
+    );
+
+    final ShortDynamicLink shortLink =
+        await dynamicLinkParameters.buildShortLink();
+    final Uri dynamicUrl = shortLink.shortUrl;
+
+    return dynamicUrl.toString();
   }
 }

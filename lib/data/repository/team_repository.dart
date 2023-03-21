@@ -276,7 +276,7 @@ class TeamRepository extends GetxController {
                                             child: Text(
                                           item.displayName.isEmpty
                                               ? ""
-                                              : '${item.displayName[0]}',
+                                              : item.displayName[0],
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
@@ -296,7 +296,7 @@ class TeamRepository extends GetxController {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "${item.displayName}",
+                                          item.displayName,
                                           style: GoogleFonts.inter(
                                               fontSize: 12,
                                               // ,
@@ -305,7 +305,7 @@ class TeamRepository extends GetxController {
                                         ),
                                         Text(
                                           (item.phones.isNotEmpty)
-                                              ? "${item.phones.first.number}"
+                                              ? item.phones.first.number
                                               : "No Phone Number",
                                           style: GoogleFonts.inter(
                                               fontSize: 12,
@@ -451,7 +451,7 @@ class TeamRepository extends GetxController {
                                             child: Text(
                                           item.displayName.isEmpty
                                               ? ""
-                                              : '${item.displayName[0]}',
+                                              : item.displayName[0],
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
@@ -471,7 +471,7 @@ class TeamRepository extends GetxController {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "${item.displayName}",
+                                          item.displayName,
                                           style: GoogleFonts.inter(
                                               fontSize: 12,
                                               // ,
@@ -480,7 +480,7 @@ class TeamRepository extends GetxController {
                                         ),
                                         Text(
                                           (item.phones.isNotEmpty)
-                                              ? "${item.phones.first.number}"
+                                              ? item.phones.first.number
                                               : "No Phone Number",
                                           style: GoogleFonts.inter(
                                               fontSize: 12,
@@ -518,10 +518,8 @@ class TeamRepository extends GetxController {
                           ? contactList.length
                           : searchResult.length,
                     )
-                  : Container(
-                      child: const Center(
-                        child: Text("No Contact(s) Found"),
-                      ),
+                  : const Center(
+                      child: Text("No Contact(s) Found"),
                     ),
             ),
           ],
@@ -610,7 +608,8 @@ class TeamRepository extends GetxController {
         }
       } else {
         var json = jsonDecode(response.body);
-        Get.snackbar('Error', json['message']);
+        Get.snackbar('Error', 'Something went wrong.');
+        print(json['message']);
         _addingTeamMemberStatus(AddingTeamStatus.Error);
       }
     } catch (error) {
@@ -620,27 +619,72 @@ class TeamRepository extends GetxController {
     }
   }
 
-  Future joinTeamWithInviteLink() async {
+  Future joinTeamWithInviteLink({
+    required String businessIdFromInvite,
+    required String teamInviteUrl,
+  }) async {
     try {
       _joinTeamStatus(JoinTeamStatus.Loading);
-      var value = _businessController.selectedBusiness.value;
+      notifyChildrens();
       final bodyDto = {
         "phoneNumber": _userController.countryText +
             _userController.phoneNumberController.text.trim(),
-        "teamId": _businessController.selectedBusiness.value!.teamId,
+        // "teamId": _businessController.selectedBusiness.value!.teamId,
         "email": _userController.emailController.text.trim(),
-        "teamInviteUrl": _userController.teamInviteCodeController.text,
-        "roleSet": ['MANAGE CUSTOMER'],
-        "authoritySet": [
-          "ALL_CUSTOMERS_OPERATIONS",
-          "VIEW_CUSTOMER",
-          "CREATE_CUSTOMER",
-          "UPDATE_CUSTOMER",
-          "DELETE_CUSTOMER",
+        "teamInviteUrl": teamInviteUrl,
+
+        "roleSet": [
+          "MANAGE_CUSTOMER",
+          "MANAGE_BANK_INFO",
+          "MANAGE_BUSINESS_TRANSACTIONS",
+          "MANAGE_PRODUCT",
+          "MANAGE_BUSINESS_INVOICE",
+          "MANAGE_REMINDERS",
+          "MANAGE_TEAM",
+          "MANAGE_DEBTOR"
         ],
+        "authoritySet": [
+          "UPDATE_BANK_INFO",
+          "ALL_BUSINESS_INVOICE_OPERATIONS",
+          "CREATE_PRODUCT",
+          "CREATE_BUSINESS_INVOICE",
+          "CREATE_BANK_INFO",
+          "UPDATE_BUSINESS_INVOICE",
+          "CREATE_BUSINESS_TRANSACTION",
+          "UPDATE_DEBTOR",
+          "ALL_TEAM_OPERATIONS",
+          "VIEW_CUSTOMER",
+          "UPDATE_BUSINESS_TRANSACTION",
+          "UPDATE_TEAM_MEMBER",
+          "DELETE_CUSTOMER",
+          "ALL_PRODUCT_OPERATIONS",
+          "UPDATE_CUSTOMER",
+          "VIEW_PRODUCT",
+          "DELETE_BUSINESS_TRANSACTION",
+          "CREATE_TEAM_MEMBER",
+          "VIEW_BUSINESS_TRANSACTION_OVERVIEW",
+          "ALL_BUSINESS_TRANSACTION_OPERATIONS",
+          "DELETE_BUSINESS_INVOICE",
+          "ALL_BANK_INFO_OPERATIONS",
+          "ALL_DEBTORS_OPERATIONS",
+          "VIEW_BANK_INFO",
+          "DELETE_BANK_INFO",
+          "VIEW_DEBTOR",
+          "VIEW_BUSINESS_INVOICE",
+          "UPDATE_PRODUCT",
+          "DELETE_DEBTOR",
+          "CREATE_CUSTOMER",
+          "VIEW_BUSINESS_TRANSACTION",
+          "DELETE_TEAM_MEMBER",
+          "VIEW_TEAM_MEMBER",
+          "DELETE_PRODUCT",
+          "CREATE_DEBTOR",
+          "ALL_CUSTOMERS_OPERATIONS"
+        ],
+        "teamMemberStatus": "INVITE_LINK_SENT",
       };
       var response = await http.post(
-          Uri.parse('${ApiLink.inviteTeamMember}/${value!.businessId}'),
+          Uri.parse('${ApiLink.inviteTeamMember}/$businessIdFromInvite'),
           body: json.encode(bodyDto),
           headers: {
             "Content-Type": "application/json",
@@ -654,6 +698,7 @@ class TeamRepository extends GetxController {
         if (json['success']) {
           Get.snackbar('Success', json['message']);
           _joinTeamStatus(JoinTeamStatus.Success);
+          notifyChildrens();
           var teamMemberId = json['data']['id'];
           debugPrint('Added Member MemberId: ${json['data']['id']}');
           updateTeamInviteStatusOnline(teamMemberId, bodyDto);
@@ -662,9 +707,11 @@ class TeamRepository extends GetxController {
         var json = jsonDecode(response.body);
         Get.snackbar('Error', json['message']);
         _joinTeamStatus(JoinTeamStatus.Error);
+        notifyChildrens();
       }
     } catch (error) {
       _joinTeamStatus(JoinTeamStatus.Error);
+      notifyChildrens();
       Get.snackbar("Error", "Error inviting team, try again!");
       debugPrint('add team feature error ${error.toString()}');
     }
