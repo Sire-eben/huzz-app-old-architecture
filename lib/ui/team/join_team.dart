@@ -7,6 +7,7 @@ import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/button/outlined_button.dart';
+import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/app_scaffold.dart';
 
@@ -24,6 +25,7 @@ class JoinBusinessTeam extends StatefulWidget {
 
 class _JoinBusinessTeamState extends State<JoinBusinessTeam> {
   final teamController = Get.find<TeamRepository>();
+  final businessController = Get.find<BusinessRespository>();
 
   @override
   Widget build(BuildContext context) {

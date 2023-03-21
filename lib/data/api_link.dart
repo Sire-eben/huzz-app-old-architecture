@@ -36,4 +36,7 @@ class ApiLink {
   static String inviteTeamMember = '${baseurl}business/team-member';
   static String updateInviteTeamStatus = '${baseurl}business/team-member';
   static String deleteTeamMember = '${baseurl}business/team-member';
+
+  static String fetchSingleBusiness =
+      '${baseurl}business/614f3fc12b9a3f7e8e5012f6';
 }
