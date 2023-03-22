@@ -623,8 +623,9 @@ class TeamRepository extends GetxController {
 
   Future joinTeamWithInviteLink({
     required BuildContext context,
-    required String businessIdFromInvite,
-    required String teamInviteUrl,
+    required String teamId,
+    required String businessId,
+    required String businessName,
   }) async {
     try {
       _joinTeamStatus(JoinTeamStatus.Loading);
@@ -632,62 +633,11 @@ class TeamRepository extends GetxController {
       final bodyDto = {
         "phoneNumber": _userController.countryText +
             _userController.phoneNumberController.text.trim(),
-        // "teamId": _businessController.selectedBusiness.value!.teamId,
-        "email": _userController.emailController.text.trim(),
-        "teamInviteUrl": teamInviteUrl,
-
-        "roleSet": [
-          "MANAGE_CUSTOMER",
-          "MANAGE_BANK_INFO",
-          "MANAGE_BUSINESS_TRANSACTIONS",
-          "MANAGE_PRODUCT",
-          "MANAGE_BUSINESS_INVOICE",
-          "MANAGE_REMINDERS",
-          "MANAGE_TEAM",
-          "MANAGE_DEBTOR"
-        ],
-        "authoritySet": [
-          "UPDATE_BANK_INFO",
-          "ALL_BUSINESS_INVOICE_OPERATIONS",
-          "CREATE_PRODUCT",
-          "CREATE_BUSINESS_INVOICE",
-          "CREATE_BANK_INFO",
-          "UPDATE_BUSINESS_INVOICE",
-          "CREATE_BUSINESS_TRANSACTION",
-          "UPDATE_DEBTOR",
-          "ALL_TEAM_OPERATIONS",
-          "VIEW_CUSTOMER",
-          "UPDATE_BUSINESS_TRANSACTION",
-          "UPDATE_TEAM_MEMBER",
-          "DELETE_CUSTOMER",
-          "ALL_PRODUCT_OPERATIONS",
-          "UPDATE_CUSTOMER",
-          "VIEW_PRODUCT",
-          "DELETE_BUSINESS_TRANSACTION",
-          "CREATE_TEAM_MEMBER",
-          "VIEW_BUSINESS_TRANSACTION_OVERVIEW",
-          "ALL_BUSINESS_TRANSACTION_OPERATIONS",
-          "DELETE_BUSINESS_INVOICE",
-          "ALL_BANK_INFO_OPERATIONS",
-          "ALL_DEBTORS_OPERATIONS",
-          "VIEW_BANK_INFO",
-          "DELETE_BANK_INFO",
-          "VIEW_DEBTOR",
-          "VIEW_BUSINESS_INVOICE",
-          "UPDATE_PRODUCT",
-          "DELETE_DEBTOR",
-          "CREATE_CUSTOMER",
-          "VIEW_BUSINESS_TRANSACTION",
-          "DELETE_TEAM_MEMBER",
-          "VIEW_TEAM_MEMBER",
-          "DELETE_PRODUCT",
-          "CREATE_DEBTOR",
-          "ALL_CUSTOMERS_OPERATIONS"
-        ],
-        "teamMemberStatus": "INVITE_LINK_SENT",
+        "teamId": teamId,
+        "teamMemberStatus": "ACCEPTED",
       };
-      var response = await http.post(
-          Uri.parse('${ApiLink.inviteTeamMember}/$businessIdFromInvite'),
+      var response = await http.put(
+          Uri.parse('${ApiLink.inviteTeamMember}/$businessId'),
           body: json.encode(bodyDto),
           headers: {
             "Content-Type": "application/json",
@@ -707,6 +657,7 @@ class TeamRepository extends GetxController {
       } else {
         var json = jsonDecode(response.body);
         Get.snackbar('Error', json['message']);
+        print(json['message']);
         _joinTeamStatus(JoinTeamStatus.Error);
         notifyChildrens();
       }

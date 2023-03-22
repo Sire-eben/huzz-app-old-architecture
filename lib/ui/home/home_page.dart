@@ -8,7 +8,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/core/services/firebase/dynamic_link_api.dart';
+import 'package:huzz/core/services/dynamic_linking/dynamic_link_api.dart';
 import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/util.dart';

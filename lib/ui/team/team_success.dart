@@ -7,7 +7,10 @@ import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/ui/app_scaffold.dart';
 
 class TeamSuccessView extends StatelessWidget {
-  const TeamSuccessView({Key? key}) : super(key: key);
+  final String businessName;
+
+  const TeamSuccessView({Key? key, required this.businessName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class TeamSuccessView extends StatelessWidget {
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.2),
             Text(
-              'You\'ve been added\nto the team successfully.',
+              'You\'ve been added\nto $businessName team successfully.',
               style: GoogleFonts.inter(
                 color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,

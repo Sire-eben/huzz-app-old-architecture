@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/core/services/firebase/dynamic_link_api.dart';
+import 'package:huzz/core/services/dynamic_linking/dynamic_link_api.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:provider/provider.dart';
 import '../../data/repository/auth_respository.dart';
@@ -20,6 +20,8 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
   final _businessController = Get.find<BusinessRespository>();
   // bool isLoadingTeamInviteLink = false;
   String? values, teamInviteLink, busName;
+
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -58,11 +60,22 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
             ),
             const Spacer(),
             InkWell(
-              onTap: () {
-                dynamicLinkService.createTeamInviteLink(
-                    businessId: _businessController
-                        .selectedBusiness.value!.businessId
-                        .toString());
+              onTap: () async {
+                setState(() => isLoading = true);
+                await dynamicLinkService
+                    .createTeamInviteLink(
+                  businessId: _businessController
+                      .selectedBusiness.value!.businessId
+                      .toString(),
+                  teamId: _businessController.selectedBusiness.value!.teamId
+                      .toString(),
+                  businessName: _businessController
+                      .selectedBusiness.value!.businessName
+                      .toString(),
+                )
+                    .whenComplete(() {
+                  setState(() => isLoading = false);
+                });
               },
               child: Container(
                 height: 55,
@@ -73,8 +86,7 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(
-                  child: dynamicLinkService.dynamicLinkStatus ==
-                          DynamicLinkStatus.loading
+                  child: isLoading
                       ? const LoadingWidget(color: Colors.white)
                       : Text(
                           'Share invite link',

@@ -14,14 +14,14 @@ import 'package:huzz/ui/team/team_success.dart';
 import 'package:huzz/ui/widget/loading_widget.dart';
 
 class JoinBusinessTeam extends StatefulWidget {
-  final String businessId;
-  final String teamInviteUrl;
+  final String teamId, businessId;
+  final String businessName;
 
-  const JoinBusinessTeam({
-    super.key,
-    required this.businessId,
-    required this.teamInviteUrl,
-  });
+  const JoinBusinessTeam(
+      {super.key,
+      required this.teamId,
+      required this.businessId,
+      required this.businessName});
 
   @override
   State<JoinBusinessTeam> createState() => _JoinBusinessTeamState();
@@ -52,7 +52,7 @@ class _JoinBusinessTeamState extends State<JoinBusinessTeam> {
                 const Gap(Insets.lg),
                 Center(
                   child: Text(
-                    'Accept Invitation\nTo Join Team',
+                    "Accept Invitation To\nJoin ${widget.businessName} on Huzz",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.inter(
                       color: AppColors.backgroundColor,
@@ -69,14 +69,17 @@ class _JoinBusinessTeamState extends State<JoinBusinessTeam> {
                     await teamController
                         .joinTeamWithInviteLink(
                       context: context,
-                      businessIdFromInvite: widget.businessId,
-                      teamInviteUrl: widget.teamInviteUrl,
+                      teamId: widget.teamId,
+                      businessId: widget.businessId,
+                      businessName: widget.businessName,
                     )
                         .whenComplete(() {
                       if (teamController.joinTeamStatus ==
                           JoinTeamStatus.Success) {
                         setState(() => isLoading = false);
-                        context.replace(const TeamSuccessView());
+                        context.replace(TeamSuccessView(
+                          businessName: widget.businessName,
+                        ));
                       } else if (teamController.joinTeamStatus ==
                           JoinTeamStatus.Error) {
                         setState(() => isLoading = false);
@@ -92,7 +95,6 @@ class _JoinBusinessTeamState extends State<JoinBusinessTeam> {
                   label: "No",
                 ),
                 const Gap(Insets.lg),
-                Text("You joined using ${widget.teamInviteUrl}")
               ],
             ),
           ),
