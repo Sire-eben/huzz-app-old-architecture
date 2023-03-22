@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:huzz/ui/splashscreen.dart';
-import 'package:huzz/ui/team/join_team.dart';
 import 'package:huzz/ui/team/my_team.dart';
 
 import 'app_routes.dart';
@@ -12,10 +10,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case myTeamView:
       return _buildPageRoute(page: const MyTeam());
-      // case joinTeam:
-      //   return _buildPageRoute(page: const JoinBusinessTeam());
+    // case joinTeam:
+    //   return _buildPageRoute(page: const JoinBusinessTeam());
 
-      break;
+    // break;
     default:
       return _errorRoute();
   }
