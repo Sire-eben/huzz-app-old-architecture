@@ -1,7 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,10 +8,12 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/services/dynamic_linking/dynamic_link_api.dart';
 import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/util.dart';
 import 'package:huzz/core/widgets/image.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
@@ -28,10 +29,10 @@ import 'package:huzz/data/model/business.dart';
 import 'package:huzz/ui/wallet/create_bank_account.dart';
 import 'package:huzz/ui/wallet/wallet.dart';
 import 'package:number_display/number_display.dart';
+import 'package:provider/provider.dart';
 import 'package:random_color/random_color.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/team_repository.dart';
-import '../widget/loading_widget.dart';
 import 'debtors/debtorstab.dart';
 import 'money_history.dart';
 
@@ -68,7 +69,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   final display = createDisplay(
     roundingType: RoundingType.floor,
     length: 15,
@@ -86,50 +87,15 @@ class _HomePageState extends State<HomePage> {
   final transactionList = [];
   final RandomColor _randomColor = RandomColor();
 
-  Future<void> initDynamicLinks() async {
-    FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
-
-    // Incoming Links Listener
-    dynamicLinks.onLink.listen((dynamicLinkData) {
-      final Uri uri = dynamicLinkData.link;
-      final queryParams = uri.queryParameters;
-      if (queryParams.isNotEmpty) {
-        //  your code here
-      } else {
-        // your code here
-      }
-    });
-
-    // Search for Firebase Dynamic Links
-    PendingDynamicLinkData? data = await dynamicLinks
-        .getDynamicLink(Uri.parse("https://yousite.page.link/refcode"));
-    final Uri uri = data!.link;
-    if (uri != null) {
-      // your code here
-    } else {
-      // your code here
-    }
-  }
-
-  Future<void> initFirebase() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-    // await Future.delayed(Duration(seconds: 3));
-    initDynamicLinks();
-  }
-
   @override
   void initState() {
-    _authController.checkTeamInvite();
-    initFirebase();
+    context.read<DynamicLinksApi>().handleDynamicLink();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      // debugPrint(teamController.teamMember.toJson());
-      _authController.checkTeamInvite();
       _authController.checkDeletedTeamBusiness();
       // print('Team Status: ${teamController.teamMembersStatus.value}');
       return Scaffold(
@@ -687,8 +653,7 @@ class _HomePageState extends State<HomePage> {
                                   ?
                                   // Obx(() {
                                   // return
-                                  const Center(
-                                      child: CircularProgressIndicator())
+                                  const Center(child: LoadingWidget())
                                   // ;
                                   // })
                                   : (_transactionController
@@ -1537,8 +1502,7 @@ class _HomePageState extends State<HomePage> {
                                   ?
                                   // Obx(() {
                                   // return
-                                  const Center(
-                                      child: CircularProgressIndicator())
+                                  const Center(child: LoadingWidget())
                                   // ;
                                   // })
                                   : (_transactionController
@@ -2329,7 +2293,7 @@ class _HomePageState extends State<HomePage> {
                 child: (_transactionController.transactionStatus ==
                         TransactionStatus.Loading)
                     ? Obx(() {
-                        return const Center(child: CircularProgressIndicator());
+                        return const Center(child: LoadingWidget());
                       })
                     : (_transactionController.transactionStatus ==
                             TransactionStatus.Available)

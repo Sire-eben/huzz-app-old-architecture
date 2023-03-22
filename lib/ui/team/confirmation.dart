@@ -2,6 +2,8 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/constants/app_strings.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
@@ -23,56 +25,18 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
 
   @override
   void initState() {
-    controller.checkTeamInvite();
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
     print('BusinessId: $value');
     busName = _businessController.selectedBusiness.value!.businessName;
     final teamId = _businessController.selectedBusiness.value!.teamId;
     print('Business TeamId: $teamId');
-    shareBusinessIdLink(value.toString());
-  }
-
-  Future<void> shareBusinessIdLink(String businessId) async {
-    if (controller.onlineStatus == OnlineStatus.Onilne) {
-      try {
-        setState(() {
-          isLoadingTeamInviteLink = true;
-        });
-        final appId = "com.app.huzz";
-        final url = "https://huzz.africa/businessId=$businessId";
-        final DynamicLinkParameters parameters = DynamicLinkParameters(
-          uriPrefix: 'https://huzz.page.link',
-          link: Uri.parse(url),
-          androidParameters: AndroidParameters(
-            packageName: appId,
-            minimumVersion: 1,
-          ),
-          iosParameters: IOSParameters(
-            bundleId: appId,
-            appStoreId: "1596574133",
-            minimumVersion: '1',
-          ),
-        );
-        final shortLink = await dynamicLinks.buildShortLink(parameters);
-        teamInviteLink = shortLink.shortUrl.toString();
-        print('invite link: $teamInviteLink');
-        setState(() {
-          isLoadingTeamInviteLink = false;
-        });
-      } catch (error) {
-        print(error.toString());
-        setState(() {
-          isLoadingTeamInviteLink = false;
-        });
-      }
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final value = _businessController.selectedBusiness.value;
+      // final value = _businessController.selectedBusiness.value;
       return Scaffold(
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
@@ -95,7 +59,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
             children: [
               Center(
                 child: Text(
-                  'Invite\nSent Successfully',
+                  'Team Member\nInvited Successfully',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                     color: AppColors.backgroundColor,
@@ -128,9 +92,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                   ),
                   child: Center(
                     child: isLoadingTeamInviteLink
-                        ? const CircularProgressIndicator(
-                            color: Colors.white,
-                          )
+                        ? const LoadingWidget()
                         : Text(
                             'Share invite link',
                             style: GoogleFonts.inter(
@@ -155,7 +117,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
-                      'Proceed',
+                      'Go back',
                       style: GoogleFonts.inter(
                         color: AppColors.backgroundColor,
                         fontWeight: FontWeight.w600,

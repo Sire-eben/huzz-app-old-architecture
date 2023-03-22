@@ -1,66 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/util/extension.dart';
+import 'package:huzz/core/widgets/button/button.dart';
+import 'package:huzz/ui/app_scaffold.dart';
 
-class TeamSuccess extends StatelessWidget {
-  const TeamSuccess({Key? key}) : super(key: key);
+class TeamSuccessView extends StatelessWidget {
+  final String businessName;
+
+  const TeamSuccessView({Key? key, required this.businessName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.2),
             Text(
-              'You\'ve been invited',
+              'You\'ve been added\nto $businessName team successfully.',
               style: GoogleFonts.inter(
                 color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
             ),
-            Text(
-              'to a team successfully',
-              style: GoogleFonts.inter(
-                color: AppColors.backgroundColor,
-                fontWeight: FontWeight.w600,
-                fontSize: 20,
-              ),
-            ),
-            SizedBox(height: 50),
+            Gap(context.getHeight(.2)),
             Center(
               child: Image.asset(
                 'assets/images/checker.png',
               ),
             ),
-            Spacer(),
-            InkWell(
-              onTap: () {
-                Get.back();
-              },
-              child: Container(
-                height: 55,
-                decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    border:
-                        Border.all(width: 2, color: AppColors.backgroundColor),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Center(
-                  child: Text(
-                    'Proceed',
-                    style: GoogleFonts.inter(
-                      color: AppColors.backgroundColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
+            const Spacer(),
+            Button(
+              label: 'Proceed',
+              action: () => context.pushOff(Dashboard()),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
           ],

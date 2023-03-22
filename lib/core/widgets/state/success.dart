@@ -54,7 +54,7 @@ class SuccessPage extends StatelessWidget {
             ),
             const Gap(Insets.sm),
             if (isMoneySent) ...[
-              OutlineButton(
+              AppOutlineButton(
                 label: 'View Receipt',
                 action: () {},
               )

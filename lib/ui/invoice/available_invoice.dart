@@ -59,7 +59,6 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
 
   @override
   void initState() {
-    _authController.checkTeamInvite();
 
     _scrollController = ScrollController();
     _scrollController!.addListener(_scrollListener);

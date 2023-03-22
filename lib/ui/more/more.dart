@@ -1,11 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/ui/wallet/wallet.dart';
 import 'package:huzz/ui/widget/more_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import '../../data/repository/auth_respository.dart';
 import '../../data/repository/team_repository.dart';
 import '../team/my_team.dart';
 import '../team/no_permission_team.dart';
@@ -19,13 +20,11 @@ class More extends StatefulWidget {
 }
 
 class _MoreState extends State<More> {
-  final _authController = Get.put(AuthRepository());
   final _teamController = Get.find<TeamRepository>();
 
   @override
   void initState() {
     super.initState();
-    _authController.checkTeamInvite();
   }
 
   @override
@@ -33,111 +32,45 @@ class _MoreState extends State<More> {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Row(
-          children: [
-            Text(
-              'Do more with Huzz',
-              style: GoogleFonts.inter(
-                color: AppColors.backgroundColor,
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-              ),
-            ),
-          ],
-        ),
+      appBar: Appbar(
+        title: 'Do more with Huzz',
+        showLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            // Container(
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(15),
-            //   ),
-            //   child: Image.asset('assets/images/my_team.png'),
-            // ),
-            // SizedBox(
-            //   height: 10,
-            // ),
-            // Container(
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(15),
-            //   ),
-            //   child: Image.asset('assets/images/bank_wallet.png'),
-            // ),
-            // SizedBox(
-            //   height: 20,
-            // ),
-            // Container(
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(15),
-            //   ),
-            //   child: Image.asset('assets/images/my_store.png'),
-            // ),
-
             //my team features
-            InkWell(
-              onTap: (() {
-                _teamController.teamStatus == TeamStatus.UnAuthorized
-                    ? Get.to(() => const NoPermissionTeam())
-                    : Get.to(() => const MyTeam());
-              }),
-              child: MoreWidget(
+            MoreWidget(
                 image: 'assets/images/teamIcon.png',
                 title: 'My Team',
                 description: 'Collaborate with coworkers',
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+                page: _teamController.teamStatus == TeamStatus.UnAuthorized
+                    ? const NoPermissionTeam()
+                    : const MyTeam()),
 
-            InkWell(
-              onTap: (() {
-                Get.to(() => const WalletScreen());
-              }),
-              child: MoreWidget(
-                image: 'assets/images/wallett.png',
-                title: 'Bank/wallet',
-                description: 'Receive funds/transfer',
-              ),
-            ),
+            const Gap(Insets.md),
 
-            const SizedBox(
-              height: 10,
+            const MoreWidget(
+              image: 'assets/images/wallett.png',
+              title: 'Bank/wallet',
+              description: 'Receive funds/transfer',
+              page: WalletScreen(),
             ),
-            // InkWell(
-            //   onTap: (() {
-            //     // Get.to(() => MyTeam());
-            //   }),
-            //   child: MoreWidget(
-            //     image: 'assets/images/storeee 1.png',
-            //     title: 'Store',
-            //     description: 'Sell your products easily',
-            //   ),
-            // ),
+            const Gap(Insets.md),
+
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Image.asset('assets/images/my_store.png'),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            InkWell(
-              onTap: (() {
-                Get.to(() => const HelpsAndSupport());
-              }),
-              child: MoreWidget(
-                image: 'assets/images/call.png',
-                title: 'Help and Support',
-                description: '',
-              ),
+            const Gap(Insets.md),
+            const MoreWidget(
+              image: 'assets/images/call.png',
+              title: 'Help and Support',
+              description: '',
+              page: HelpsAndSupport(),
             ),
           ],
         ),

@@ -971,8 +971,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                             width: 30,
                             height: 30,
                             child: const Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
+                                child: LoadingWidget()),
                           )
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -1691,8 +1690,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                 width: 30,
                                 height: 30,
                                 child: const Center(
-                                    child: CircularProgressIndicator(
-                                        color: Colors.white)),
+                                    child: LoadingWidget()),
                               )
                             : Text(
                                 'Save',

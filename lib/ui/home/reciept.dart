@@ -4,6 +4,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/core/constants/app_colors.dart';
 import 'package:huzz/data/model/transaction_model.dart';
@@ -50,7 +51,7 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
         backgroundColor: Colors.white,
         body: isLoading
             ? const Center(
-                child: CircularProgressIndicator(),
+                child: LoadingWidget(),
               )
             : SafeArea(
                 child: Container(

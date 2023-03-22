@@ -35,7 +35,6 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
   @override
   void initState() {
     super.initState();
-    _authController.checkTeamInvite();
   }
 
   @override
@@ -119,16 +118,14 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     action: () => _displayDialog(
                         context: context,
                         title: 'Open WhatsApp..?',
-                        onContinuePressed: () async{
+                        onContinuePressed: () async {
                           //launchWhatsAppUrl(AppStrings.supportPhone,),
-                          if (await canLaunchUrl (Uri.parse (
-                              AppStrings.huzzWhatsAppContactURI)
-                          )) {
-                          await launchUrl(Uri.parse(
-                          AppStrings.huzzWhatsAppContactURI));
+                          if (await canLaunchUrl(
+                              Uri.parse(AppStrings.huzzWhatsAppContactURI))) {
+                            await launchUrl(
+                                Uri.parse(AppStrings.huzzWhatsAppContactURI));
                           }
-                        }
-                    ),
+                        }),
                     icon: AppIcons.whatsapp,
                     isSVG: true,
                     title: AppStrings.connectOnWhatsApp,
