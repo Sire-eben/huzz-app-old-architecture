@@ -77,6 +77,11 @@ class _JoinBusinessTeamState extends State<JoinBusinessTeam> {
                           JoinTeamStatus.Success) {
                         setState(() => isLoading = false);
                         context.replace(const TeamSuccessView());
+                      } else if (teamController.joinTeamStatus ==
+                          JoinTeamStatus.Error) {
+                        setState(() => isLoading = false);
+                      } else {
+                        return;
                       }
                     });
                   },
@@ -96,7 +101,7 @@ class _JoinBusinessTeamState extends State<JoinBusinessTeam> {
                   child: Container(
                     height: context.getHeight(.9),
                     width: context.getWidth(),
-                    color: Colors.black.withOpacity(.1),
+                    color: Colors.black.withOpacity(.3),
                     child: LoadingWidget(),
                   ),
                 )
