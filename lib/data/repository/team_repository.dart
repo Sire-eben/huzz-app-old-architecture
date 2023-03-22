@@ -65,7 +65,7 @@ class TeamRepository extends GetxController {
   List<Teams> get onlineBusinessTeam => _onlineBusinessTeam.value;
   List<Teams> pendingBusinessTeam = [];
   AddingTeamStatus get addingTeamMemberStatus => _addingTeamMemberStatus.value;
-  JoinTeamStatus get joinTeamMemberStatus => _joinTeamStatus.value;
+  JoinTeamStatus get joinTeamStatus => _joinTeamStatus.value;
   DeleteTeamStatus get deleteTeamMemberStatus => _deleteTeamMemberStatus.value;
   UpdateTeamStatus get updatingTeamMemberStatus =>
       _updatingTeamMemberStatus.value;
@@ -697,13 +697,11 @@ class TeamRepository extends GetxController {
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
 
-        context.pushOff(Dashboard());
         if (json['success']) {
           Get.snackbar('Success', json['message']);
           _joinTeamStatus(JoinTeamStatus.Success);
           notifyChildrens();
           var teamMemberId = json['data']['id'];
-          debugPrint('Added Member MemberId: ${json['data']['id']}');
           updateTeamInviteStatusOnline(teamMemberId, bodyDto);
         }
       } else {
@@ -715,8 +713,7 @@ class TeamRepository extends GetxController {
     } catch (error) {
       _joinTeamStatus(JoinTeamStatus.Error);
       notifyChildrens();
-      Get.snackbar("Error", "Error inviting team, try again!");
-      debugPrint('add team feature error ${error.toString()}');
+      Get.snackbar("Error", "Error joining team, try again!");
     }
   }
 
