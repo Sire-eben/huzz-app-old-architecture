@@ -129,6 +129,23 @@ class BusinessRespository extends GetxController {
     }
   }
 
+  Future fetchSingleBusiness() async {
+    try {
+      var response = await http.get(Uri.parse(ApiLink.fetchSingleBusiness),
+          headers: {"Authorization": "Bearer ${_userController.token}"});
+
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        if (json['success']) {
+          var result = List.from(json['data']).map((e) => Business.fromJson(e));
+          return result;
+        }
+      }
+    } catch (error) {
+      debugPrint(error.toString());
+    }
+  }
+
   bool checkifBusinessAvailable(String id) {
     bool result = false;
     for (var element in offlineBusiness) {

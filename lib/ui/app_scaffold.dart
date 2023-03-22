@@ -1,5 +1,3 @@
-// ignore_for_file: unused_element
-
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +7,7 @@ import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/customers/customer_tabView.dart';
 import 'package:huzz/ui/home/home_page.dart';
 import 'package:huzz/ui/invoice/empty_invoice.dart';
+import 'package:huzz/ui/invoice/invoice_not_authorized.dart';
 import 'package:huzz/ui/more/more.dart';
 import 'package:huzz/ui/widget/loading_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -34,12 +33,6 @@ class _DashboardState extends State<Dashboard> {
   _DashboardState({required this.selectedIndex});
   final _invoiceRepository = Get.find<InvoiceRespository>();
   final teamController = Get.find<TeamRepository>();
-
-  void _selectPage(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
 
   @override
   void initState() {

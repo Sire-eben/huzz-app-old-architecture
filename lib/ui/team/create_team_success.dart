@@ -2,16 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/services/dynamic_linking/dynamic_link_api.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
+import 'package:provider/provider.dart';
+import '../../data/repository/auth_respository.dart';
+import '../../data/repository/business_respository.dart';
 
-class CreateTeamSuccess extends StatelessWidget {
+class CreateTeamSuccess extends StatefulWidget {
   const CreateTeamSuccess({Key? key}) : super(key: key);
 
   @override
+  State<CreateTeamSuccess> createState() => _CreateTeamSuccessState();
+}
+
+class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
+  final controller = Get.find<AuthRepository>();
+  final _businessController = Get.find<BusinessRespository>();
+  // bool isLoadingTeamInviteLink = false;
+  String? values, teamInviteLink, busName;
+
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    context.read<DynamicLinksApi>().handleDynamicLink();
+    super.initState();
+    final value = _businessController.selectedBusiness.value!.businessId;
+    busName = _businessController.selectedBusiness.value!.businessName;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final dynamicLinkService = context.read<DynamicLinksApi>();
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.2),
@@ -26,13 +52,53 @@ class CreateTeamSuccess extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Center(
               child: Image.asset(
                 'assets/images/checker.png',
               ),
             ),
-            Spacer(),
+            const Spacer(),
+            InkWell(
+              onTap: () async {
+                setState(() => isLoading = true);
+                await dynamicLinkService
+                    .createTeamInviteLink(
+                  businessId: _businessController
+                      .selectedBusiness.value!.businessId
+                      .toString(),
+                  teamId: _businessController.selectedBusiness.value!.teamId
+                      .toString(),
+                  businessName: _businessController
+                      .selectedBusiness.value!.businessName
+                      .toString(),
+                )
+                    .whenComplete(() {
+                  setState(() => isLoading = false);
+                });
+              },
+              child: Container(
+                height: 55,
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
+                  color: AppColors.backgroundColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: isLoading
+                      ? const LoadingWidget(color: Colors.white)
+                      : Text(
+                          'Share invite link',
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
             InkWell(
               onTap: () {
                 Get.back();
@@ -42,7 +108,7 @@ class CreateTeamSuccess extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: AppColors.whiteColor,
                     border:
-                    Border.all(width: 2, color: AppColors.backgroundColor),
+                        Border.all(width: 2, color: AppColors.backgroundColor),
                     borderRadius: BorderRadius.circular(10)),
                 child: Center(
                   child: Text(
@@ -55,7 +121,7 @@ class CreateTeamSuccess extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
           ],

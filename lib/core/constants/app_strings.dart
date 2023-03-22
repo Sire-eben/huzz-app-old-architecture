@@ -1,5 +1,7 @@
 mixin AppStrings {
   static const appWebName = 'Huzz';
+  static const appId = "com.app.huzz";
+  static const appStoreId = "1596574133";
   static const supportPhone = '2348132894616';
   static const helpAndSupport = 'Help and Support';
   static const connectOnWhatsApp = 'Connect on WhatsApp';
@@ -13,8 +15,7 @@ mixin AppStrings {
   static const continueToProceed =
       'Please click continue if you want to proceed';
 
-  static const huzzWhatsAppContactURI =
-      'whatsapp://send?phone=2348132894616';
+  static const huzzWhatsAppContactURI = 'whatsapp://send?phone=2348132894616';
 
   static const huzzTelegramContactURI = 'https://t.me/+_Of_Mc-Yet0wZmRk';
 
