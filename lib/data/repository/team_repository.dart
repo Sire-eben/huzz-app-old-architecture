@@ -467,30 +467,28 @@ class TeamRepository extends GetxController {
                                         0.02),
                                 Expanded(
                                   flex: 3,
-                                  child: Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          item.displayName,
-                                          style: GoogleFonts.inter(
-                                              fontSize: 12,
-                                              // ,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                        Text(
-                                          (item.phones.isNotEmpty)
-                                              ? item.phones.first.number
-                                              : "No Phone Number",
-                                          style: GoogleFonts.inter(
-                                              fontSize: 12,
-                                              // ,
-                                              color: Colors.grey),
-                                        ),
-                                      ],
-                                    ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item.displayName,
+                                        style: GoogleFonts.inter(
+                                            fontSize: 12,
+                                            // ,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Text(
+                                        (item.phones.isNotEmpty)
+                                            ? item.phones.first.number
+                                            : "No Phone Number",
+                                        style: GoogleFonts.inter(
+                                            fontSize: 12,
+                                            // ,
+                                            color: Colors.grey),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Expanded(
