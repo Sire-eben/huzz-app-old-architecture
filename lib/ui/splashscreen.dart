@@ -28,7 +28,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
     context.read<DynamicLinksApi>().handleDynamicLink();
     startTime();
   }

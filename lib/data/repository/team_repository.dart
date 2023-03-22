@@ -9,9 +9,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/core/util/extension.dart';
+import 'package:huzz/data/model/user_id_model.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/api_link.dart';
+import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/ui/team/team_updated_confirmation.dart';
 import 'package:huzz/ui/team/create_team_success.dart';
@@ -85,6 +87,8 @@ class TeamRepository extends GetxController {
 
   String countryText = "234";
   String countryCodeFLag = "NG";
+
+  SharePref? pref;
 
   @override
   void onInit() {
@@ -619,11 +623,26 @@ class TeamRepository extends GetxController {
     }
   }
 
+  Future<UserIdModel> fetchUserId() async {
+    final response = await http.get(Uri.parse(ApiLink.getUser), headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${_userController.token}"
+    });
+
+    if (response.statusCode == 200) {
+      // If the server returns a 200 OK response, parse the JSON.
+      return UserIdModel.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response, throw an error.
+      throw Exception('Failed to load user');
+    }
+  }
+
   Future joinTeamWithInviteLink({
     required BuildContext context,
     required String teamId,
     required String businessId,
-    required String businessName,
+    required String userId,
   }) async {
     try {
       _joinTeamStatus(JoinTeamStatus.Loading);
@@ -635,7 +654,7 @@ class TeamRepository extends GetxController {
         "teamMemberStatus": "ACCEPTED",
       };
       var response = await http.put(
-          Uri.parse('${ApiLink.inviteTeamMember}/$businessId'),
+          Uri.parse('${ApiLink.inviteTeamMember}/$userId'),
           body: json.encode(bodyDto),
           headers: {
             "Content-Type": "application/json",
@@ -649,8 +668,6 @@ class TeamRepository extends GetxController {
           Get.snackbar('Success', json['message']);
           _joinTeamStatus(JoinTeamStatus.Success);
           notifyChildrens();
-          var teamMemberId = json['data']['id'];
-          updateTeamInviteStatusOnline(teamMemberId, bodyDto);
         }
       } else {
         var json = jsonDecode(response.body);

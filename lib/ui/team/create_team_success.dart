@@ -52,53 +52,13 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
                 ),
               ),
             ),
-            const SizedBox(height: 50),
+            const Spacer(),
             Center(
               child: Image.asset(
                 'assets/images/checker.png',
               ),
             ),
             const Spacer(),
-            InkWell(
-              onTap: () async {
-                setState(() => isLoading = true);
-                await dynamicLinkService
-                    .createTeamInviteLink(
-                  businessId: _businessController
-                      .selectedBusiness.value!.businessId
-                      .toString(),
-                  teamId: _businessController.selectedBusiness.value!.teamId
-                      .toString(),
-                  businessName: _businessController
-                      .selectedBusiness.value!.businessName
-                      .toString(),
-                )
-                    .whenComplete(() {
-                  setState(() => isLoading = false);
-                });
-              },
-              child: Container(
-                height: 55,
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                decoration: BoxDecoration(
-                  color: AppColors.backgroundColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Center(
-                  child: isLoading
-                      ? const LoadingWidget(color: Colors.white)
-                      : Text(
-                          'Share invite link',
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
             InkWell(
               onTap: () {
                 Get.back();

@@ -24,6 +24,8 @@ import '../widget/loading_widget.dart';
 import 'add_member.dart';
 
 class NoAccessDialog extends StatelessWidget {
+  const NoAccessDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -89,7 +91,6 @@ class _MyTeamState extends State<MyTeam> {
 
   @override
   Widget build(BuildContext context) {
-    final dynamicLinkService = context.read<DynamicLinksApi>();
     return Obx(() {
       final value = _businessController.selectedBusiness.value;
 
@@ -107,63 +108,22 @@ class _MyTeamState extends State<MyTeam> {
             : Scaffold(
                 appBar: Appbar(title: "My Team"),
                 backgroundColor: AppColors.whiteColor,
-                floatingActionButton:
-                    Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  (value!.teamId == null ||
-                          phone !=
-                              _teamController
-                                  .onlineBusinessTeam.first.phoneNumber)
-                      ? const SizedBox.shrink()
-                      : FloatingActionButton.extended(
-                          heroTag: "first",
-                          elevation: 0,
-                          onPressed: () {
-                            Get.to(() => const AddMember());
-                          },
-                          icon: const Icon(Icons.add, size: 14),
-                          backgroundColor: AppColors.backgroundColor,
-                          label: const Text('Add new member',
-                              style: TextStyles.t10),
-                        ),
-                  const Gap(Insets.md),
-                  FloatingActionButton.extended(
-                    heroTag: 'second',
-                    elevation: 0,
-                    onPressed: () async {
-                      final deeplink =
-                          await dynamicLinkService.createTeamInviteLink(
-                        businessId: _businessController
-                            .selectedBusiness.value!.businessId
-                            .toString(),
-                        teamId: _businessController
-                            .selectedBusiness.value!.teamId
-                            .toString(),
-                        businessName: _businessController
-                            .selectedBusiness.value!.businessName
-                            .toString(),
-                      );
-                      Share.share(
-                          'You have been invited to manage ${_businessController.selectedBusiness.value!.businessName} on Huzz. Click this: $deeplink',
-                          subject: 'Share team invite link');
-                    },
-                    icon: const Icon(
-                      Icons.share_outlined,
-                      color: AppColors.primaryColor,
-                      size: 14,
-                    ),
-                    backgroundColor: AppColors.whiteColor,
-                    label: Text('Share Invite link',
-                        style: TextStyles.t10.copyWith(
-                          color: AppColors.primaryColor,
-                        )),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(45),
-                        side: const BorderSide(
-                          width: 1,
-                          color: AppColors.primaryColor,
-                        )),
-                  )
-                ]),
+                floatingActionButton: (value!.teamId == null ||
+                        phone !=
+                            _teamController
+                                .onlineBusinessTeam.first.phoneNumber)
+                    ? const SizedBox.shrink()
+                    : FloatingActionButton.extended(
+                        heroTag: "first",
+                        elevation: 0,
+                        onPressed: () {
+                          Get.to(() => const AddMember());
+                        },
+                        icon: const Icon(Icons.add, size: 14),
+                        backgroundColor: AppColors.backgroundColor,
+                        label:
+                            const Text('Add new member', style: TextStyles.t10),
+                      ),
                 body: Column(
                   children: [
                     Container(

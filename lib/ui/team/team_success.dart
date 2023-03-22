@@ -23,10 +23,11 @@ class TeamSuccessView extends StatelessWidget {
             SizedBox(height: MediaQuery.of(context).size.height * 0.2),
             Text(
               'You\'ve been added\nto $businessName team successfully.',
+              textAlign: TextAlign.center,
               style: GoogleFonts.inter(
                 color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
-                fontSize: 20,
+                fontSize: 24,
               ),
             ),
             Gap(context.getHeight(.2)),
