@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/home_respository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -210,8 +211,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                               width: 30,
                               height: 30,
                               child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white),
+                                child: LoadingWidget(),
                               ),
                             )
                           : Row(

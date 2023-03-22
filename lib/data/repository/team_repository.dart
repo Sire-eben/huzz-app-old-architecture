@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -6,10 +8,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/api_link.dart';
+import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/ui/team/team_updated_confirmation.dart';
+import 'package:huzz/ui/team/create_team_success.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
@@ -24,6 +29,8 @@ enum UpdateTeamStatus { Loading, Error, Success, Empty }
 enum TeamMemberStatus { Loading, Error, UnAuthorized, Success, Empty }
 
 enum DeleteTeamStatus { Loading, Error, Success, Empty }
+
+enum JoinTeamStatus { Loading, Available, Error, Empty, Success }
 
 enum TeamStatus { Loading, Available, Error, Empty, UnAuthorized }
 
@@ -42,6 +49,7 @@ class TeamRepository extends GetxController {
   final _deleteTeamMemberStatus = DeleteTeamStatus.Empty.obs;
   final _updatingTeamMemberStatus = UpdateTeamStatus.Empty.obs;
   final _teamStatus = TeamStatus.Empty.obs;
+  final _joinTeamStatus = JoinTeamStatus.Empty.obs;
   final teamMembersStatus = TeamMemberStatus.Empty.obs;
   final hasTeamInviteDeeplink = false.obs;
 
@@ -57,6 +65,7 @@ class TeamRepository extends GetxController {
   List<Teams> get onlineBusinessTeam => _onlineBusinessTeam.value;
   List<Teams> pendingBusinessTeam = [];
   AddingTeamStatus get addingTeamMemberStatus => _addingTeamMemberStatus.value;
+  JoinTeamStatus get joinTeamStatus => _joinTeamStatus.value;
   DeleteTeamStatus get deleteTeamMemberStatus => _deleteTeamMemberStatus.value;
   UpdateTeamStatus get updatingTeamMemberStatus =>
       _updatingTeamMemberStatus.value;
@@ -269,7 +278,7 @@ class TeamRepository extends GetxController {
                                             child: Text(
                                           item.displayName.isEmpty
                                               ? ""
-                                              : '${item.displayName[0]}',
+                                              : item.displayName[0],
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
@@ -289,7 +298,7 @@ class TeamRepository extends GetxController {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "${item.displayName}",
+                                          item.displayName,
                                           style: GoogleFonts.inter(
                                               fontSize: 12,
                                               // ,
@@ -298,7 +307,7 @@ class TeamRepository extends GetxController {
                                         ),
                                         Text(
                                           (item.phones.isNotEmpty)
-                                              ? "${item.phones.first.number}"
+                                              ? item.phones.first.number
                                               : "No Phone Number",
                                           style: GoogleFonts.inter(
                                               fontSize: 12,
@@ -444,7 +453,7 @@ class TeamRepository extends GetxController {
                                             child: Text(
                                           item.displayName.isEmpty
                                               ? ""
-                                              : '${item.displayName[0]}',
+                                              : item.displayName[0],
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
@@ -458,30 +467,28 @@ class TeamRepository extends GetxController {
                                         0.02),
                                 Expanded(
                                   flex: 3,
-                                  child: Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "${item.displayName}",
-                                          style: GoogleFonts.inter(
-                                              fontSize: 12,
-                                              // ,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                        Text(
-                                          (item.phones.isNotEmpty)
-                                              ? "${item.phones.first.number}"
-                                              : "No Phone Number",
-                                          style: GoogleFonts.inter(
-                                              fontSize: 12,
-                                              // ,
-                                              color: Colors.grey),
-                                        ),
-                                      ],
-                                    ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item.displayName,
+                                        style: GoogleFonts.inter(
+                                            fontSize: 12,
+                                            // ,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Text(
+                                        (item.phones.isNotEmpty)
+                                            ? item.phones.first.number
+                                            : "No Phone Number",
+                                        style: GoogleFonts.inter(
+                                            fontSize: 12,
+                                            // ,
+                                            color: Colors.grey),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Expanded(
@@ -511,10 +518,8 @@ class TeamRepository extends GetxController {
                           ? contactList.length
                           : searchResult.length,
                     )
-                  : Container(
-                      child: const Center(
-                        child: Text("No Contact(s) Found"),
-                      ),
+                  : const Center(
+                      child: Text("No Contact(s) Found"),
                     ),
             ),
           ],
@@ -548,6 +553,8 @@ class TeamRepository extends GetxController {
           "Team created successfully",
         );
 
+        Get.to(const CreateTeamSuccess());
+
         _addingTeamMemberStatus(AddingTeamStatus.Success);
       } else {
         Get.snackbar("Error", "Error creating team, try again!");
@@ -562,6 +569,8 @@ class TeamRepository extends GetxController {
   Future inviteTeamMember(String businessId, Map<String, dynamic> item) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       inviteTeamMemberOnline(businessId, item);
+    } else {
+      Get.snackbar("Error", "You are not connected to the internet");
     }
   }
 
@@ -570,7 +579,6 @@ class TeamRepository extends GetxController {
     try {
       _addingTeamMemberStatus(AddingTeamStatus.Loading);
       var value = _businessController.selectedBusiness.value;
-      debugPrint("trying to invite team members: ${jsonEncode(item)}");
       var response = await http.post(
           Uri.parse('${ApiLink.inviteTeamMember}/${value!.businessId}'),
           body: json.encode(item),
@@ -600,13 +608,61 @@ class TeamRepository extends GetxController {
         }
       } else {
         var json = jsonDecode(response.body);
-        Get.snackbar('Error', json['message']);
+        Get.snackbar('Error', 'Something went wrong.');
+        print(json['message']);
         _addingTeamMemberStatus(AddingTeamStatus.Error);
       }
     } catch (error) {
       _addingTeamMemberStatus(AddingTeamStatus.Error);
       Get.snackbar("Error", "Error inviting team, try again!");
       debugPrint('add team feature error ${error.toString()}');
+    }
+  }
+
+  Future joinTeamWithInviteLink({
+    required BuildContext context,
+    required String teamId,
+    required String businessId,
+    required String businessName,
+  }) async {
+    try {
+      _joinTeamStatus(JoinTeamStatus.Loading);
+      notifyChildrens();
+      final bodyDto = {
+        "phoneNumber": _userController.countryText +
+            _userController.phoneNumberController.text.trim(),
+        "teamId": teamId,
+        "teamMemberStatus": "ACCEPTED",
+      };
+      var response = await http.put(
+          Uri.parse('${ApiLink.inviteTeamMember}/$businessId'),
+          body: json.encode(bodyDto),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${_userController.token}"
+          });
+
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+
+        if (json['success']) {
+          Get.snackbar('Success', json['message']);
+          _joinTeamStatus(JoinTeamStatus.Success);
+          notifyChildrens();
+          var teamMemberId = json['data']['id'];
+          updateTeamInviteStatusOnline(teamMemberId, bodyDto);
+        }
+      } else {
+        var json = jsonDecode(response.body);
+        Get.snackbar('Error', json['message']);
+        print(json['message']);
+        _joinTeamStatus(JoinTeamStatus.Error);
+        notifyChildrens();
+      }
+    } catch (error) {
+      _joinTeamStatus(JoinTeamStatus.Error);
+      notifyChildrens();
+      Get.snackbar("Error", "Error joining team, try again!");
     }
   }
 

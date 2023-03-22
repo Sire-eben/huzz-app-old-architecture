@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/ui/widget/custom_drop_field.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
@@ -55,7 +56,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                           validatorText: "Business name is required",
                           textEditingController:
                               _businessController.businessName)),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Container(
@@ -67,7 +68,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                           _businessController.businessAddressController,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Container(
@@ -82,7 +83,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                           _businessController.businessPhoneNumber,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Container(
@@ -93,7 +94,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                       textEditingController: _businessController.businessEmail,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
 
@@ -127,7 +128,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                           _businessController.businessCurrency,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   CustomDropDownField(
@@ -138,7 +139,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                     currentSelectedValue: _businessController.selectedCategory,
                   ),
                   // Expanded(flex: 2, child: SizedBox()),
-                  SizedBox(
+                  const SizedBox(
                     height: 100,
                   ),
                   GestureDetector(
@@ -158,35 +159,34 @@ class _CreateBusinessState extends State<CreateBusiness> {
                       width: MediaQuery.of(context).size.width,
                       // margin: EdgeInsets.symmetric(horizontal: 20),
                       height: 50,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_businessController.createBusinessStatus ==
                               CreateBusinessStatus.Loading)
-                          ? Container(
+                          ? const SizedBox(
                               width: 30,
                               height: 30,
                               child: Center(
-                                  child: CircularProgressIndicator(
-                                      color: Colors.white)),
+                                  child: LoadingWidget()),
                             )
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.all(3),
-                                  decoration: BoxDecoration(
+                                  padding: const EdgeInsets.all(3),
+                                  decoration: const BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(50))),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.add,
                                     color: AppColors.backgroundColor,
                                     size: 16,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Text(
@@ -198,7 +198,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                             ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                 ],
@@ -216,7 +216,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 55,
               vertical: 250,
             ),
@@ -236,7 +236,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
             ),
             content: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Expanded(
@@ -248,7 +248,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -262,7 +262,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -284,7 +284,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     InkWell(
                       onTap: () {
                         _userController.logout();
@@ -293,7 +293,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -362,22 +362,22 @@ class BusinessCreatedSuccesful extends StatelessWidget {
                 style: GoogleFonts.inter(
                     fontSize: 30, color: AppColors.backgroundColor),
               )),
-          Spacer(),
+          const Spacer(),
           Center(
             child: Image.asset(
               'assets/images/checker.png',
             ),
           ),
-          Spacer(),
+          const Spacer(),
           GestureDetector(
             onTap: () {
               Get.offAll(() => Dashboard());
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.only(left: 50, right: 50),
+              margin: const EdgeInsets.only(left: 50, right: 50),
               height: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: AppColors.backgroundColor,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Row(
@@ -388,7 +388,7 @@ class BusinessCreatedSuccesful extends StatelessWidget {
                     'Proceed',
                     style: GoogleFonts.inter(color: Colors.white, fontSize: 18),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                 ],
               ),
             ),

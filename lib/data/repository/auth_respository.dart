@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -18,7 +20,9 @@ import 'package:huzz/ui/auth/sign_in.dart';
 import 'package:huzz/ui/business/create_business.dart';
 import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/ui/forget_pass/enter_forget_pin.dart';
+import 'package:huzz/ui/more/more.dart';
 import 'package:huzz/ui/reg_home.dart';
+import 'package:huzz/ui/team/join_team.dart';
 import 'package:huzz/ui/team/team_success.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/business.dart';
@@ -26,6 +30,7 @@ import 'package:huzz/data/model/user.dart';
 import 'package:huzz/data/model/user_referral_model.dart';
 import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/user_teamInvite_model.dart';
 import 'fingerprint_repository.dart';
@@ -116,27 +121,21 @@ class AuthRepository extends GetxController {
   SqliteDb sqliteDb = SqliteDb();
   bool tokenExpired = false;
   Rx<File?> profileImage = Rx(null);
+
   @override
   void onInit() async {
     super.onInit();
     pref = SharePref();
     await pref!.init();
     if (pref!.getFirstTimeOpen()) {
-      print("My First Time Using this app");
       _authStatus(AuthStatus.IsFirstTime);
     } else {
-      print("Not my First Time Using this app");
-      print(
-          "expired date token ${pref!.getDateTokenExpired()} token expired $tokenExpired");
-
       if (pref!.getUser() != null &&
           !DateTime.now().isAfter(pref!.getDateTokenExpired()) &&
           !tokenExpired) {
-        print("gotten here is value");
         user = pref!.getUser()!;
 
         Mtoken(pref!.read());
-        print("result of token is ${Mtoken.value}");
 
         _authStatus(AuthStatus.Authenticated);
         if (connectionStatus == ConnectivityResult.mobile ||
@@ -154,25 +153,6 @@ class AuthRepository extends GetxController {
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       _updateConnectionStatus(result);
-
-      print("result is $result");
-    });
-    final PendingDynamicLinkData? deepLink =
-        await FirebaseDynamicLinks.instance.getInitialLink();
-    if (deepLink != null) {
-      checkIfReferralLinkIsAvailableFromDeeplink(deepLink);
-    }
-    FirebaseDynamicLinks.instance.onLink.listen((deepLink) {
-      checkIfReferralLinkIsAvailableFromDeeplink(deepLink);
-    });
-
-    final PendingDynamicLinkData? teamInviteDeepLink =
-        await FirebaseDynamicLinks.instance.getInitialLink();
-    if (teamInviteDeepLink != null) {
-      checkIfTeamInviteLinkIsAvailableFromDeeplink(teamInviteDeepLink);
-    }
-    FirebaseDynamicLinks.instance.onLink.listen((teamInviteDeepLink) {
-      checkIfTeamInviteLinkIsAvailableFromDeeplink(teamInviteDeepLink);
     });
   }
 
@@ -191,6 +171,7 @@ class AuthRepository extends GetxController {
     if (teamInviteCode != null) {
       teamInviteCodeController.text = teamInviteCode;
       hasTeamInviteDeeplink(true);
+      // Get.to(More());
     }
   }
 
@@ -208,13 +189,11 @@ class AuthRepository extends GetxController {
   }
 
   Future sendSmsOtp({bool isresend = false}) async {
-    print("phone number ${user!.phoneNumber}");
     try {
       _Otpauthstatus(OtpAuthStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.sendSmsOtp),
           body: jsonEncode({"phoneNumber": "${user!.phoneNumber}"}),
           headers: {"Content-Type": "application/json"});
-      print("response is ${response.body}");
       if (response.statusCode == 200) {
         _Otpauthstatus(OtpAuthStatus.Success);
         Get.snackbar("Success", "Otp sent successfully",
@@ -228,7 +207,7 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.check, color: AppColors.backgroundColor));
+            icon: const Icon(Icons.check, color: AppColors.backgroundColor));
 
         if (!isresend) Get.to(() => EnterOtp());
         // if (!isresend) _homeController.selectOnboardSelectedNext();
@@ -245,16 +224,14 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
+            icon: const Icon(Icons.info, color: AppColors.orangeBorderColor));
       }
     } catch (ex) {
-      print("error otp send ${ex.toString()}");
       _Otpauthstatus(OtpAuthStatus.Error);
     }
   }
 
   Future sendForgetOtp() async {
-    print("phone number $countryText${phoneNumberController.text}");
     try {
       _Otpauthstatus(OtpAuthStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.sendSmsOtp),
@@ -262,7 +239,6 @@ class AuthRepository extends GetxController {
             "phoneNumber": countryText + forgotPhoneNumberController.text.trim()
           }),
           headers: {"Content-Type": "application/json"});
-      print("response is ${response.body}");
       if (response.statusCode == 200) {
         _Otpauthstatus(OtpAuthStatus.Success);
         Get.snackbar("Success", "Otp sent successfully",
@@ -276,9 +252,9 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.check, color: AppColors.backgroundColor));
-        Timer(Duration(milliseconds: 2000), () {
-          Get.off(EnterForgotPIN());
+            icon: const Icon(Icons.check, color: AppColors.backgroundColor));
+        Timer(const Duration(milliseconds: 2000), () {
+          Get.off(const EnterForgotPIN());
         });
       } else {
         _Otpauthstatus(OtpAuthStatus.Error);
@@ -293,10 +269,9 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
+            icon: const Icon(Icons.info, color: AppColors.orangeBorderColor));
       }
     } catch (ex) {
-      print("error otp send ${ex.toString()}");
       _Otpauthstatus(OtpAuthStatus.Error);
     }
   }
@@ -306,7 +281,6 @@ class AuthRepository extends GetxController {
     final response = await http.post(Uri.parse(ApiLink.sendVoiceOtp),
         body: jsonEncode({"phoneNumber": "${user!.phoneNumber}"}),
         headers: {"Content-Type": "application/json"});
-    print("otp sent voice ${response.body}");
     if (response.statusCode == 200) {
       Get.snackbar("Success", "Otp sent successfully",
           titleText: Text(
@@ -319,7 +293,7 @@ class AuthRepository extends GetxController {
             style: GoogleFonts.inter(
                 color: Colors.black, fontWeight: FontWeight.normal),
           ),
-          icon: Icon(Icons.check, color: AppColors.backgroundColor));
+          icon: const Icon(Icons.check, color: AppColors.backgroundColor));
     } else {
       Get.snackbar("Error", "Unable to send Otp",
           titleText: Text(
@@ -332,12 +306,11 @@ class AuthRepository extends GetxController {
             style: GoogleFonts.inter(
                 color: Colors.black, fontWeight: FontWeight.normal),
           ),
-          icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
+          icon: const Icon(Icons.info, color: AppColors.orangeBorderColor));
     }
   }
 
   Future verifyOpt() async {
-    print("otp value ${otpController.text}");
     try {
       _Otpverifystatus(OtpVerifyStatus.Loading);
       final resposne = await http.post(Uri.parse(ApiLink.verifyOtp),
@@ -347,7 +320,6 @@ class AuthRepository extends GetxController {
           }),
           headers: {"Content-Type": "application/json"});
 
-      print("response of verify otp ${resposne.body}");
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
         if (json['success']) {
@@ -365,7 +337,7 @@ class AuthRepository extends GetxController {
                 style: GoogleFonts.inter(
                     color: Colors.black, fontWeight: FontWeight.normal),
               ),
-              icon: Icon(Icons.check, color: AppColors.backgroundColor));
+              icon: const Icon(Icons.check, color: AppColors.backgroundColor));
 
           getUser();
         } else {
@@ -381,11 +353,10 @@ class AuthRepository extends GetxController {
                 style: GoogleFonts.inter(
                     color: Colors.black, fontWeight: FontWeight.normal),
               ),
-              icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
+              icon: const Icon(Icons.info, color: AppColors.orangeBorderColor));
         }
       }
     } catch (ex) {
-      print("error from verify otp ${ex.toString()}");
       Get.snackbar("Error", "Error verifying Otp",
           titleText: Text(
             'Error',
@@ -397,7 +368,7 @@ class AuthRepository extends GetxController {
             style: GoogleFonts.inter(
                 color: Colors.black, fontWeight: FontWeight.normal),
           ),
-          icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
+          icon: const Icon(Icons.info, color: AppColors.orangeBorderColor));
       _Otpverifystatus(OtpVerifyStatus.Error);
     }
   }
@@ -405,7 +376,6 @@ class AuthRepository extends GetxController {
   Future verifyForgotOpt() async {
     try {
       _Otpforgotverifystatus(OtpForgotVerifyStatus.Loading);
-      print("otp value ${otpController.text}");
 
       final response = await http.put(Uri.parse(ApiLink.forgetPin),
           body: jsonEncode({
@@ -421,7 +391,6 @@ class AuthRepository extends GetxController {
         }),
       );
 
-      print("response of verify forgot pass otp ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -430,8 +399,8 @@ class AuthRepository extends GetxController {
             "PIN successfully changed.",
             "Proceed to Login.",
           );
-          Timer(Duration(milliseconds: 2000), () {
-            Get.offAll(Signin());
+          Timer(const Duration(milliseconds: 2000), () {
+            Get.offAll(const Signin());
           });
         } else {
           _Otpforgotverifystatus(OtpForgotVerifyStatus.Error);
@@ -439,7 +408,6 @@ class AuthRepository extends GetxController {
         }
       }
     } catch (ex) {
-      print("error from PIN changing ${ex.toString()}");
       Get.snackbar("Error", "Unable to change PIN");
       _Otpforgotverifystatus(OtpForgotVerifyStatus.Error);
     }
@@ -448,13 +416,11 @@ class AuthRepository extends GetxController {
   Future updateProfileImage() async {
     try {
       _updateProfileStatus(UpdateProfileStatus.Loading);
-      print("otp value ${otpController.text}");
       final uploadController = Get.find<FileUploadRespository>();
       String? imageId;
       if (profileImage.value != null) {
         imageId = await uploadController.uploadFile(profileImage.value!.path);
       }
-      print("image url is $imageId");
       final resposne = await http.put(Uri.parse(ApiLink.updateProfile),
           body: jsonEncode({
             // "profileImageFileStoreId": imageId,
@@ -466,10 +432,8 @@ class AuthRepository extends GetxController {
             "Authorization": "Bearer $token"
           });
 
-      print("response of update personal profile info ${resposne.body}");
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
-        print("user detail $json");
         var user = User.fromJsonSettngs(json);
         user.businessList = this.user!.businessList;
         this.user = user;
@@ -480,7 +444,7 @@ class AuthRepository extends GetxController {
           "Success",
           "Personal Profile Image",
         );
-        Timer(Duration(milliseconds: 2000), () {
+        Timer(const Duration(milliseconds: 2000), () {
           Get.back();
         });
         // } else {
@@ -497,7 +461,6 @@ class AuthRepository extends GetxController {
       }
     } catch (ex) {
       _updateProfileStatus(UpdateProfileStatus.Error);
-      print("error from updating personal information ${ex.toString()}");
       Get.snackbar(
         "Error",
         "Failed to update Personal Profile Image",
@@ -509,7 +472,6 @@ class AuthRepository extends GetxController {
   Future updateProfile() async {
     try {
       _updateProfileStatus(UpdateProfileStatus.Loading);
-      print("otp value ${otpController.text}");
       final uploadController = Get.find<FileUploadRespository>();
       String? imageId;
       if (profileImage.value != null) {
@@ -528,10 +490,8 @@ class AuthRepository extends GetxController {
             "Authorization": "Bearer $token"
           });
 
-      print("response of update personal info ${resposne.body}");
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
-        print("user detail $json");
         var user = User.fromJsonSettngs(json);
         user.businessList = this.user!.businessList;
         this.user = user;
@@ -542,7 +502,7 @@ class AuthRepository extends GetxController {
           "Success",
           "Personal Information Updated",
         );
-        Timer(Duration(milliseconds: 2000), () {
+        Timer(const Duration(milliseconds: 2000), () {
           Get.back();
         });
         // } else {
@@ -559,7 +519,6 @@ class AuthRepository extends GetxController {
       }
     } catch (ex) {
       _updateProfileStatus(UpdateProfileStatus.Error);
-      print("error from updating personal information ${ex.toString()}");
       Get.snackbar(
         "Error",
         "Failed to update Personal Information",
@@ -571,17 +530,14 @@ class AuthRepository extends GetxController {
   Future getUser() async {
     try {
       _updateProfileStatus(UpdateProfileStatus.Loading);
-      print("getting user data");
 
       final response = await http.get(Uri.parse(ApiLink.getUser), headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
       });
 
-      print("response of update personal info ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
-        print("user detail $json");
         var user = User.fromJsonSettngs(json);
         user.businessList = this.user!.businessList;
         this.user = user;
@@ -592,7 +548,6 @@ class AuthRepository extends GetxController {
       }
     } catch (ex) {
       _updateProfileStatus(UpdateProfileStatus.Error);
-      print("error from updating personal information ${ex.toString()}");
     }
   }
 
@@ -615,7 +570,6 @@ class AuthRepository extends GetxController {
       final response = await http.post(Uri.parse(ApiLink.signupUser),
           body: jsonEncode(signupDto),
           headers: {"Content-Type": "application/json"});
-      print("sign up response ${response.body} ${response.statusCode}");
       if (response.statusCode == 201) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -642,16 +596,12 @@ class AuthRepository extends GetxController {
         _signupStatus(SignupStatus.Error);
       }
     } catch (ex) {
-      print("error occurred ${ex.toString()}");
       Get.snackbar("SignUp Error", "Something have occurred try again later");
       _signupStatus(SignupStatus.Error);
     }
   }
 
   Future signIn() async {
-    print(
-        "phone number ${phoneNumberController.text}  country code $countryText");
-    print("pin is ${pinController.text}");
     try {
       _signinStatus(SigninStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.signinUser),
@@ -661,7 +611,6 @@ class AuthRepository extends GetxController {
             // "pin":"3152"
           }),
           headers: {"Content-Type": "application/json"});
-      print("sign in response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
 
@@ -669,13 +618,11 @@ class AuthRepository extends GetxController {
 
         var token = json['accessToken'];
         var user = User.fromJson(json);
-        print("token from mtoken is $Mtoken");
         Mtoken(token);
         pref!.saveToken(token);
         pref!.setUser(user);
         //  Mtoken=Rx(token);
 
-        print("user to json ${user.toJson()}");
         this.user = user;
 
         DateTime date = DateTime.now();
@@ -688,9 +635,8 @@ class AuthRepository extends GetxController {
         final _businessController = Get.find<BusinessRespository>();
         _businessController.setBusinessList(user.businessList!);
         Mtoken(token);
-        print("user business length ${user.businessList!.length}");
         if (user.businessList!.isEmpty || user.businessList == null) {
-          Get.off(() => CreateBusiness());
+          Get.off(() => const CreateBusiness());
         } else {
           Get.offAll(() => Dashboard());
         }
@@ -704,14 +650,10 @@ class AuthRepository extends GetxController {
       }
     } catch (ex) {
       _signinStatus(SigninStatus.Error);
-      print("Sign in Error ${ex.toString()}");
     }
   }
 
   Future getUserData() async {
-    print(
-        "phone number ${phoneNumberController.text}  country code $countryText");
-    print("pin is ${pinController.text}");
     try {
       // _signinStatus(SigninStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.signinUser),
@@ -721,7 +663,6 @@ class AuthRepository extends GetxController {
             // "pin":"3152"
           }),
           headers: {"Content-Type": "application/json"});
-      print("sign in response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
 
@@ -729,45 +670,15 @@ class AuthRepository extends GetxController {
 
         var token = json['accessToken'];
         var user = User.fromJson(json);
-        print("token from mtoken is $Mtoken");
         Mtoken(token);
         pref!.saveToken(token);
         pref!.setUser(user);
         //  Mtoken=Rx(token);
 
-        print("user to json ${user.toJson()}");
         this.user = user;
-
-        // DateTime date = DateTime.now();
-
-        // DateTime expireToken = DateTime(date.year, date.month + 1, date.day);
-
-        // pref!.setDateTokenExpired(expireToken);
-
-        // _authStatus(AuthStatus.Authenticated);
-
-        // final _businessController = Get.find<BusinessRespository>();
-        // _businessController.setBusinessList(user.businessList!);
-        // Mtoken(token);
-        // print("user business length ${user.businessList!.length}");
-        // if (user.businessList!.isEmpty || user.businessList == null) {
-        //   Get.off(() => CreateBusiness());
-        // } else {
-        //   Get.offAll(() => Dashboard());
-        // }
       }
-
-      // else if (response.statusCode == 401) {
-      //   Get.snackbar("Login Error", "Invalid Credential ");
-      //   _signinStatus(SigninStatus.Error);
-      // } else {
-      //   Get.snackbar(
-      //       "Login Error", "Something have occurred try again later.. ");
-      //   _signinStatus(SigninStatus.Error);
-      // }
     } catch (ex) {
       _signinStatus(SigninStatus.Error);
-      print("Sign in Error ${ex.toString()}");
     }
   }
 
@@ -837,7 +748,7 @@ class AuthRepository extends GetxController {
     } on SocketException catch (_) {
       throw "Network not available, connect to the internet and try again";
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -855,7 +766,6 @@ class AuthRepository extends GetxController {
       });
 
       // ignore: unnecessary_null_comparison
-      print("delete account response ${response.body}");
       if (response.statusCode != null) {
         // ignore: unnecessary_null_comparison
         if (response != null) {
@@ -876,8 +786,6 @@ class AuthRepository extends GetxController {
     _authStatus(AuthStatus.Loading);
     try {
       final _businessController = Get.find<BusinessRespository>();
-      print(
-          'deleting business ${_businessController.selectedBusiness.value!.businessName}');
       final prefs = await SharedPreferences.getInstance();
       final key = 'token';
       final value = prefs.get(key) ?? 0;
@@ -890,7 +798,6 @@ class AuthRepository extends GetxController {
       });
 
       // ignore: unnecessary_null_comparison
-      print('deleting bussiness response: ' + response.body);
       if (response.statusCode == 200) {
         _authStatus(AuthStatus.Authenticated);
 
@@ -918,29 +825,6 @@ class AuthRepository extends GetxController {
     Get.offAll(() => RegHome());
   }
 
-  void checkTeamInvite() {
-    if (onlineStatus == OnlineStatus.Onilne) {
-      try {
-        final _businessController = Get.find<BusinessRespository>();
-        if (kDebugMode) {
-          print('Team Invite deeplink: ${hasTeamInviteDeeplink.value}');
-          print('Referral Invite deeplink: ${hasReferralDeeplink.value}');
-        }
-        if (hasTeamInviteDeeplink.value == true) {
-          hasTeamInviteDeeplink(false);
-          Get.to(() => TeamSuccess());
-          _businessController.OnlineBusiness();
-          // Get.snackbar("Success", "You've been invited to a team successfully");
-        }
-      } catch (error) {
-        if (kDebugMode) {
-          print('Team Invite error: $error');
-          //  Get.snackbar("Error", "An error occurred ");
-        }
-      }
-    }
-  }
-
   void checkDeletedTeamBusiness() async {
     try {
       final _businessController = Get.find<BusinessRespository>();
@@ -953,7 +837,6 @@ class AuthRepository extends GetxController {
       }
       if (_businessController.onlineBusinessLength.value !=
           _businessController.offlineBusinessLength.value) {
-        print('update business...');
         // logout();
       }
     } catch (error) {
@@ -970,7 +853,7 @@ class AuthRepository extends GetxController {
     Mtoken("0");
     pref!.logout();
     phoneNumberController.text = '';
-    Get.offAll(Signin());
+    Get.offAll(const Signin());
     final businessController = Get.find<BusinessRespository>();
     businessController.selectedBusiness = Rx(Business(businessId: null));
   }
@@ -992,10 +875,8 @@ class AuthRepository extends GetxController {
     final _productController = Get.find<ProductRepository>();
     final _businessController = Get.find<BusinessRespository>();
 
-    print('clearing products...');
     await sqliteDb.openDatabae();
     await sqliteDb.deleteAllProducts();
-    print('products cleared!');
 
     _productController.getOfflineProduct(
         _businessController.selectedBusiness.value!.businessId!);
@@ -1007,11 +888,10 @@ class AuthRepository extends GetxController {
     var response = await http.get(Uri.parse(ApiLink.getUserBusiness),
         headers: {"Authorization": "Bearer $token"});
 
-    print("online busines result ${response.body}");
     if (response.statusCode == 401) {
       _authStatus(AuthStatus.TOKEN_EXISTED);
       Get.snackbar("Error", "Your Login token is expired.");
-      Get.offAll(Signin());
+      Get.offAll(const Signin());
     }
   }
 }

@@ -2,13 +2,15 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/constants/app_strings.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class TeamConfirmation extends StatefulWidget {
-  TeamConfirmation({Key? key}) : super(key: key);
+  const TeamConfirmation({Key? key}) : super(key: key);
 
   @override
   State<TeamConfirmation> createState() => _TeamConfirmationState();
@@ -23,56 +25,18 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
 
   @override
   void initState() {
-    controller.checkTeamInvite();
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
     print('BusinessId: $value');
     busName = _businessController.selectedBusiness.value!.businessName;
     final teamId = _businessController.selectedBusiness.value!.teamId;
     print('Business TeamId: $teamId');
-    shareBusinessIdLink(value.toString());
-  }
-
-  Future<void> shareBusinessIdLink(String businessId) async {
-    if (controller.onlineStatus == OnlineStatus.Onilne) {
-      try {
-        setState(() {
-          isLoadingTeamInviteLink = true;
-        });
-        final appId = "com.app.huzz";
-        final url = "https://huzz.africa/businessId=$businessId";
-        final DynamicLinkParameters parameters = DynamicLinkParameters(
-          uriPrefix: 'https://huzz.page.link',
-          link: Uri.parse(url),
-          androidParameters: AndroidParameters(
-            packageName: appId,
-            minimumVersion: 1,
-          ),
-          iosParameters: IOSParameters(
-            bundleId: appId,
-            appStoreId: "1596574133",
-            minimumVersion: '1',
-          ),
-        );
-        final shortLink = await dynamicLinks.buildShortLink(parameters);
-        teamInviteLink = shortLink.shortUrl.toString();
-        print('invite link: $teamInviteLink');
-        setState(() {
-          isLoadingTeamInviteLink = false;
-        });
-      } catch (error) {
-        print(error.toString());
-        setState(() {
-          isLoadingTeamInviteLink = false;
-        });
-      }
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final value = _businessController.selectedBusiness.value;
+      // final value = _businessController.selectedBusiness.value;
       return Scaffold(
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
@@ -83,48 +47,34 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
             onTap: () {
               Get.back();
             },
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back,
               color: AppColors.backgroundColor,
             ),
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.all(Insets.lg),
           child: Column(
             children: [
-              SizedBox(
-                height: 100,
-              ),
               Center(
                 child: Text(
-                  'Team Member Successfully',
+                  'Team Member\nInvited Successfully',
+                  textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                     color: AppColors.backgroundColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
                   ),
                 ),
               ),
-              Center(
-                child: Text(
-                  'Added',
-                  style: GoogleFonts.inter(
-                    color: AppColors.backgroundColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
+              const Spacer(),
               Center(
                 child: Image.asset(
                   'assets/images/checker.png',
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               InkWell(
                 onTap: () {
                   print(teamInviteLink);
@@ -135,16 +85,14 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                 child: Container(
                   height: 55,
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
                     child: isLoadingTeamInviteLink
-                        ? CircularProgressIndicator(
-                            color: Colors.white,
-                          )
+                        ? const LoadingWidget()
                         : Text(
                             'Share invite link',
                             style: GoogleFonts.inter(
@@ -155,7 +103,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               InkWell(
                 onTap: () {
                   Get.back();
@@ -169,7 +117,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
-                      'Proceed',
+                      'Go back',
                       style: GoogleFonts.inter(
                         color: AppColors.backgroundColor,
                         fontWeight: FontWeight.w600,
@@ -177,9 +125,6 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 40,
               ),
             ],
           ),

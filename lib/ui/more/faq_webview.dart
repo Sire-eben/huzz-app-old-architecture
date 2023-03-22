@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class FaqWeb extends StatefulWidget {
@@ -16,6 +17,24 @@ class _FaqWebState extends State<FaqWeb> {
   bool isLoading = true;
   final _key = UniqueKey();
   WebViewController? controller;
+
+  _openMail() async {
+    const url = 'mailto:info@huzz.africa';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _openPhone() async {
+    const url = 'tel:+234 813 289 4616';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +77,19 @@ class _FaqWebState extends State<FaqWeb> {
                   key: _key,
                   initialUrl: "https://huzz.africa/mobile/faq",
                   javascriptMode: JavascriptMode.unrestricted,
+                  navigationDelegate: (NavigationRequest request) async{
+
+                    if (request.url.startsWith('mailto:info@huzz.africa')) {
+                      _openMail;
+                      return _openMail();
+                    }
+                    if (request.url.startsWith('tel:+234 813 289 4616')) {
+                      _openPhone;
+                      return _openPhone();
+                    }else {
+                      return NavigationDecision.navigate;
+                    }
+                  },
                   onPageFinished: (finish) {
                     setState(() {
                       isLoading = false;

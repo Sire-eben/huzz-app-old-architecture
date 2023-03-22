@@ -3,13 +3,13 @@ import 'package:get/get.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
 
-class OutlineButton extends StatelessWidget {
+class AppOutlineButton extends StatelessWidget {
   final String label;
   final VoidCallback action;
   final bool? showLoading;
   final Color? outlineColor, backgroundColor;
   final Widget? child;
-  const OutlineButton({
+  const AppOutlineButton({
     required this.label,
     required this.action,
     this.showLoading,
@@ -24,16 +24,13 @@ class OutlineButton extends StatelessWidget {
       height: 52,
       width: double.maxFinite,
       child: ElevatedButton(
-        style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-              backgroundColor: backgroundColor == null
-                  ? MaterialStateProperty.all<Color>(AppColors.whiteColor)
-                  : MaterialStateProperty.all<Color>(backgroundColor!),
-              side: MaterialStateProperty.all<BorderSide>(
-                BorderSide(
-                  color: outlineColor ?? AppColors.primaryColor,
-                ),
-              ),
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+              side: const BorderSide(width: 1, color: AppColors.primaryColor),
             ),
+            elevation: 0),
         onPressed: showLoading == true ? null : action,
         child: showLoading == true
             ? LoadingWidget(color: outlineColor ?? AppColors.primaryColor)

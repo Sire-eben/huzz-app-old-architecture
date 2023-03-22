@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/ui/widget/timer_button.dart';
@@ -216,8 +217,7 @@ class _EnterOtpState extends State<EnterOtp> {
                             width: 30,
                             height: 30,
                             child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
+                                child: LoadingWidget()),
                           )
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.center,

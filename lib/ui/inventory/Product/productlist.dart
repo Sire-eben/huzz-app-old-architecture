@@ -3,7 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/util.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
@@ -54,9 +56,9 @@ class _ProductListingState extends State<ProductListing> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: const EdgeInsets.symmetric(
+            insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 300,
+              vertical: context.getHeight(.3),
             ),
             title: Row(
               children: [
@@ -330,8 +332,7 @@ class _ProductListingState extends State<ProductListing> {
                         child: (_productController.productStatus ==
                                 ProductStatus.Loading)
                             ? const Center(
-                                child: CircularProgressIndicator(
-                                    color: AppColors.backgroundColor))
+                                child: LoadingWidget())
                             : (_productController.productStatus ==
                                     ProductStatus.Available)
                                 ? ListView.builder(
@@ -358,8 +359,7 @@ class _ProductListingState extends State<ProductListing> {
                                         ProductStatus.Empty)
                                     ? const Text('Not Item')
                                     : const Center(
-                                        child: CircularProgressIndicator(
-                                            color: AppColors.backgroundColor),
+                                        child: LoadingWidget(),
                                       ),
                       );
                     })

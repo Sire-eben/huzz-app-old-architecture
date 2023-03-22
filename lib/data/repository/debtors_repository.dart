@@ -45,16 +45,17 @@ class DebtorRepository extends GetxController
   Rx<File?> DebtorImage = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
 
-  MoneyMaskedTextController totalAmountController =
-      MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
-  MoneyMaskedTextController amountController =
-      MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
+  MoneyMaskedTextController totalAmountController = MoneyMaskedTextController(
+      decimalSeparator: '.', thousandSeparator: ',', precision: 1);
+  MoneyMaskedTextController amountController = MoneyMaskedTextController(
+      decimalSeparator: '.', thousandSeparator: ',', precision: 1);
   final nameController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final serviceDescription = TextEditingController();
 
   MoneyMaskedTextController DebtorSellingPriceController =
-      MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
+      MoneyMaskedTextController(
+          decimalSeparator: '.', thousandSeparator: ',', precision: 1);
   final DebtorQuantityController = TextEditingController();
   final DebtorUnitController = TextEditingController();
 

@@ -167,7 +167,6 @@ class InvoiceRespository extends GetxController {
             GetOfflineInvoices(p0.businessId!);
 
             // getSpending(p0.businessId!);
-
           }
         });
       }
@@ -269,7 +268,6 @@ class InvoiceRespository extends GetxController {
 // _overDue.add(element);
 
 //   }
-
     }
 //    await Future.forEach<Invoice>(offlineInvoices, (element){
 //  print("invoice status ${element.businessInvoiceStatus}");
@@ -554,7 +552,7 @@ class InvoiceRespository extends GetxController {
         GetOfflineInvoices(
             _businessController.selectedBusiness.value!.businessId!);
         _addingInvoiceStatus(AddingInvoiceStatus.Success);
-        clearValue();
+        // clearValue();
         Get.to(() => PreviewInvoice(invoice: result));
       } else {
         Get.snackbar("Error", "Error creating invoice, try again!");
@@ -640,7 +638,7 @@ class InvoiceRespository extends GetxController {
     GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
     // Get.to(() => IncomeSuccess(Invoice: value!,title: "Invoice",));
     Get.to(() => PreviewInvoice(invoice: value!));
-    clearValue();
+    // clearValue();
   }
 
   Future checkIfInvoiceThatIsYetToBeAdded() async {
@@ -816,26 +814,26 @@ class InvoiceRespository extends GetxController {
     // getOfflineInvoice(_businessController.selectedBusiness.value!.businessId!);
   }
 
-  clearValue() {
-    print("clearing value");
-    itemNameController.text = "";
-    amountController.text = "";
-    quantityController.text = "";
-    dateController.text = "";
-    timeController.text = "";
-    paymentController.text = "";
-    paymentSourceController.text = "";
-    receiptFileController.text = "";
-    amountPaidController.text = "";
-    noteController.text = '';
-    date = null;
-    image = null;
-    selectedPaymentMode = null;
-    selectedCustomer = null;
-    selectedPaymentSource = null;
-    selectedProduct = null;
-    productList = [];
-  }
+  // clearValue() {
+  //   print("clearing value");
+  //   itemNameController.text = "";
+  //   amountController.text = "";
+  //   quantityController.text = "";
+  //   dateController.text = "";
+  //   timeController.text = "";
+  //   paymentController.text = "";
+  //   paymentSourceController.text = "";
+  //   receiptFileController.text = "";
+  //   amountPaidController.text = "";
+  //   noteController.text = '';
+  //   date = null;
+  //   image = null;
+  //   selectedPaymentMode = null;
+  //   selectedCustomer = null;
+  //   selectedPaymentSource = null;
+  //   selectedProduct = null;
+  //   productList = [];
+  // }
 // Future calculateOverView()async{
 
 // var todayBalance=0;
@@ -865,7 +863,7 @@ class InvoiceRespository extends GetxController {
 // }
   void addMoreProduct() {
     if (selectedValue == 0) {
-      if (selectedProduct != null)
+      if (selectedProduct != null) {
         productList.add(PaymentItem(
             productId: selectedProduct!.productId!,
             itemName: selectedProduct!.productName,
@@ -884,15 +882,17 @@ class InvoiceRespository extends GetxController {
             quality: (quantityController.text.isEmpty)
                 ? 1
                 : int.parse(quantityController.text)));
+      }
     } else {
       if (itemNameController.text.isNotEmpty &&
-          amountController.text.isNotEmpty)
+          amountController.text.isNotEmpty) {
         productList.add(PaymentItem(
             itemName: itemNameController.text,
             quality: int.parse(quantityController.text),
             amount: amountController.numberValue,
             totalAmount: amountController.numberValue *
                 int.parse(quantityController.text)));
+      }
     }
 
     selectedProduct = null;
