@@ -165,16 +165,6 @@ class AuthRepository extends GetxController {
     }
   }
 
-  void checkIfTeamInviteLinkIsAvailableFromDeeplink(
-      PendingDynamicLinkData deepLink) {
-    final String? teamInviteCode = deepLink.link.queryParameters['businessId'];
-    if (teamInviteCode != null) {
-      teamInviteCodeController.text = teamInviteCode;
-      hasTeamInviteDeeplink(true);
-      // Get.to(More());
-    }
-  }
-
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     _connectionStatus(result);
     if (result == ConnectivityResult.mobile ||

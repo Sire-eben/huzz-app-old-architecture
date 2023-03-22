@@ -1,6 +1,7 @@
 import 'business.dart';
 
 class User {
+  String? id;
   String? firstName;
   String? lastName;
   String? phoneNumber;
@@ -12,6 +13,7 @@ class User {
   bool? phoneNumberVerified;
 
   User({
+    this.id,
     this.firstName,
     this.lastName,
     this.phoneNumber,
@@ -24,6 +26,7 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
+      id: json['user']['id'],
       firstName: json['user']['firstName'],
       lastName: json['user']['lastName'],
       phoneNumber: json['user']['phoneNumber'],
@@ -31,12 +34,8 @@ class User {
       email: json['user']['email'],
       profileImageFileStoreUrl: json['user']['profileImageFileStoreUrl'] ?? "",
       signatureImageFileStoreId:
-          json['user']['signatureImageFileStoreId'] == null
-              ? ""
-              : json['user']['signatureImageFileStoreId'],
-      profileImageFileStoreId: json['user']['profileImageFileStoreId'] == null
-          ? ""
-          : json['user']['profileImageFileStoreId'],
+          json['user']['signatureImageFileStoreId'] ?? "",
+      profileImageFileStoreId: json['user']['profileImageFileStoreId'] ?? "",
       businessList: json['businessList'] != null
           ? List.from(json['businessList'])
               .map((e) => Business.fromJson(e))
@@ -44,23 +43,21 @@ class User {
           : []);
 
   factory User.fromJsonSettngs(Map<String, dynamic> json) => User(
+        id: json['id'],
         firstName: json['firstName'],
         lastName: json['lastName'],
         phoneNumber: json['phoneNumber'],
         phoneNumberVerified: json['phoneNumberVerified'],
         email: json['email'],
         profileImageFileStoreUrl: json['profileImageFileStoreUrl'] ?? "",
-        signatureImageFileStoreId: json['signatureImageFileStoreId'] == null
-            ? ""
-            : json['signatureImageFileStoreId'],
-        profileImageFileStoreId: json['profileImageFileStoreId'] == null
-            ? ""
-            : json['profileImageFileStoreId'],
+        signatureImageFileStoreId: json['signatureImageFileStoreId'] ?? "",
+        profileImageFileStoreId: json['profileImageFileStoreId'] ?? "",
 // businessList: json['businessList']!=null? List.from(json['businessList']).map((e) => Business.fromJson(e)).toList():[]
       );
 
   Map<String, dynamic> toJson() => {
         'user': {
+          "id": id,
           "firstName": firstName,
           "lastName": lastName,
           "phoneNumber": phoneNumber,

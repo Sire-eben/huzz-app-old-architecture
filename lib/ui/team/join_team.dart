@@ -7,6 +7,7 @@ import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/button/outlined_button.dart';
+import 'package:huzz/data/model/user_id_model.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/app_scaffold.dart';
@@ -62,39 +63,55 @@ class _JoinBusinessTeamState extends State<JoinBusinessTeam> {
                   ),
                 ),
                 const Gap(Insets.xl),
-                Button(
-                  label: "Yes",
-                  action: () async {
-                    setState(() => isLoading = true);
-                    await teamController
-                        .joinTeamWithInviteLink(
-                      context: context,
-                      teamId: widget.teamId,
-                      businessId: widget.businessId,
-                      businessName: widget.businessName,
-                    )
-                        .whenComplete(() {
-                      if (teamController.joinTeamStatus ==
-                          JoinTeamStatus.Success) {
-                        setState(() => isLoading = false);
-                        context.replace(TeamSuccessView(
-                          businessName: widget.businessName,
-                        ));
-                      } else if (teamController.joinTeamStatus ==
-                          JoinTeamStatus.Error) {
-                        setState(() => isLoading = false);
-                      } else {
-                        return;
-                      }
-                    });
+                FutureBuilder<UserIdModel>(
+                  future: teamController.fetchUserId(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Column(
+                        children: [
+                          Button(
+                            label: "Yes",
+                            action: () async {
+                              setState(() => isLoading = true);
+                              await teamController
+                                  .joinTeamWithInviteLink(
+                                context: context,
+                                teamId: widget.teamId,
+                                businessId: widget.businessId,
+                                userId: snapshot.data!.id,
+                              )
+                                  .whenComplete(() {
+                                if (teamController.joinTeamStatus ==
+                                    JoinTeamStatus.Success) {
+                                  setState(() => isLoading = false);
+                                  context.replace(TeamSuccessView(
+                                    businessName: widget.businessName,
+                                  ));
+                                } else if (teamController.joinTeamStatus ==
+                                    JoinTeamStatus.Error) {
+                                  setState(() => isLoading = false);
+                                } else {
+                                  return;
+                                }
+                              });
+                            },
+                          ),
+                          const Gap(Insets.lg),
+                          AppOutlineButton(
+                            action: () => context.pushOff(Dashboard()),
+                            label: "No",
+                          ),
+                          const Gap(Insets.lg),
+                        ],
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    }
+
+                    // By default, show a loading spinner.
+                    return LoadingWidget();
                   },
                 ),
-                const Gap(Insets.lg),
-                AppOutlineButton(
-                  action: () => context.pushOff(Dashboard()),
-                  label: "No",
-                ),
-                const Gap(Insets.lg),
               ],
             ),
           ),

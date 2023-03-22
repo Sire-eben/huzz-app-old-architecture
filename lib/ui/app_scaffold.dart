@@ -2,6 +2,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/core/services/dynamic_linking/dynamic_link_api.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/customers/customer_tabView.dart';
@@ -12,6 +13,7 @@ import 'package:huzz/ui/more/more.dart';
 import 'package:huzz/ui/widget/loading_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:new_version/new_version.dart';
+import 'package:provider/provider.dart';
 import 'inventory/manage_inventory.dart';
 import 'invoice/available_invoice.dart';
 
@@ -37,6 +39,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
+    context.read<DynamicLinksApi>().handleDynamicLink();
     final newVersion = NewVersion(
       iOSId: 'com.app.huzz',
       androidId: 'com.app.huzz',
