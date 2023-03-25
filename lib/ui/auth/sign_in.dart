@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/mixins/form_mixin.dart';
+import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/validators.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
@@ -29,6 +29,7 @@ class _SiginState extends State<Signin> {
   final _authController = Get.find<AuthRepository>();
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
+  final focusNode = FocusNode();
 
   String countryFlag = "NG";
   String countryCode = "234";
@@ -89,7 +90,7 @@ class _SiginState extends State<Signin> {
                   height: 10,
                 ),
                 Container(
-                  width: context.width,
+                  width: context.getWidth(),
                   height: 68,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -136,24 +137,31 @@ class _SiginState extends State<Signin> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Expanded(
-                        child: TextInputField(
-                          controller: _authController.phoneNumberController,
-                          validator: Validators.validatePhoneNumber(),
-                          inputType: TextInputType.number,
-                          decoration: InputDecoration(
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            border: InputBorder.none,
-                            hintText: "8123456789",
-                            hintStyle: TextStyles.t3,
-                            prefixText: "+$countryCode ",
-                            prefixStyle: GoogleFonts.inter(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
+                      SizedBox(
+                        height: 50,
+                        width: context.getWidth(.6),
+                        child: Expanded(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: TextInputField(
+                              controller: _authController.phoneNumberController,
+                              validator: Validators.validatePhoneNumber(),
+                              inputType: TextInputType.number,
+                              decoration: InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                border: InputBorder.none,
+                                hintText: "8123456789",
+                                hintStyle: TextStyles.t3,
+                                prefixText: "+$countryCode ",
+                                prefixStyle: GoogleFonts.inter(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -190,6 +198,7 @@ class _SiginState extends State<Signin> {
                       fieldWidth: 70,
                       activeFillColor: Colors.white,
                     ),
+                    focusNode: focusNode,
                     keyboardType: TextInputType.number,
                     animationDuration: const Duration(milliseconds: 300),
                     enableActiveFill: true,
