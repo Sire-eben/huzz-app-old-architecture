@@ -11,7 +11,6 @@ import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/widget/expandable_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/roles_model.dart';
-import 'package:provider/provider.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../model/user_teamInvite_model.dart';
 import '../widget/custom_form_field.dart';

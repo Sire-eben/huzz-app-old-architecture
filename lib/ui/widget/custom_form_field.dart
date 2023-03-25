@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -1054,12 +1055,11 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                                       color: Colors.red, fontSize: 12),
                                 )),
                             const SizedBox(width: 8),
-                            Container(
-                                child: Text(
+                            Text(
                               "OR",
                               style: GoogleFonts.inter(
                                   color: Colors.black, fontSize: 12),
-                            )),
+                            ),
                             const SizedBox(width: 8),
                             InkWell(
                               onTap: () async {
@@ -1170,7 +1170,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                 Container(
                   margin: const EdgeInsets.only(left: 20, right: 20),
                   width: MediaQuery.of(context).size.width,
-                  height: 50,
+                  height: 60,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
@@ -1179,19 +1179,13 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       GestureDetector(
                         onTap: () {
                           showCountryCode(context);
                         },
                         child: Container(
-                          decoration: const BoxDecoration(
-                            border: Border(
-                                right: BorderSide(
-                                    color: AppColors.backgroundColor,
-                                    width: 2)),
-                          ),
                           height: 50,
                           width: 80,
                           child: Row(
@@ -1213,37 +1207,45 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: TextFormField(
-                          controller: widget.contactPhone,
-                          style: GoogleFonts.inter(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            contentPadding: const EdgeInsets.symmetric(
-                              vertical: Insets.md / 0.8,
-                              horizontal: Insets.md,
-                            ),
-                            hintText: "8123456789",
-                            hintStyle: GoogleFonts.inter(
-                                color: Colors.black.withOpacity(0.5),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),
-                            prefixText: "+$countryCode ",
-                            prefixStyle: GoogleFonts.inter(
+                      Container(
+                          height: 45,
+                          width: 2,
+                          color: AppColors.backgroundColor),
+                      SizedBox(
+                        height: 50,
+                        width: context.getWidth(.6),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Expanded(
+                            child: TextFormField(
+                              controller: widget.contactPhone,
+                              style: GoogleFonts.inter(
+                                color: Colors.black,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black),
+                              ),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                contentPadding: const EdgeInsets.symmetric(
+                                  vertical: Insets.md / 0.8,
+                                  horizontal: Insets.md,
+                                ),
+                                hintText: "8123456789",
+                                hintStyle: GoogleFonts.inter(
+                                    color: Colors.black.withOpacity(0.5),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
+                                prefixText: "+$countryCode ",
+                                prefixStyle: GoogleFonts.inter(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                              ),
+                            ),
                           ),
                         ),
                       ),

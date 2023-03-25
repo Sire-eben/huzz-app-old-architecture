@@ -33,7 +33,7 @@ class Button extends StatelessWidget {
       child: showLoading == true
           ? LoadingWidget(
               color: backgroundColor != null && backgroundColor != Colors.white
-                  ? Colors.white
+                  ? AppColors.primaryColor
                   : color ?? Colors.white,
             )
           : child ??

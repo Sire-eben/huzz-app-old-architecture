@@ -6,7 +6,6 @@ import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/auth/sign_in.dart';
 import 'package:huzz/ui/business/create_business.dart';
 import 'package:huzz/ui/onboarding_main..dart';
-import 'package:huzz/ui/team/join_team.dart';
 import 'package:huzz/ui/team/team_success.dart';
 
 class DynamicLinksApi extends ChangeNotifier {

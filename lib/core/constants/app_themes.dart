@@ -24,7 +24,7 @@ class AppThemes {
   AppThemes._();
 
   static TextStyle style12PriBold = GoogleFonts.inter(
-    color: Color(0xff07A58E),
+    color: const Color(0xff07A58E),
     fontStyle: FontStyle.normal,
     fontSize: 12,
     fontWeight: FontWeight.w600,
@@ -245,9 +245,17 @@ class TextStyles {
   static const TextStyle t10 =
       TextStyle(fontSize: 10, fontWeight: FontWeight.w600);
 
+  ///font 10 normal
+  static const TextStyle t10N =
+      TextStyle(fontSize: 10, fontWeight: FontWeight.normal);
+
   ///font 12 weight 700
-  static const TextStyle t12 =
+  static const TextStyle t12B =
       TextStyle(fontSize: 12, fontWeight: FontWeight.w700);
+
+  ///font 12 weight 700
+  static const TextStyle t12N =
+      TextStyle(fontSize: 12, fontWeight: FontWeight.normal);
 
   ///small-button
   static const TextStyle b2 =

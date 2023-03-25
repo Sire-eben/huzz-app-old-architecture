@@ -1067,7 +1067,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               Container(
                                   width: MediaQuery.of(context).size.width,
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 4),
+                                      horizontal: 16, vertical: 8),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(

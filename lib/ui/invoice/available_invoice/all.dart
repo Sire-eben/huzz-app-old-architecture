@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/util/constants.dart';
@@ -12,6 +13,7 @@ import 'package:huzz/ui/invoice/create_invoice.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/invoice_receipt_model.dart';
 import 'package:huzz/core/util/util.dart';
+import 'package:huzz/ui/widget/huzz_dialog/delete_dialog.dart';
 import 'package:number_display/number_display.dart';
 import '../../../data/repository/team_repository.dart';
 import 'empty_invoice_info.dart';
@@ -38,115 +40,6 @@ class _AllState extends State<All> {
     decimal: 0,
   );
 
-  _displayDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            insetPadding: const EdgeInsets.symmetric(
-              horizontal: 50,
-              vertical: 200,
-            ),
-            title: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'You are about to delete this invoice(s). Are you sure you want to continue?',
-                    style: GoogleFonts.inter(
-                      color: AppColors.blackColor,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 10,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            content: Center(
-              child: SvgPicture.asset(
-                'assets/images/delete_alert.svg',
-                // fit: BoxFit.fitHeight,
-                height: 60,
-                width: 60,
-              ),
-            ),
-            actions: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Container(
-                          height: 45,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          decoration: BoxDecoration(
-                              color: AppColors.whiteColor,
-                              border: Border.all(
-                                width: 2,
-                                color: AppColors.backgroundColor,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              'Cancel',
-                              style: GoogleFonts.inter(
-                                color: AppColors.backgroundColor,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          _invoiceController.deleteItems();
-                          setState(() {
-                            deleteItem = false;
-                          });
-                          Get.back();
-                        },
-                        child: Container(
-                          height: 45,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          decoration: BoxDecoration(
-                              color: AppColors.backgroundColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              'Delete',
-                              style: GoogleFonts.inter(
-                                color: AppColors.whiteColor,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -154,7 +47,7 @@ class _AllState extends State<All> {
       return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-          padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -188,7 +81,6 @@ class _AllState extends State<All> {
                           onTap: () {
                             setState(() {
                               deleteItem = !deleteItem;
-                              print(deleteItem);
                             });
                           },
                           child: Container(
@@ -210,7 +102,7 @@ class _AllState extends State<All> {
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () async {
-                    return Future.delayed(Duration(seconds: 1), () {
+                    return Future.delayed(const Duration(seconds: 1), () {
                       _invoiceController.getOnlineInvoice(value!.businessId!);
                       _invoiceController.GetOfflineInvoices(value.businessId!);
                     });
@@ -218,7 +110,7 @@ class _AllState extends State<All> {
                   child: !deleteItem
                       ? (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
-                          ? Center(child: LoadingWidget())
+                          ? const Center(child: LoadingWidget())
                           : (_invoiceController.offlineInvoices.length != 0)
                               ? ListView.builder(
                                   itemCount:
@@ -239,7 +131,7 @@ class _AllState extends State<All> {
                                           final date = DateTime.now();
                                           // ignore: unused_local_variable
                                           final dueDate =
-                                              date.add(Duration(days: 7));
+                                              date.add(const Duration(days: 7));
 
                                           // final singleInvoiceReceipt =
                                           //     await PdfInvoiceApi.generate(item);
@@ -288,7 +180,7 @@ class _AllState extends State<All> {
                                                                 color: Colors
                                                                     .black),
                                                       ),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 5,
                                                       ),
                                                       Row(
@@ -303,7 +195,7 @@ class _AllState extends State<All> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize: 14,
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xffEF6500)),
                                                           ),
                                                           Text(
@@ -338,7 +230,7 @@ class _AllState extends State<All> {
                                                                 .size
                                                                 .width *
                                                             0.05),
-                                                Icon(
+                                                const Icon(
                                                   Icons.arrow_forward_ios,
                                                   color:
                                                       AppColors.backgroundColor,
@@ -353,7 +245,7 @@ class _AllState extends State<All> {
                               : EmptyInvoiceInfo()
                       : (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
-                          ? Center(child: LoadingWidget())
+                          ? const Center(child: LoadingWidget())
                           : (_invoiceController.invoiceStatus ==
                                       InvoiceStatus.Available &&
                                   _invoiceController.offlineInvoices.length !=
@@ -421,7 +313,7 @@ class _AllState extends State<All> {
                                                           fontSize: 16,
                                                           color: Colors.black),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
                                                     Row(
@@ -436,7 +328,7 @@ class _AllState extends State<All> {
                                                                   FontWeight
                                                                       .w600,
                                                               fontSize: 14,
-                                                              color: Color(
+                                                              color: const Color(
                                                                   0xffEF6500)),
                                                         ),
                                                         Text(
@@ -489,7 +381,7 @@ class _AllState extends State<All> {
                                                   setState(() {});
                                                 },
                                                 child: AnimatedContainer(
-                                                  duration: Duration(
+                                                  duration: const Duration(
                                                       milliseconds: 200),
                                                   height: 25,
                                                   width: 25,
@@ -505,14 +397,15 @@ class _AllState extends State<All> {
                                                       color: (!_invoiceController
                                                               .checkifSelectedForDeleted(
                                                                   item.id!))
-                                                          ? Color(0xffEF6500)
+                                                          ? const Color(
+                                                              0xffEF6500)
                                                           : Colors.transparent,
                                                       width: 2,
                                                     ),
                                                   ),
                                                   child: Visibility(
                                                     visible: visible,
-                                                    child: Icon(
+                                                    child: const Icon(
                                                       Icons.check,
                                                       size: 15,
                                                       color:
@@ -544,13 +437,28 @@ class _AllState extends State<All> {
                         if (_invoiceController.deletedItem.isEmpty) {
                           Get.snackbar('Alert', 'No item selected');
                         } else {
-                          _displayDialog(context);
+                          showDialog(
+                              context: context,
+                              builder: (_) {
+                                return HuzzDeleteDialog(
+                                  title: 'Invoice(s)',
+                                  content: 'invoice',
+                                  action: () {
+                                    _invoiceController.deleteItems();
+                                    setState(() {
+                                      deleteItem = false;
+                                    });
+
+                                    Get.back();
+                                  },
+                                );
+                              });
                         }
                       } else {
-                        Get.to(() => CreateInvoice());
+                        Get.to(() => const CreateInvoice());
                       }
                     },
-                    icon: (!deleteItem) ? Container() : Icon(Icons.add),
+                    icon: (!deleteItem) ? Container() : const Icon(Icons.add),
                     backgroundColor: AppColors.backgroundColor,
                     label: Text(
                       deleteItem ? 'Delete Item' : 'New Invoice',

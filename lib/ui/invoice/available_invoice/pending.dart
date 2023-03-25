@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/util/constants.dart';
@@ -10,6 +11,7 @@ import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/ui/invoice/available_invoice/empty_invoice_info.dart';
 import 'package:huzz/ui/invoice/available_invoice/single_invoice_preview.dart';
 import 'package:huzz/data/model/invoice.dart';
+import 'package:huzz/ui/widget/huzz_dialog/delete_dialog.dart';
 import 'package:number_display/number_display.dart';
 import '../../../data/repository/team_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -43,7 +45,7 @@ class _PendingState extends State<Pending> {
       return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-          padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -77,11 +79,10 @@ class _PendingState extends State<Pending> {
                           onTap: () {
                             setState(() {
                               deleteItem = !deleteItem;
-                              print(deleteItem);
                             });
                           },
                           child: Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 2),
                               decoration: BoxDecoration(
                                   color: !deleteItem
@@ -99,7 +100,7 @@ class _PendingState extends State<Pending> {
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () async {
-                    return Future.delayed(Duration(seconds: 1), () {
+                    return Future.delayed(const Duration(seconds: 1), () {
                       _invoiceController.getOnlineInvoice(value!.businessId!);
                       _invoiceController.GetOfflineInvoices(value.businessId!);
                     });
@@ -107,7 +108,7 @@ class _PendingState extends State<Pending> {
                   child: !deleteItem
                       ? (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
-                          ? Center(child: LoadingWidget())
+                          ? const Center(child: LoadingWidget())
                           : (_invoiceController.InvoicePendingList.length != 0)
                               ? ListView.builder(
                                   itemCount: _invoiceController
@@ -162,7 +163,7 @@ class _PendingState extends State<Pending> {
                                                           fontSize: 16,
                                                           color: Colors.black),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
                                                     //   Text(
@@ -191,7 +192,7 @@ class _PendingState extends State<Pending> {
                                                                   FontWeight
                                                                       .w600,
                                                               fontSize: 14,
-                                                              color: Color(
+                                                              color: const Color(
                                                                   0xffEF6500)),
                                                         ),
                                                         Text(
@@ -227,7 +228,7 @@ class _PendingState extends State<Pending> {
                                                           .size
                                                           .width *
                                                       0.05),
-                                              Icon(
+                                              const Icon(
                                                 Icons.arrow_forward_ios,
                                                 color:
                                                     AppColors.backgroundColor,
@@ -241,7 +242,7 @@ class _PendingState extends State<Pending> {
                               : EmptyInvoiceInfo()
                       : (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
-                          ? Center(child: LoadingWidget())
+                          ? const Center(child: LoadingWidget())
                           : (_invoiceController.InvoicePendingList.length != 0)
                               ? ListView.builder(
                                   itemCount: _invoiceController
@@ -265,8 +266,6 @@ class _PendingState extends State<Pending> {
                                             _selectedIndex.remove(index);
                                           }
                                         });
-                                        print('selected');
-                                        print(_items.toString());
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.only(
@@ -306,7 +305,7 @@ class _PendingState extends State<Pending> {
                                                           fontSize: 16,
                                                           color: Colors.black),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
                                                     // Text(
@@ -334,7 +333,7 @@ class _PendingState extends State<Pending> {
                                                                   FontWeight
                                                                       .w600,
                                                               fontSize: 14,
-                                                              color: Color(
+                                                              color: const Color(
                                                                   0xffEF6500)),
                                                         ),
                                                         Text(
@@ -391,7 +390,7 @@ class _PendingState extends State<Pending> {
                                                   setState(() {});
                                                 },
                                                 child: AnimatedContainer(
-                                                  duration: Duration(
+                                                  duration: const Duration(
                                                       milliseconds: 200),
                                                   height: 25,
                                                   width: 25,
@@ -407,14 +406,15 @@ class _PendingState extends State<Pending> {
                                                       color: (!_invoiceController
                                                               .checkifSelectedForDeleted(
                                                                   item.id!))
-                                                          ? Color(0xffEF6500)
+                                                          ? const Color(
+                                                              0xffEF6500)
                                                           : Colors.transparent,
                                                       width: 2,
                                                     ),
                                                   ),
                                                   child: Visibility(
                                                     visible: visible,
-                                                    child: Icon(
+                                                    child: const Icon(
                                                       Icons.check,
                                                       size: 15,
                                                       color:
@@ -445,13 +445,28 @@ class _PendingState extends State<Pending> {
                         if (_invoiceController.deletedItem.isEmpty) {
                           Get.snackbar('Alert', 'No item selected');
                         } else {
-                          _displayDialog(context);
+                          showDialog(
+                              context: context,
+                              builder: (_) {
+                                return HuzzDeleteDialog(
+                                  title: 'Invoice(s)',
+                                  content: 'invoice',
+                                  action: () {
+                                    _invoiceController.deleteItems();
+                                    setState(() {
+                                      deleteItem = false;
+                                    });
+
+                                    Get.back();
+                                  },
+                                );
+                              });
                         }
                       } else {
-                        Get.to(() => CreateInvoice());
+                        Get.to(() => const CreateInvoice());
                       }
                     },
-                    icon: (!deleteItem) ? Container() : Icon(Icons.add),
+                    icon: (!deleteItem) ? Container() : const Icon(Icons.add),
                     backgroundColor: AppColors.backgroundColor,
                     label: Text(
                       deleteItem ? 'Delete Item' : 'New Invoice',
@@ -464,115 +479,5 @@ class _PendingState extends State<Pending> {
                 : Container(),
       );
     });
-  }
-
-  _displayDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
-              horizontal: 50,
-              vertical: 300,
-            ),
-            title: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'You are about to delete invoice(s). Are you sure you want to continue?',
-                    style: GoogleFonts.inter(
-                      color: AppColors.blackColor,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 10,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            content: Center(
-              child: SvgPicture.asset(
-                'assets/images/delete_alert.svg',
-                // fit: BoxFit.fitHeight,
-                height: 50,
-                width: 50,
-              ),
-            ),
-            actions: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Container(
-                          height: 45,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          decoration: BoxDecoration(
-                              color: AppColors.whiteColor,
-                              border: Border.all(
-                                width: 2,
-                                color: AppColors.backgroundColor,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              'Cancel',
-                              style: GoogleFonts.inter(
-                                color: AppColors.backgroundColor,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          _invoiceController.deleteItems();
-                          setState(() {
-                            deleteItem = false;
-                          });
-
-                          Get.back();
-                        },
-                        child: Container(
-                          height: 45,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          decoration: BoxDecoration(
-                              color: AppColors.backgroundColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              'Delete',
-                              style: GoogleFonts.inter(
-                                color: AppColors.whiteColor,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        });
   }
 }
