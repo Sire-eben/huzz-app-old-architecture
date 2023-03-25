@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/mixins/form_mixin.dart';
+import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/validators.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
@@ -29,6 +29,7 @@ class _SiginState extends State<Signin> {
   final _authController = Get.find<AuthRepository>();
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
+  final focusNode = FocusNode();
 
   String countryFlag = "NG";
   String countryCode = "234";
@@ -89,8 +90,8 @@ class _SiginState extends State<Signin> {
                   height: 10,
                 ),
                 Container(
-                  width: context.width,
-                  height: 68,
+                  width: MediaQuery.of(context).size.width,
+                  height: 65,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
@@ -106,12 +107,6 @@ class _SiginState extends State<Signin> {
                           showCountryCode(context);
                         },
                         child: Container(
-                          decoration: const BoxDecoration(
-                            border: Border(
-                              right: BorderSide(
-                                  color: AppColors.backgroundColor, width: 2),
-                            ),
-                          ),
                           height: 50,
                           width: 80,
                           child: Row(
@@ -133,27 +128,38 @@ class _SiginState extends State<Signin> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
+                      Container(
+                          height: 45,
+                          width: 2,
+                          color: AppColors.backgroundColor),
                       Expanded(
-                        child: TextInputField(
-                          controller: _authController.phoneNumberController,
-                          validator: Validators.validatePhoneNumber(),
-                          inputType: TextInputType.number,
-                          decoration: InputDecoration(
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            border: InputBorder.none,
-                            hintText: "8123456789",
-                            hintStyle: TextStyles.t3,
-                            prefixText: "+$countryCode ",
-                            prefixStyle: GoogleFonts.inter(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: TextInputField(
+                            controller: _authController.phoneNumberController,
+                            // validator: Validators.validatePhoneNumber(),
+                            inputType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: Insets.md / 0.8,
+                                horizontal: Insets.md,
+                              ),
+                              hintText: "8123456789",
+                              hintStyle: GoogleFonts.inter(
+                                  color: Colors.black.withOpacity(0.5),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                              prefixText: "+$countryCode ",
+                              prefixStyle: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
+                            ),
                           ),
                         ),
                       ),
@@ -190,6 +196,7 @@ class _SiginState extends State<Signin> {
                       fieldWidth: 70,
                       activeFillColor: Colors.white,
                     ),
+                    focusNode: focusNode,
                     keyboardType: TextInputType.number,
                     animationDuration: const Duration(milliseconds: 300),
                     enableActiveFill: true,
