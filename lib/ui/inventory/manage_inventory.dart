@@ -12,6 +12,8 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'Product/products.dart';
 
 class ManageInventoryInformationDialog extends StatelessWidget {
+  const ManageInventoryInformationDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -89,8 +91,11 @@ class _ManageInventoryState extends State<ManageInventory> {
                             content: ManageInventoryInformationDialog(),
                             actions: [
                               CupertinoButton(
-                                child: const Text("OK",
-                                  style: TextStyle(color: AppColors.primaryColor),),
+                                child: const Text(
+                                  "OK",
+                                  style:
+                                      TextStyle(color: AppColors.primaryColor),
+                                ),
                                 onPressed: () => Get.back(),
                               ),
                             ],
@@ -102,8 +107,11 @@ class _ManageInventoryState extends State<ManageInventory> {
                             content: ManageInventoryInformationDialog(),
                             actions: [
                               CupertinoButton(
-                                child: const Text("OK",
-                                  style: TextStyle(color: AppColors.primaryColor),),
+                                child: const Text(
+                                  "OK",
+                                  style:
+                                      TextStyle(color: AppColors.primaryColor),
+                                ),
                                 onPressed: () => Get.back(),
                               ),
                             ],
@@ -159,7 +167,7 @@ class _ManageInventoryState extends State<ManageInventory> {
                     ),
                     borderRadius: BorderRadius.circular(2.5),
                   ),
-                  tabs: [
+                  tabs: const [
                     Tab(
                       text: 'Products',
                     ),
@@ -172,7 +180,7 @@ class _ManageInventoryState extends State<ManageInventory> {
             ),
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: <Widget>[
             Products(),
             Services(),

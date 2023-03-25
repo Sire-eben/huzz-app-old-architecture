@@ -90,8 +90,8 @@ class _SiginState extends State<Signin> {
                   height: 10,
                 ),
                 Container(
-                  width: context.getWidth(),
-                  height: 68,
+                  width: MediaQuery.of(context).size.width,
+                  height: 65,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
@@ -107,12 +107,6 @@ class _SiginState extends State<Signin> {
                           showCountryCode(context);
                         },
                         child: Container(
-                          decoration: const BoxDecoration(
-                            border: Border(
-                              right: BorderSide(
-                                  color: AppColors.backgroundColor, width: 2),
-                            ),
-                          ),
                           height: 50,
                           width: 80,
                           child: Row(
@@ -134,33 +128,37 @@ class _SiginState extends State<Signin> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      SizedBox(
-                        height: 50,
-                        width: context.getWidth(.6),
-                        child: Expanded(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: TextInputField(
-                              controller: _authController.phoneNumberController,
-                              validator: Validators.validatePhoneNumber(),
-                              inputType: TextInputType.number,
-                              decoration: InputDecoration(
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-                                border: InputBorder.none,
-                                hintText: "8123456789",
-                                hintStyle: TextStyles.t3,
-                                prefixText: "+$countryCode ",
-                                prefixStyle: GoogleFonts.inter(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black),
+                      Container(
+                          height: 45,
+                          width: 2,
+                          color: AppColors.backgroundColor),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: TextInputField(
+                            controller: _authController.phoneNumberController,
+                            // validator: Validators.validatePhoneNumber(),
+                            inputType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: Insets.md / 0.8,
+                                horizontal: Insets.md,
                               ),
+                              hintText: "8123456789",
+                              hintStyle: GoogleFonts.inter(
+                                  color: Colors.black.withOpacity(0.5),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                              prefixText: "+$countryCode ",
+                              prefixStyle: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
                             ),
                           ),
                         ),

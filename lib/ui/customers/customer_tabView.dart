@@ -177,7 +177,7 @@ class _CustomerTabViewState extends State<CustomerTabView>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: <Widget>[
+        children: const <Widget>[
           Customers(
             pageName: 'Customers',
           ),
