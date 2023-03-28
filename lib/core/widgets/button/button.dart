@@ -24,6 +24,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     final btnChild = ElevatedButton(
       style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+          elevation: MaterialStateProperty.all(0),
           backgroundColor: backgroundColor != null
               ? MaterialStateProperty.all<Color>(backgroundColor!)
               : null,

@@ -6,19 +6,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/services/dynamic_linking/dynamic_link_api.dart';
+import 'package:huzz/core/widgets/button/button.dart';
+import 'package:huzz/core/widgets/button/outlined_button.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/widget/expandable_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../data/model/team.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../model/user_teamInvite_model.dart';
 
-class InformationDialog extends StatelessWidget {
+class InformationDialog extends StatefulWidget {
   final String? title;
 
   const InformationDialog({super.key, this.title});
+
+  @override
+  State<InformationDialog> createState() => _InformationDialogState();
+}
+
+class _InformationDialogState extends State<InformationDialog> {
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -51,6 +63,7 @@ class UpdateMember extends StatefulWidget {
 }
 
 class _UpdateMemberState extends State<UpdateMember> {
+  bool isLoading = false;
   FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   List _authoritySet = [];
   List _roleSet = [];
@@ -1630,7 +1643,9 @@ class _UpdateMemberState extends State<UpdateMember> {
                         ? Container(
                             width: 30,
                             height: 30,
-                            child: const LoadingWidget(),
+                            child: const LoadingWidget(
+                              color: Colors.white,
+                            ),
                           )
                         : Text(
                             'Update Privilege',
@@ -1644,7 +1659,34 @@ class _UpdateMemberState extends State<UpdateMember> {
                 ),
               );
             }),
-            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(Insets.lg),
+              child: AppOutlineButton(
+                action: () async {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  final deeplink = await context
+                      .read<DynamicLinksApi>()
+                      .createTeamInviteLink(
+                        businessId: _businessController
+                            .selectedBusiness.value!.businessId
+                            .toString(),
+                        teamId: _businessController
+                            .selectedBusiness.value!.teamId
+                            .toString(),
+                        businessName: _businessController
+                            .selectedBusiness.value!.businessName
+                            .toString(),
+                      );
+                  setState(() => isLoading = false);
+                  Share.share(
+                      'You have been invited to manage ${_businessController.selectedBusiness.value!.businessName} on Huzz. Click this: $deeplink',
+                      subject: 'Share team invite link');
+                },
+                label: 'Reshare Invite Link',
+              ),
+            )
           ],
         ),
       ),

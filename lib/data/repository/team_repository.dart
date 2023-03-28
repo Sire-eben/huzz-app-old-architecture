@@ -582,6 +582,7 @@ class TeamRepository extends GetxController {
       String? businessId, Map<String, dynamic> item) async {
     try {
       _addingTeamMemberStatus(AddingTeamStatus.Loading);
+      notifyChildrens();
       var value = _businessController.selectedBusiness.value;
       var response = await http.post(
           Uri.parse('${ApiLink.inviteTeamMember}/${value!.businessId}'),
@@ -599,6 +600,7 @@ class TeamRepository extends GetxController {
         if (json['success']) {
           Get.snackbar('Success', json['message']);
           _addingTeamMemberStatus(AddingTeamStatus.Success);
+          notifyChildrens();
           debugPrint(value.teamId);
           // getOnlineTeam(value.teamId!);
           var teamMemberId = json['data']['id'];
@@ -615,9 +617,11 @@ class TeamRepository extends GetxController {
         Get.snackbar('Error', 'Something went wrong.');
         print(json['message']);
         _addingTeamMemberStatus(AddingTeamStatus.Error);
+        notifyChildrens();
       }
     } catch (error) {
       _addingTeamMemberStatus(AddingTeamStatus.Error);
+      notifyChildrens();
       Get.snackbar("Error", "Error inviting team, try again!");
       debugPrint('add team feature error ${error.toString()}');
     }

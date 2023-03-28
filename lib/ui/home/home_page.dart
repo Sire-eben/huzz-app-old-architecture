@@ -438,42 +438,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                         }),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
-                        Container(
-                            width: double.maxFinite,
-                            padding: const EdgeInsets.all(Insets.md),
-                            decoration: const BoxDecoration(
-                              color: AppColors.primaryColor,
-                              borderRadius: BorderRadius.all(Corners.mdRadius),
-                            ),
-                            child: Row(
-                              children: [
-                                Text('NO BANK ACCOUNT YET?',
-                                    style: TextStyles.t3.copyWith(
-                                      color: Colors.white,
-                                    )),
-                                const Spacer(),
-                                InkWell(
-                                  onTap: () => context
-                                      .push(const CreateBankAccountScreen()),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(Insets.sm),
-                                    decoration: const BoxDecoration(
-                                      color: AppColors.secondbgColor,
-                                      borderRadius:
-                                          BorderRadius.all(Corners.smRadius),
-                                    ),
-                                    child: Text(
-                                      'Create Account',
-                                      style: TextStyles.b2.copyWith(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.02),
                         InkWell(
                           onTap: () {
                             Get.to(() => const DebtorsTab());

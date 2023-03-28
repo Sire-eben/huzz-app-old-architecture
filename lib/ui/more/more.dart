@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/ui/wallet/wallet.dart';
 import 'package:huzz/ui/widget/more_widget.dart';
@@ -51,11 +50,19 @@ class _MoreState extends State<More> {
 
             const Gap(Insets.md),
 
-            const MoreWidget(
-              image: 'assets/images/wallett.png',
-              title: 'Bank/wallet',
-              description: 'Receive funds/transfer',
-              page: WalletScreen(),
+            // const MoreWidget(
+            //   image: 'assets/images/wallett.png',
+            //   title: 'Bank/wallet',
+            //   description: 'Receive funds/transfer',
+            //   page: WalletScreen(),
+            // ),
+            // const Gap(Insets.md),
+
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Image.asset('assets/images/bank_wallet.png'),
             ),
             const Gap(Insets.md),
 
