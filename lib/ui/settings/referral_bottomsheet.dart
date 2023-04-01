@@ -213,7 +213,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                                     await refer.createReferralLink(
                                         code: referralData.referralCode);
                                 Share.share(
-                                    "Click on the link below to sign up on Huzz.\nLink: $dynamicLink");
+                                    "Click on the link below to sign up on Huzz. Link: $dynamicLink");
 
                                 setState(() => isLoadingReferralLink = false);
                               },
