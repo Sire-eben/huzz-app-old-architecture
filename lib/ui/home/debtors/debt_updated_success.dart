@@ -19,7 +19,7 @@ class DebtUpdatedSuccess extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -51,7 +51,7 @@ class DebtUpdatedSuccess extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SvgPicture.asset('assets/images/income_added.svg'),
               const Spacer(),
               Column(
@@ -66,7 +66,7 @@ class DebtUpdatedSuccess extends StatelessWidget {
                           horizontal:
                               MediaQuery.of(context).size.height * 0.03),
                       height: 50,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
@@ -82,7 +82,7 @@ class DebtUpdatedSuccess extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 100)
+              const SizedBox(height: 100)
             ],
           ),
         ),
