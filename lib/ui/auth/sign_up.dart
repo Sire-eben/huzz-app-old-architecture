@@ -16,7 +16,9 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/ui/auth/create_pin.dart';
 
 class Signup extends StatefulWidget {
-  const Signup({super.key});
+  final String? referralCode;
+
+  const Signup({super.key, this.referralCode});
 
   @override
   _SignUpState createState() => _SignUpState();
