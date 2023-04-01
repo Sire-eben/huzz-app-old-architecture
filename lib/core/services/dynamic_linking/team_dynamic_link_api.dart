@@ -8,7 +8,7 @@ import 'package:huzz/ui/business/create_business.dart';
 import 'package:huzz/ui/onboarding_main..dart';
 import 'package:huzz/ui/team/team_success.dart';
 
-class DynamicLinksApi extends ChangeNotifier {
+class TeamDynamicLinksApi extends ChangeNotifier {
   final dynamicLink = FirebaseDynamicLinks.instance;
   final _controller = Get.find<AuthRepository>();
 

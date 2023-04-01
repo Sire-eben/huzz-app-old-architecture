@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/core/services/dynamic_linking/dynamic_link_api.dart';
+import 'package:huzz/core/services/dynamic_linking/team_dynamic_link_api.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/generated/assets.gen.dart';
@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<DynamicLinksApi>().handleDynamicLink();
+    context.read<TeamDynamicLinksApi>().handleDynamicLink();
     startTime();
   }
 

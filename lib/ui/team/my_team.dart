@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/services/dynamic_linking/dynamic_link_api.dart';
+import 'package:huzz/core/services/dynamic_linking/team_dynamic_link_api.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/extensions/string.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
@@ -77,7 +77,7 @@ class _MyTeamState extends State<MyTeam> {
     firstName = controller.user!.firstName!;
     lastName = controller.user!.lastName!;
     phone = controller.user!.phoneNumber!;
-    context.read<DynamicLinksApi>().handleDynamicLink();
+    context.read<TeamDynamicLinksApi>().handleDynamicLink();
     super.initState();
 
     List<Teams> team = _teamController.onlineBusinessTeam

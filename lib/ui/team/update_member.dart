@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/services/dynamic_linking/dynamic_link_api.dart';
+import 'package:huzz/core/services/dynamic_linking/team_dynamic_link_api.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/button/outlined_button.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
@@ -1667,7 +1667,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                     isLoading = true;
                   });
                   final deeplink = await context
-                      .read<DynamicLinksApi>()
+                      .read<TeamDynamicLinksApi>()
                       .createTeamInviteLink(
                         businessId: _businessController
                             .selectedBusiness.value!.businessId

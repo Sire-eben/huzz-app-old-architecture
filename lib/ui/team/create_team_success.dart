@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/core/services/dynamic_linking/dynamic_link_api.dart';
+import 'package:huzz/core/services/dynamic_linking/team_dynamic_link_api.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:provider/provider.dart';
 import '../../data/repository/auth_respository.dart';
@@ -25,15 +25,14 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
 
   @override
   void initState() {
-    context.read<DynamicLinksApi>().handleDynamicLink();
+    context.read<TeamDynamicLinksApi>().handleDynamicLink();
     super.initState();
-    final value = _businessController.selectedBusiness.value!.businessId;
     busName = _businessController.selectedBusiness.value!.businessName;
   }
 
   @override
   Widget build(BuildContext context) {
-    final dynamicLinkService = context.read<DynamicLinksApi>();
+    final dynamicLinkService = context.read<TeamDynamicLinksApi>();
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: Padding(

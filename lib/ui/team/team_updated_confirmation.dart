@@ -3,13 +3,11 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/core/services/dynamic_linking/dynamic_link_api.dart';
-import 'package:huzz/core/widgets/button/outlined_button.dart';
+import 'package:huzz/core/services/dynamic_linking/team_dynamic_link_api.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../core/widgets/button/button.dart';
 import '../widget/loading_widget.dart';
 
 class TeamMemberConfirmation extends StatefulWidget {
@@ -81,18 +79,18 @@ class _TeamMemberConfirmationState extends State<TeamMemberConfirmation> {
                 setState(() {
                   isLoading = true;
                 });
-                final deeplink =
-                    await context.read<DynamicLinksApi>().createTeamInviteLink(
-                          businessId: _businessController
-                              .selectedBusiness.value!.businessId
-                              .toString(),
-                          teamId: _businessController
-                              .selectedBusiness.value!.teamId
-                              .toString(),
-                          businessName: _businessController
-                              .selectedBusiness.value!.businessName
-                              .toString(),
-                        );
+                final deeplink = await context
+                    .read<TeamDynamicLinksApi>()
+                    .createTeamInviteLink(
+                      businessId: _businessController
+                          .selectedBusiness.value!.businessId
+                          .toString(),
+                      teamId: _businessController.selectedBusiness.value!.teamId
+                          .toString(),
+                      businessName: _businessController
+                          .selectedBusiness.value!.businessName
+                          .toString(),
+                    );
                 setState(() => isLoading = false);
                 Share.share(
                     'You have been invited to manage ${_businessController.selectedBusiness.value!.businessName} on Huzz. Click this: $deeplink',

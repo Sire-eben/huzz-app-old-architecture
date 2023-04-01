@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/services/dynamic_linking/dynamic_link_api.dart';
+import 'package:huzz/core/services/dynamic_linking/team_dynamic_link_api.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:provider/provider.dart';
@@ -52,18 +52,18 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
             InkWell(
               onTap: () async {
                 setState(() => isLoading = true);
-                final deeplink =
-                    await context.read<DynamicLinksApi>().createTeamInviteLink(
-                          businessId: _businessController
-                              .selectedBusiness.value!.businessId
-                              .toString(),
-                          teamId: _businessController
-                              .selectedBusiness.value!.teamId
-                              .toString(),
-                          businessName: _businessController
-                              .selectedBusiness.value!.businessName
-                              .toString(),
-                        );
+                final deeplink = await context
+                    .read<TeamDynamicLinksApi>()
+                    .createTeamInviteLink(
+                      businessId: _businessController
+                          .selectedBusiness.value!.businessId
+                          .toString(),
+                      teamId: _businessController.selectedBusiness.value!.teamId
+                          .toString(),
+                      businessName: _businessController
+                          .selectedBusiness.value!.businessName
+                          .toString(),
+                    );
                 setState(() => isLoading = false);
                 Share.share(
                     'You have been invited to manage ${_businessController.selectedBusiness.value!.businessName} on Huzz. Click this: $deeplink',
