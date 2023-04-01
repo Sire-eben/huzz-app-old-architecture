@@ -51,7 +51,7 @@ class ReferralDynamicLinksApi extends ChangeNotifier {
   Future<String> createReferralLink({required String code}) async {
     final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
       uriPrefix: 'https://huzz.page.link',
-      link: Uri.parse('https://huzz.africa/teamInvite?code=$code'),
+      link: Uri.parse('https://huzz.africa/refer?code=$code'),
       androidParameters: AndroidParameters(
         packageName: AppStrings.appId,
         minimumVersion: 1,
