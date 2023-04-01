@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/util/extension.dart';
-import 'package:huzz/core/util/validators.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/textfield/textfield.dart';
@@ -185,7 +183,7 @@ class _SiginState extends State<Signin> {
                     animationType: AnimationType.fade,
                     controller: _authController.pinController,
                     pinTheme: PinTheme(
-                      inactiveColor: AppColors.backgroundColor,
+                      inactiveColor: AppColors.primaryColor.withOpacity(.3),
                       activeColor: AppColors.backgroundColor,
                       selectedColor: AppColors.backgroundColor,
                       selectedFillColor: Colors.white,

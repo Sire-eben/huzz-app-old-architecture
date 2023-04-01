@@ -1214,38 +1214,33 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                       SizedBox(
                         height: 50,
                         width: context.getWidth(.6),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Expanded(
-                            child: TextFormField(
-                              controller: widget.contactPhone,
-                              style: GoogleFonts.inter(
-                                color: Colors.black,
+                        child: TextFormField(
+                          controller: widget.contactPhone,
+                          style: GoogleFonts.inter(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: Insets.md / 0.8,
+                              horizontal: Insets.md,
+                            ),
+                            hintText: "8123456789",
+                            hintStyle: GoogleFonts.inter(
+                                color: Colors.black.withOpacity(0.5),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                            prefixText: "+$countryCode ",
+                            prefixStyle: GoogleFonts.inter(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                              ),
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                contentPadding: const EdgeInsets.symmetric(
-                                  vertical: Insets.md / 0.8,
-                                  horizontal: Insets.md,
-                                ),
-                                hintText: "8123456789",
-                                hintStyle: GoogleFonts.inter(
-                                    color: Colors.black.withOpacity(0.5),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
-                                prefixText: "+$countryCode ",
-                                prefixStyle: GoogleFonts.inter(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black),
-                              ),
-                            ),
+                                color: Colors.black),
                           ),
                         ),
                       ),

@@ -8,7 +8,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/core/services/dynamic_linking/dynamic_link_api.dart';
+import 'package:huzz/core/services/dynamic_linking/team_dynamic_link_api.dart';
 import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/util.dart';
@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    context.read<DynamicLinksApi>().handleDynamicLink();
+    context.read<TeamDynamicLinksApi>().handleDynamicLink();
     super.initState();
   }
 
@@ -436,42 +436,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                             Get.to(WalletScreen());
                           });
                         }),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.02),
-                        Container(
-                            width: double.maxFinite,
-                            padding: const EdgeInsets.all(Insets.md),
-                            decoration: const BoxDecoration(
-                              color: AppColors.primaryColor,
-                              borderRadius: BorderRadius.all(Corners.mdRadius),
-                            ),
-                            child: Row(
-                              children: [
-                                Text('NO BANK ACCOUNT YET?',
-                                    style: TextStyles.t3.copyWith(
-                                      color: Colors.white,
-                                    )),
-                                const Spacer(),
-                                InkWell(
-                                  onTap: () => context
-                                      .push(const CreateBankAccountScreen()),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(Insets.sm),
-                                    decoration: const BoxDecoration(
-                                      color: AppColors.secondbgColor,
-                                      borderRadius:
-                                          BorderRadius.all(Corners.smRadius),
-                                    ),
-                                    child: Text(
-                                      'Create Account',
-                                      style: TextStyles.b2.copyWith(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
                         InkWell(

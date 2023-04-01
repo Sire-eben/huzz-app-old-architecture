@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/services/dynamic_linking/referral_dynamic_link_api.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/reg_home.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/onboarding_model.dart';
+import 'package:provider/provider.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class OnboardingMain extends StatefulWidget {
@@ -22,6 +24,12 @@ class _OnboardingMainState extends State<OnboardingMain> {
   List<OnBoardingModel> boards = OnBoardingModel.values;
   final _authController = Get.find<AuthRepository>();
   double progress = 14;
+
+  @override
+  void initState() {
+    context.read<ReferralDynamicLinksApi>().handleDynamicLink();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

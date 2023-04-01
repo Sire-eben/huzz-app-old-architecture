@@ -8,12 +8,26 @@ import 'package:huzz/ui/auth/create_pin.dart';
 import 'package:huzz/ui/auth/enter_otp.dart';
 import 'package:huzz/ui/auth/send_otp.dart';
 import 'package:huzz/ui/auth/sign_up.dart';
+import 'package:provider/provider.dart';
+
+import '../core/services/dynamic_linking/referral_dynamic_link_api.dart';
+import '../core/services/dynamic_linking/team_dynamic_link_api.dart';
 
 class RegHome extends StatefulWidget {
-  _RegHome createState() => _RegHome();
+  const RegHome({super.key});
+
+  @override
+  State<RegHome> createState() => _RegHomeState();
 }
 
-class _RegHome extends State<RegHome> {
+class _RegHomeState extends State<RegHome> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<TeamDynamicLinksApi>().handleDynamicLink();
+    context.read<ReferralDynamicLinksApi>().handleDynamicLink();
+  }
+
   int stepNumber = 4;
   int selectedIndex = 1;
   List<String> bodyText = [
