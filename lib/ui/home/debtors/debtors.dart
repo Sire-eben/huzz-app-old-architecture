@@ -1,5 +1,6 @@
 // ignore_for_file: unused_element, body_might_complete_normally_nullable
 
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -898,7 +899,7 @@ class _DebtorListingState extends State<DebtorListing> {
       return Container();
     }
     initialText =
-        "Dear ${customer.name!}, you have an outstanding payment of ${display(widget.item!.balance!)} for your purchase at ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
+        "Dear ${customer.name!}, you have an outstanding payment of ${display(widget.item!.balance!)} for your purchase at (${utf8.decode(businessName!.codeUnits)} $phone). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
     // ignore: unnecessary_null_comparison
     return customer == null
@@ -920,7 +921,7 @@ class _DebtorListingState extends State<DebtorListing> {
                           child: Text(
                         customer.name == null || customer.name!.isEmpty
                             ? ""
-                            : '${customer.name![0]}',
+                            : customer.name![0],
                         style: GoogleFonts.inter(
                             fontSize: 30,
                             color: Colors.white,

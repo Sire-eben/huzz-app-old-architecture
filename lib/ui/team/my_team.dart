@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -149,9 +151,9 @@ class _MyTeamState extends State<MyTeam> {
                           ),
                           const Gap(Insets.md),
                           Text(
-                            _businessController
+                            utf8.decode(_businessController
                                 .selectedBusiness.value!.businessName
-                                .toString(),
+                                .toString().codeUnits),
                             style:
                                 TextStyles.t12B.copyWith(color: Colors.black),
                           )
@@ -287,7 +289,7 @@ class _MyTeamState extends State<MyTeam> {
                                   ] else ...[
                                     Center(
                                       child: Text(
-                                        'You joined the ${value.businessName} team on\n$date',
+                                        'You joined the ${utf8.decode(value.businessName!.codeUnits)} team on\n$date',
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.inter(
                                           color: AppColors.blackColor,
