@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/widget/custom_drop_field.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -30,6 +31,8 @@ class _CreateBusinessState extends State<CreateBusiness> {
 
   final _businessController = Get.find<BusinessRespository>();
   final _userController = Get.find<AuthRepository>();
+  final _teamController = Get.find<TeamRepository>();
+
   final key = GlobalKey<FormState>();
   @override
   // ignore: dead_code
@@ -150,9 +153,13 @@ class _CreateBusinessState extends State<CreateBusiness> {
                         return;
                       }
                       if (_businessController.createBusinessStatus !=
-                          CreateBusinessStatus
-                              .Loading) if (key.currentState!.validate()) {
-                        _businessController.createBusiness();
+                          CreateBusinessStatus.Loading) {
+                        if (key.currentState!.validate()) {
+                          _businessController.createBusiness().whenComplete(() {
+                            _teamController.createTeam(_businessController
+                                .selectedBusiness.value!.businessId!);
+                          });
+                        }
                       }
                     },
                     child: Container(
@@ -164,12 +171,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_businessController.createBusinessStatus ==
                               CreateBusinessStatus.Loading)
-                          ? const SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: Center(
-                                  child: LoadingWidget()),
-                            )
+                          ? const LoadingWidget(color: Colors.white)
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -321,6 +323,8 @@ class _CreateBusinessState extends State<CreateBusiness> {
 }
 
 class BusinessCreatedSuccesful extends StatelessWidget {
+  const BusinessCreatedSuccesful({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
