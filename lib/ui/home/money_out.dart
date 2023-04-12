@@ -57,7 +57,7 @@ class _MoneyOutState extends State<MoneyOut> {
   final _transactionController = Get.find<TransactionRespository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     _transactionController.clearValue();
@@ -1483,29 +1483,13 @@ class _MoneyOutState extends State<MoneyOut> {
               _transactionController.selectedValue == 1
                   ? Container()
                   : SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              InkWell(
-                onTap: () {
-                  _transactionController.addMoreProduct();
-                  setState(() {});
-                  Get.back();
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 50,
-                  decoration: const BoxDecoration(
-                      color: AppColors.backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Center(
-                    child: Text(
-                      'Save',
-                      style: GoogleFonts.inter(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              Button(
+                  action: () {
+                    _transactionController.addMoreProduct();
+                    setState(() {});
+                    Get.back();
+                  },
+                  label: 'Save'),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             ],
           ),

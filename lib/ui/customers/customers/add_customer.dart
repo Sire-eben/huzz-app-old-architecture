@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
+import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -61,52 +63,32 @@ class _AddCustomerState extends State<AddCustomer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: AppColors.backgroundColor,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-        title: Text(
-          widget.item == null ? 'Add Customer' : "Edit Customer",
-          style: GoogleFonts.inter(
-            color: AppColors.backgroundColor,
-            fontStyle: FontStyle.normal,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+      appBar: Appbar(
+        title: widget.item == null ? 'Add Customer' : "Edit Customer",
       ),
       backgroundColor: Colors.white,
       body: Obx(() {
-        return Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  CustomTextFieldWithImage(
-                    contactName: _customerController.nameController,
-                    contactPhone: _customerController.phoneNumberController,
-                    contactMail: _customerController.emailController,
-                    label: "Customer name",
-                    validatorText: "Customer name is needed",
-                    hint: 'customer name',
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  InkWell(
-                    onTap: () {
+        return SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                CustomTextFieldWithImage(
+                  contactName: _customerController.nameController,
+                  contactPhone: _customerController.phoneNumberController,
+                  contactMail: _customerController.emailController,
+                  label: "Customer name",
+                  validatorText: "Customer name is needed",
+                  hint: 'customer name',
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: Insets.lg),
+                  child: Button(
+                    action: () {
                       if (_formKey.currentState!.validate() &&
                           _customerController.addingCustomerStatus !=
                               AddingCustomerStatus.Loading) {
@@ -125,32 +107,15 @@ class _AddCustomerState extends State<AddCustomer> {
                         }
                       }
                     },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.height * 0.03),
-                      height: 50,
-                      decoration: const BoxDecoration(
-                          color: AppColors.backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: (_customerController.addingCustomerStatus ==
-                              AddingCustomerStatus.Loading)
-                          ? LoadingWidget()
-                          : Center(
-                              child: Text(
-                                (widget.item == null) ? 'Save' : "Update",
-                                style: GoogleFonts.inter(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                    ),
+                    showLoading: (_customerController.addingCustomerStatus ==
+                            AddingCustomerStatus.Loading)
+                        ? true
+                        : false,
+                    label: (widget.item == null) ? 'Save' : "Update",
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                ],
-              ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              ],
             ),
           ),
         );

@@ -1352,28 +1352,14 @@ class _MoneyInState extends State<MoneyIn> {
                     ? Container()
                     : SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02),
-                InkWell(
-                  onTap: () {
+                Button(
+                  action: () {
                     _transactionController.addMoreProduct();
                     setState(() {});
                     Get.back();
                   },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    decoration: const BoxDecoration(
-                        color: AppColors.backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Center(
-                      child: Text(
-                        'Save',
-                        style: GoogleFonts.inter(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // showLoading: ,
+                  label: "Save",
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.02,
@@ -1516,28 +1502,13 @@ class _MoneyInState extends State<MoneyIn> {
                   ],
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                InkWell(
-                  onTap: () {
+                Button(
+                  action: () {
                     _transactionController.updatePaymetItem(item, index);
                     setState(() {});
                     Get.back();
                   },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    decoration: const BoxDecoration(
-                        color: AppColors.backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Center(
-                      child: Text(
-                        'Update',
-                        style: GoogleFonts.inter(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
+                  label: 'Update',
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,

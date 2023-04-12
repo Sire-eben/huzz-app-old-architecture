@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -326,12 +325,7 @@ class _SettingsState extends State<Settings> {
                               );
                             },
                             child: controller.authStatus == AuthStatus.Loading
-                                ? Container(
-                                    height: 20,
-                                    width: 20,
-                                    child: const CircularProgressIndicator(
-                                        color: AppColors.orangeBorderColor),
-                                  )
+                                ? LoadingWidget()
                                 : SvgPicture.asset(
                                     "assets/images/delete.svg",
                                     height: 20,
@@ -527,8 +521,8 @@ class _SettingsState extends State<Settings> {
                                   ? Container(
                                       width: 30,
                                       height: 30,
-                                      child: const Center(
-                                          child: LoadingWidget()),
+                                      child:
+                                          const Center(child: LoadingWidget()),
                                     )
                                   : Center(
                                       child: Text(
@@ -669,8 +663,7 @@ class _SettingsState extends State<Settings> {
                           child: Container(
                             width: 30,
                             height: 30,
-                            child: const Center(
-                                child: LoadingWidget()),
+                            child: const Center(child: LoadingWidget()),
                           ),
                         )
                       : Center(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/widgets/state/loading.dart';
+import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -20,7 +20,7 @@ class AddMerchant extends StatefulWidget {
 }
 
 class _AddMerchantState extends State<AddMerchant> {
-  GlobalKey<FormState> _formKey = GlobalKey();
+  final GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController contactName = TextEditingController();
   final TextEditingController contactPhone = TextEditingController();
   final TextEditingController contactMail = TextEditingController();
@@ -31,14 +31,13 @@ class _AddMerchantState extends State<AddMerchant> {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       final imageTemporary = File(image.path);
-      print(imageTemporary);
       setState(
         () {
           this.image = imageTemporary;
         },
       );
     } on PlatformException catch (e) {
-      print('$e');
+      Get.snackbar("Error", e.message.toString());
     }
   }
 
@@ -47,14 +46,13 @@ class _AddMerchantState extends State<AddMerchant> {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
       final imageTemporary = File(image.path);
-      print(imageTemporary);
       setState(
         () {
           this.image = imageTemporary;
         },
       );
     } on PlatformException catch (e) {
-      print('$e');
+      Get.snackbar("Error", e.message.toString());
     }
   }
 
@@ -65,7 +63,7 @@ class _AddMerchantState extends State<AddMerchant> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -77,7 +75,6 @@ class _AddMerchantState extends State<AddMerchant> {
           'Add Merchant',
           style: GoogleFonts.inter(
             color: AppColors.backgroundColor,
-           
             fontStyle: FontStyle.normal,
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -86,28 +83,27 @@ class _AddMerchantState extends State<AddMerchant> {
       ),
       backgroundColor: Colors.white,
       body: Obx(() {
-        return Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  CustomTextFieldWithImage(
-                    contactName: _customerController.nameController,
-                    contactPhone: _customerController.phoneNumberController,
-                    contactMail: _customerController.emailController,
-                    label: "Merchant name",
-                    validatorText: "Merchant name is needed",
-                    hint: 'merchant name',
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  InkWell(
-                    onTap: () {
+        return SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                CustomTextFieldWithImage(
+                  contactName: _customerController.nameController,
+                  contactPhone: _customerController.phoneNumberController,
+                  contactMail: _customerController.emailController,
+                  label: "Merchant name",
+                  validatorText: "Merchant name is needed",
+                  hint: 'merchant name',
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: Insets.lg),
+                  child: Button(
+                    action: () {
                       if (_formKey.currentState!.validate() &&
                           _customerController.addingCustomerStatus !=
                               AddingCustomerStatus.Loading) {
@@ -116,46 +112,25 @@ class _AddMerchantState extends State<AddMerchant> {
                           Get.snackbar(
                               'Alert', 'Select phone number from your contact');
                         } else {
-                          if (widget.item == null)
+                          if (widget.item == null) {
                             _customerController.addBusinnessCustomer(
                                 "EXPENDITURE", 'Merchant');
-                          else
+                          } else {
                             _customerController
                                 .updateBusinesscustomer(widget.item!);
+                          }
                         }
                       }
                     },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.height * 0.03),
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: AppColors.backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: (_customerController.addingCustomerStatus ==
-                              AddingCustomerStatus.Loading)
-                          ? Container(
-                              width: 30,
-                              height: 30,
-                              child: Center(
-                                  child: LoadingWidget()),
-                            )
-                          : Center(
-                              child: Text(
-                                (widget.item == null) ? 'Save' : "Update",
-                                style: GoogleFonts.inter(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                   ),
-                              ),
-                            ),
-                    ),
+                    showLoading: (_customerController.addingCustomerStatus ==
+                            AddingCustomerStatus.Loading)
+                        ? true
+                        : false,
+                    label: (widget.item == null) ? 'Save' : "Update",
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                ],
-              ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              ],
             ),
           ),
         );

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/data/repository/home_respository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/ui/auth/create_pin.dart';
@@ -59,13 +58,13 @@ class _RegHome extends State<RegHome> {
             icon: const Icon(Icons.arrow_back),
           ),
         ),
-        body: Container(
+        body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: 100,
                 width: MediaQuery.of(context).size.width,
                 child: Stack(
@@ -106,7 +105,6 @@ class _RegHome extends State<RegHome> {
                     itemBuilder: (_, index) {
                       return GestureDetector(
                         onTap: () {
-                          print("index number is $index");
                           if (index <=
                               _homeController.onboardingRegSelectedIndex) {
                             _homeController.gotoIndex(index);
