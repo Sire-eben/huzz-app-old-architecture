@@ -5,10 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
+import '../../../core/widgets/button/button.dart';
+
 class DebtUpdatedSuccess extends StatelessWidget {
-  DebtUpdatedSuccess({
-    Key? key,
-  }) : super(key: key);
+  const DebtUpdatedSuccess({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,33 +54,11 @@ class DebtUpdatedSuccess extends StatelessWidget {
               const SizedBox(height: 20),
               SvgPicture.asset('assets/images/income_added.svg'),
               const Spacer(),
-              Column(
-                children: [
-                  InkWell(
-                    onTap: () async {
-                      Get.offAll(() => Dashboard());
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.height * 0.03),
-                      height: 50,
-                      decoration: const BoxDecoration(
-                          color: AppColors.backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Center(
-                        child: Text(
-                          'Proceed',
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              Button(
+                action: () async {
+                  Get.offAll(() => Dashboard());
+                },
+                label: "Proceed",
               ),
               const SizedBox(height: 100)
             ],

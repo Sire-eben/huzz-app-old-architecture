@@ -13,6 +13,8 @@ import 'package:huzz/data/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:huzz/core/util/util.dart';
 
+import '../../../core/widgets/button/button.dart';
+
 // ignore: must_be_immutable
 class AddService extends StatefulWidget {
   Product? item;
@@ -138,47 +140,28 @@ class _AddServiceState extends State<AddService> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.1,
                   ),
-                  InkWell(
-                    onTap: () {
+                  Button(
+                    action: () {
                       // Get.to(ServiceListing());
 
                       if (_productController.addingProductStatus !=
                           AddingProductStatus.Loading) {
                         _productController.productSellingPriceController.text =
                             "0";
-                        if (widget.item == null)
+                        if (widget.item == null) {
                           _productController.addBudinessProduct(
                               "SERVICES", 'Service');
-                        else
+                        } else {
                           _productController.UpdateBusinessProduct(
                               widget.item!, 'Service');
+                        }
                       }
                     },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: AppColors.backgroundColor,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: (_productController.addingProductStatus ==
-                              AddingProductStatus.Loading)
-                          ? Container(
-                              width: 30,
-                              height: 30,
-                              child: const Center(
-                                  child: LoadingWidget()),
-                            )
-                          : Center(
-                              child: Text(
-                                (widget.item == null) ? 'Save' : "Update",
-                                style: GoogleFonts.inter(
-                                  color: AppColors.whiteColor,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                    ),
+                    showLoading: (_productController.addingProductStatus ==
+                            AddingProductStatus.Loading)
+                        ? true
+                        : false,
+                    label: (widget.item == null) ? 'Save' : "Update",
                   ),
                   const SizedBox(
                     height: 20,

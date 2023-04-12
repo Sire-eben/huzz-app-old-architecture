@@ -50,9 +50,7 @@ class _CustomersState extends State<Customers> {
         final value = _businessController.selectedBusiness.value;
         return teamController.teamMembersStatus == TeamMemberStatus.Loading
             ? Center(
-                child: LoadingWidget(
-                  color: AppColors.backgroundColor,
-                ),
+                child: LoadingWidget(),
               )
             : Container(
                 padding:
@@ -234,7 +232,7 @@ class _CustomersState extends State<Customers> {
                                                                       item.name == null ||
                                                                               item.name!.isEmpty
                                                                           ? ""
-                                                                          : '${item.name![0]}',
+                                                                          : item.name![0],
                                                                       style: GoogleFonts.inter(
                                                                           fontSize:
                                                                               30,
@@ -253,32 +251,30 @@ class _CustomersState extends State<Customers> {
                                                                     0.02),
                                                             Expanded(
                                                               flex: 3,
-                                                              child: Container(
-                                                                child: Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Text(
-                                                                      item.name!,
-                                                                      style: GoogleFonts.inter(
-                                                                          fontSize:
-                                                                              12,
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontWeight:
-                                                                              FontWeight.w400),
-                                                                    ),
-                                                                    Text(
-                                                                      item.phone!,
-                                                                      style: GoogleFonts.inter(
-                                                                          fontSize:
-                                                                              12,
-                                                                          color:
-                                                                              Colors.grey),
-                                                                    ),
-                                                                  ],
-                                                                ),
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    item.name!,
+                                                                    style: GoogleFonts.inter(
+                                                                        fontSize:
+                                                                            12,
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontWeight:
+                                                                            FontWeight.w400),
+                                                                  ),
+                                                                  Text(
+                                                                    item.phone!,
+                                                                    style: GoogleFonts.inter(
+                                                                        fontSize:
+                                                                            12,
+                                                                        color: Colors
+                                                                            .grey),
+                                                                  ),
+                                                                ],
                                                               ),
                                                             ),
                                                             GestureDetector(
@@ -389,10 +385,8 @@ class _CustomersState extends State<Customers> {
                                         ),
                                       ),
                                     )
-                              : Container(
-                                  child: const Center(
-                                    child: Text("No Customer Found"),
-                                  ),
+                              : const Center(
+                                  child: Text("No Customer Found"),
                                 ),
                         ))
                       ] else ...[
@@ -468,7 +462,7 @@ class _CustomersState extends State<Customers> {
                                                                       item.name == null ||
                                                                               item.name!.isEmpty
                                                                           ? ""
-                                                                          : '${item.name![0]}',
+                                                                          : item.name![0],
                                                                       style: GoogleFonts.inter(
                                                                           fontSize:
                                                                               30,

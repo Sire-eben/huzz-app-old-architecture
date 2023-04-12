@@ -12,6 +12,8 @@ import 'package:huzz/data/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
+import '../../../core/widgets/button/button.dart';
+
 // ignore: must_be_immutable
 class AddProduct extends StatefulWidget {
   Product? item;
@@ -27,15 +29,14 @@ class _AddProductState extends State<AddProduct> {
 
   @override
   void initState() {
-    if (widget.item != null) {
-      print("Product json is ${widget.item!.toJson()}");
-    }
+    if (widget.item != null) {}
     super.initState();
   }
 
   void _incrementCounter() {
-    if (_productController.productQuantityController.text.isEmpty)
+    if (_productController.productQuantityController.text.isEmpty) {
       _productController.productQuantityController.text = "0";
+    }
 
     _counter = int.parse(_productController.productQuantityController.text);
     setState(() {
@@ -45,8 +46,9 @@ class _AddProductState extends State<AddProduct> {
   }
 
   void _decrementCounter() {
-    if (_productController.productQuantityController.text.isEmpty)
+    if (_productController.productQuantityController.text.isEmpty) {
       _productController.productQuantityController.text = "0";
+    }
     _counter = int.parse(_productController.productQuantityController.text);
     setState(() {
       if (_counter < 1) {
@@ -477,45 +479,25 @@ class _AddProductState extends State<AddProduct> {
               ),
             ),
             const Spacer(),
-            InkWell(
-              onTap: () {
-                if (_productController.addingProductStatus !=
-                    AddingProductStatus.Loading) {
-                  if (widget.item == null)
-                    _productController.addBudinessProduct("GOODS", 'Product');
-                  else
-                    _productController.UpdateBusinessProduct(
-                        widget.item!, 'Product');
-                }
-              },
-              child: Container(
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 15,
-                ),
-                decoration: BoxDecoration(
-                    color: AppColors.backgroundColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: (_productController.addingProductStatus ==
+            Padding(
+              padding: const EdgeInsets.all(Insets.lg),
+              child: Button(
+                action: () {
+                  if (_productController.addingProductStatus !=
+                      AddingProductStatus.Loading) {
+                    if (widget.item == null) {
+                      _productController.addBudinessProduct("GOODS", 'Product');
+                    } else {
+                      _productController.UpdateBusinessProduct(
+                          widget.item!, 'Product');
+                    }
+                  }
+                },
+                showLoading: (_productController.addingProductStatus ==
                         AddingProductStatus.Loading)
-                    ? Container(
-                        width: 30,
-                        height: 30,
-                        child: const Center(
-                          child: LoadingWidget(),
-                        ),
-                      )
-                    : Center(
-                        child: Text(
-                          (widget.item == null) ? 'Save' : "Update",
-                          style: GoogleFonts.inter(
-                            color: AppColors.whiteColor,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
+                    ? true
+                    : false,
+                label: (widget.item == null) ? 'Save' : "Update",
               ),
             ),
             const SizedBox(
@@ -589,7 +571,6 @@ class _AddProductState extends State<AddProduct> {
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
                   _productController.MproductImage(File(image!.path));
-                  print("image path ${image.path}");
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
