@@ -17,6 +17,14 @@ class SharePref {
     _preferences = await SharedPreferences.getInstance();
   }
 
+  setFirstTimeCreatingTeam(bool value) async {
+    await _preferences!.setBool('team', value);
+  }
+
+  getFirstTimeCreatingTeam() {
+    return _preferences!.getBool('team') ?? false;
+  }
+
   void setUser(User user) {
     _preferences!.setString(isLogin, jsonEncode(user.toJson()));
   }
@@ -26,7 +34,7 @@ class SharePref {
   }
 
   String read() {
-    final key = 'token';
+    const key = 'token';
     String value = _preferences!.getString(key)!;
     print('read: $value');
     return value.isEmpty ? "0" : value;

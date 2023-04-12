@@ -552,13 +552,7 @@ class TeamRepository extends GetxController {
         var value = _businessController.selectedBusiness.value;
         debugPrint(value!.teamId);
         // getOfflineTeam(value.teamId!);
-        Get.snackbar(
-          "Success",
-          "Team created successfully",
-        );
-
-        Get.to(const CreateTeamSuccess());
-
+        pref!.setFirstTimeCreatingTeam(true);
         _addingTeamMemberStatus(AddingTeamStatus.Success);
       } else {
         Get.snackbar("Error", "Error creating team, try again!");
