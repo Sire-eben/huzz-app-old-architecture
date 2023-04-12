@@ -36,7 +36,7 @@ class _SendOtpState extends State<SendOtp> with FormMixin {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.whiteColor,
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Form(
@@ -239,7 +239,6 @@ class _SendOtpState extends State<SendOtp> with FormMixin {
                             ),
                             icon: const Icon(Icons.info,
                                 color: AppColors.orangeBorderColor));
-                        print('phone cannot be empty');
                       } else {
                         // _authController.sendSmsOtp();
                         // _homeController.selectOnboardSelectedNext();
@@ -255,12 +254,7 @@ class _SendOtpState extends State<SendOtp> with FormMixin {
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_authController.Otpauthstatus ==
                               OtpAuthStatus.Loading)
-                          ? Container(
-                              width: 30,
-                              height: 30,
-                              child: const Center(
-                                  child: LoadingWidget()),
-                            )
+                          ? const LoadingWidget()
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -318,8 +312,6 @@ class _SendOtpState extends State<SendOtp> with FormMixin {
 
         country.toJson();
         setState(() {});
-
-        print('Select country: ${country.toJson()}');
       },
     );
   }

@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/widgets/state/loading.dart';
+import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/data/repository/home_respository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class ForgotPIN extends StatefulWidget {
+  const ForgotPIN({super.key});
+
   @override
   State<ForgotPIN> createState() => _ForgotPINState();
 }
@@ -45,14 +46,14 @@ class _ForgotPINState extends State<ForgotPIN> {
       }
 
       return Scaffold(
-        body: Container(
+        body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   height: 100,
                   width: MediaQuery.of(context).size.width,
                   child: Stack(
@@ -169,6 +170,9 @@ class _ForgotPINState extends State<ForgotPIN> {
                               _authController.forgotPhoneNumberController,
                           decoration: InputDecoration(
                               border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
                               hintText: "8123456789",
                               hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),
@@ -188,58 +192,18 @@ class _ForgotPINState extends State<ForgotPIN> {
                   ),
                 ),
                 const Expanded(child: SizedBox()),
-                Obx(() {
-                  return GestureDetector(
-                    onTap: () {
-                      if (_authController.Otpauthstatus !=
-                          OtpAuthStatus.Loading)
-                        _authController.sendForgetOtp();
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(left: 50, right: 50),
-                      height: 50,
-                      decoration: const BoxDecoration(
-                          color: AppColors.backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: (_authController.Otpauthstatus ==
-                              OtpAuthStatus.Loading)
-                          ? Container(
-                              width: 30,
-                              height: 30,
-                              child: const Center(
-                                child: LoadingWidget(),
-                              ),
-                            )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Continue',
-                                  style: GoogleFonts.inter(
-                                      color: Colors.white, fontSize: 18),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(3),
-                                  decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(50))),
-                                  child: const Icon(
-                                    Icons.arrow_forward,
-                                    color: AppColors.backgroundColor,
-                                    size: 16,
-                                  ),
-                                )
-                              ],
-                            ),
-                    ),
-                  );
-                }),
+                Padding(
+                  padding: const EdgeInsets.all(Insets.lg),
+                  child: Button(
+                      action: () {
+                        if (_authController.Otpauthstatus !=
+                            OtpAuthStatus.Loading) {
+                          _authController.sendForgetOtp();
+                        }
+                      },
+                      label: "Continue",
+                      children: true),
+                ),
                 const SizedBox(
                   height: 40,
                 )
@@ -261,10 +225,7 @@ class _ForgotPINState extends State<ForgotPIN> {
         final currency = CountryPickerUtils.getCountryByIsoCode(countryFlag)
             .currencyCode
             .toString();
-        print("currency of country is $currency");
         setState(() {});
-
-        print('Select country: ${country.toJson()}');
       },
     );
   }

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
 
@@ -7,9 +8,10 @@ class Button extends StatelessWidget {
   final VoidCallback action;
   final bool? showLoading;
   final Color? color, backgroundColor;
-  final Widget? child;
-  final bool
-      shrinkWrap; // if true, the button will not take more space than it needs
+  final double? height;
+  final bool shrinkWrap;
+  final bool children;
+
   const Button({
     required this.label,
     required this.action,
@@ -17,8 +19,9 @@ class Button extends StatelessWidget {
     this.showLoading,
     this.color,
     this.backgroundColor,
-    this.child,
     Key? key,
+    this.height,
+    this.children = false,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -37,19 +40,44 @@ class Button extends StatelessWidget {
                   ? AppColors.primaryColor
                   : color ?? Colors.white,
             )
-          : child ??
-              Text(
-                label,
-                style: TextStyles.t2.copyWith(
-                  color: color ?? Colors.white,
-                  fontSize: FontSizes.md,
+          : children == true
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      label,
+                      style:
+                          GoogleFonts.inter(color: Colors.white, fontSize: 18),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(3),
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(50))),
+                      child: const Icon(
+                        Icons.arrow_forward,
+                        color: AppColors.backgroundColor,
+                        size: 16,
+                      ),
+                    )
+                  ],
+                )
+              : Text(
+                  label,
+                  style: TextStyles.t2.copyWith(
+                    color: color ?? Colors.white,
+                    fontSize: FontSizes.md,
+                  ),
                 ),
-              ),
     );
     return shrinkWrap
         ? Center(child: btnChild)
         : SizedBox(
-            height: 52,
+            height: height ?? 60,
             width: double.maxFinite,
             child: btnChild,
           );

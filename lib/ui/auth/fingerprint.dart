@@ -23,7 +23,7 @@ class FingerPrint extends StatelessWidget {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -31,7 +31,7 @@ class FingerPrint extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
           Center(
@@ -54,7 +54,7 @@ class FingerPrint extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           InkWell(
@@ -62,25 +62,20 @@ class FingerPrint extends StatelessWidget {
               final isAuthenticated = await LocalAuthApi.authenticate();
               if (isAuthenticated) {
                 // Get.off(() => Dashboard());
-                if (_authController.signinStatus != SigninStatus.Loading)
+                if (_authController.signinStatus != SigninStatus.Loading) {
                   _authController.fingerPrintSignIn();
+                }
               }
             },
             child: Center(
               child: (_authController.signinStatus == SigninStatus.Loading)
-                  ? Container(
-                      width: 30,
-                      height: 30,
-                      child: Center(
-                          child:
-                              LoadingWidget()),
-                    )
+                  ? const LoadingWidget()
                   : Image.asset(
                       'assets/images/finger.png',
                     ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           Center(
@@ -93,12 +88,12 @@ class FingerPrint extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           GestureDetector(
             onTap: () {
-              Get.to(Signin());
+              Get.to(const Signin());
             },
             child: Center(
               child: Text(
@@ -111,7 +106,7 @@ class FingerPrint extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
         ],

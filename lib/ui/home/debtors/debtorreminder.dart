@@ -19,7 +19,7 @@ class DebtorsConfirmation extends StatelessWidget {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -27,12 +27,13 @@ class DebtorsConfirmation extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Center(
             child: Text(
-              'Your reminder has been',
+              'Your reminder has been\nsent successfully',
+              textAlign: TextAlign.center,
               style: GoogleFonts.inter(
                 color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
@@ -40,17 +41,7 @@ class DebtorsConfirmation extends StatelessWidget {
               ),
             ),
           ),
-          Center(
-            child: Text(
-              'sent successfully',
-              style: GoogleFonts.inter(
-                color: AppColors.backgroundColor,
-                fontWeight: FontWeight.w600,
-                fontSize: 20,
-              ),
-            ),
-          ),
-          SizedBox(
+          const SizedBox(
             height: 120,
           ),
           Center(
@@ -58,14 +49,14 @@ class DebtorsConfirmation extends StatelessWidget {
               'assets/images/checker.png',
             ),
           ),
-          Spacer(),
+          const Spacer(),
           InkWell(
             onTap: () {
-              Get.to(DebtorsTab());
+              Get.to(const DebtorsTab());
             },
             child: Container(
               height: 55,
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 horizontal: 20,
               ),
               decoration: BoxDecoration(
@@ -83,7 +74,7 @@ class DebtorsConfirmation extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
         ],

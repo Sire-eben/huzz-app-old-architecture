@@ -37,7 +37,7 @@ class _DebtOwnedState extends State<DebtOwned> {
   final _customerRepository = Get.find<CustomerRepository>();
   final teamController = Get.find<TeamRepository>();
 
-  RandomColor _randomColor = RandomColor();
+  final RandomColor _randomColor = RandomColor();
   final itemNameController = TextEditingController();
   final amountController = TextEditingController();
   final quantityController = TextEditingController();
@@ -123,11 +123,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     gradient: LinearGradient(
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
-                                      stops: [
-                                        0.1,
-                                        0.6,
-                                        0.8,
-                                      ],
+                                      stops: const [0.1, 0.6, 0.8],
                                       colors: [
                                         const Color(0xff0D8372),
                                         const Color(0xff07A58E),
@@ -303,9 +299,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                               customer.name !=
                                                                   null &&
                                                               customer.name!
-                                                                      .length >
-                                                                  0
-                                                          ? '${customer.name![0]}'
+                                                                  .isNotEmpty
+                                                          ? customer.name![0]
                                                           : "",
                                                       style: GoogleFonts.inter(
                                                           fontSize: 30,
@@ -322,53 +317,49 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                     0.02),
                                             Expanded(
                                               flex: 4,
-                                              child: Container(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      customer.name!,
-                                                      style: GoogleFonts.inter(
-                                                          fontSize: 12,
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                    Text(
-                                                      customer.phone!,
-                                                      style: GoogleFonts.inter(
-                                                          fontSize: 12,
-                                                          color: Colors.grey),
-                                                    ),
-                                                  ],
-                                                ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    customer.name!,
+                                                    style: GoogleFonts.inter(
+                                                        fontSize: 12,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                  ),
+                                                  Text(
+                                                    customer.phone!,
+                                                    style: GoogleFonts.inter(
+                                                        fontSize: 12,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                             Expanded(
                                               flex: 4,
-                                              child: Container(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Balance: ${Utils.getCurrency()}${display(item.balance!)}",
-                                                      style: GoogleFonts.inter(
-                                                          fontSize: 13,
-                                                          color: AppColors
-                                                              .orangeBorderColor,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                    Text(
-                                                      "Paid: ${Utils.getCurrency()}${display((item.totalAmount! - item.balance!))}",
-                                                      style: GoogleFonts.inter(
-                                                          fontSize: 11,
-                                                          color: Colors.grey),
-                                                    ),
-                                                  ],
-                                                ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Balance: ${Utils.getCurrency()}${display(item.balance!)}",
+                                                    style: GoogleFonts.inter(
+                                                        fontSize: 13,
+                                                        color: AppColors
+                                                            .orangeBorderColor,
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                  ),
+                                                  Text(
+                                                    "Paid: ${Utils.getCurrency()}${display((item.totalAmount! - item.balance!))}",
+                                                    style: GoogleFonts.inter(
+                                                        fontSize: 11,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                             Expanded(
@@ -381,10 +372,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                               'UPDATE_DEBTOR'))
                                                   ? InkWell(
                                                       onTap: () {
-                                                        print(index);
                                                         // item.businessTransactionId="6229ab581982280f4fd07cf5";
-                                                        print(
-                                                            "business transaction id  is ${item.businessTransactionId}");
                                                         if (item.businessTransactionId !=
                                                                 null &&
                                                             item.businessTransactionId!
@@ -861,7 +849,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                               statusType == 1
                                   ? debtor.balance
                                   : int.parse(textEditingController.text));
-                          Get.to(DebtUpdatedSuccess());
+                          Get.to(const DebtUpdatedSuccess());
                         }
                       }
                     },
@@ -957,46 +945,45 @@ class _DebtOwnedState extends State<DebtOwned> {
                       }
                     }
                   },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height * 0.03),
-                    height: 50,
-                    decoration: const BoxDecoration(
-                        color: AppColors.backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: (_debtorRepository.addingDebtorStatus ==
-                            AddingDebtorStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: const Center(
-                                child: LoadingWidget(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 28.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.03),
+                      height: 50,
+                      decoration: const BoxDecoration(
+                          color: AppColors.backgroundColor,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: (_debtorRepository.addingDebtorStatus ==
+                              AddingDebtorStatus.Loading)
+                          ? const LoadingWidget(
                               color: Colors.white,
-                            )),
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.add,
-                                size: 22,
-                                color: AppColors.whiteColor,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Center(
-                                child: Text(
-                                  'Add Debt Owed',
-                                  style: GoogleFonts.inter(
-                                    color: AppColors.whiteColor,
-                                    fontWeight: FontWeight.w600,
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.add,
+                                  size: 22,
+                                  color: AppColors.whiteColor,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Center(
+                                  child: Text(
+                                    'Add Debt Owed',
+                                    style: GoogleFonts.inter(
+                                      color: AppColors.whiteColor,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
+                    ),
                   ),
                 );
               }),
@@ -1675,7 +1662,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                               statusType == 1
                                   ? 0
                                   : int.parse(textEditingController.text));
-                          Get.to(DebtUpdatedSuccess());
+                          Get.to(const DebtUpdatedSuccess());
                         }
                       }
                     },

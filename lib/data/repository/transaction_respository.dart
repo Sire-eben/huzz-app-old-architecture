@@ -141,7 +141,6 @@ class TransactionRespository extends GetxController {
   @override
   void onInit() async {
     // TODO: implement onInit
-    print("getting transaction repo");
     _miscellaneousController.businessTransactionPaymentSourceList.listen((p0) {
       if (p0.isNotEmpty) {
         paymentSource = p0;
@@ -160,7 +159,6 @@ class TransactionRespository extends GetxController {
       }
     });
     _userController.Mtoken.listen((p0) async {
-      print("token gotten $p0");
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null && value.businessId != null) {
@@ -168,13 +166,9 @@ class TransactionRespository extends GetxController {
           getOnlineTransaction(value.businessId!);
 
           // getSpending(value.businessId!);
-
-        } else {
-          print("current business is null");
-        }
+        } else {}
         _businessController.selectedBusiness.listen((p0) async {
           if (p0 != null && p0.businessId != null) {
-            print("changing textfield in transaction");
             amountController = MoneyMaskedTextController(
                 leftSymbol: '${Utils.getCurrency()}',
                 decimalSeparator: '.',
@@ -185,7 +179,6 @@ class TransactionRespository extends GetxController {
                 decimalSeparator: '.',
                 thousandSeparator: ',',
                 precision: 1);
-            print("business id ${p0.businessId}");
             _offlineTransactions([]);
             _allPaymentItem([]);
             OnlineTransaction = [];
@@ -197,7 +190,6 @@ class TransactionRespository extends GetxController {
             splitCurrentTime();
 
             // getSpending(p0.businessId!);
-
           }
         });
       }
@@ -225,8 +217,9 @@ class TransactionRespository extends GetxController {
   List<PaymentItem> getAllPaymentItemForRecordIncome(RecordsData record) {
     List<PaymentItem> list = [];
     record.transactionList.forEach((element) {
-      if (element.transactionType == "INCOME")
+      if (element.transactionType == "INCOME") {
         list.addAll(element.businessTransactionPaymentItemList!);
+      }
     });
     return list;
   }
@@ -234,8 +227,9 @@ class TransactionRespository extends GetxController {
   List<PaymentItem> getAllPaymentItemForRecordExpenditure(RecordsData record) {
     List<PaymentItem> list = [];
     record.transactionList.forEach((element) {
-      if (element.transactionType == "EXPENDITURE")
+      if (element.transactionType == "EXPENDITURE") {
         list.addAll(element.businessTransactionPaymentItemList!);
+      }
     });
     return list;
   }
@@ -247,7 +241,6 @@ class TransactionRespository extends GetxController {
         list.addAll(getAllPaymentItemForRecordIncome(element));
       }
     });
-    print("get record income list ${list.length}");
     return list;
   }
 
@@ -259,13 +252,11 @@ class TransactionRespository extends GetxController {
         list1.addAll(getAllPaymentItemForRecordExpenditure(element));
       }
     });
-    print("get record expenditure list ${list1.length}");
     return list1;
   }
 
   Future getAllPaymentItem() async {
     try {
-      print('getting all payment data');
       _transactionStatus(TransactionStatus.Loading);
       if (todayTransaction.isEmpty) {
         _allPaymentItem([]);
@@ -278,7 +269,6 @@ class TransactionRespository extends GetxController {
       });
 
       _allPaymentItem(items.reversed.toList());
-      print(items);
       totalOfflineRecords(items.length);
       items.isNotEmpty
           ? _transactionStatus(TransactionStatus.Available)
@@ -295,13 +285,11 @@ class TransactionRespository extends GetxController {
         Uri.parse(ApiLink.getBusinessTransaction + "?businessId=" + businessId),
         headers: {"Authorization": "Bearer ${_userController.token}"});
     var json = jsonDecode(response.body);
-    print("get online transaction $json");
     if (response.statusCode == 200) {
       var result =
           List.from(json['data']).map((e) => TransactionModel.fromJson(e));
 
       OnlineTransaction.addAll(result);
-      print("online transaction ${result.length}");
       totalOnlineRecords(result.length);
       // getTodayTransaction();
       result.isNotEmpty
@@ -325,11 +313,7 @@ class TransactionRespository extends GetxController {
     OnlineTransaction.forEach((element) async {
       var item = getTransactionById(element.id!);
       if (item != null) {
-        print("item Transaction is found");
-        print("updated offline ${item.updatedTime!.toIso8601String()}");
-        print("updated online ${element.updatedTime!.toIso8601String()}");
         if (!element.updatedTime!.isAtSameMomentAs(item.updatedTime!)) {
-          print("found Transaction to updated");
           pendingUpdatedTransactionList.add(element);
         }
       }
@@ -356,7 +340,6 @@ class TransactionRespository extends GetxController {
   Future GetOfflineTransactions(String id) async {
     _transactionStatus(TransactionStatus.Loading);
     var results = await _businessController.sqliteDb.getOfflineTransactions(id);
-    print("offline transaction ${results.length}");
 
     _offlineTransactions(results
         .where((element) =>
@@ -379,7 +362,6 @@ class TransactionRespository extends GetxController {
       var timeofday =
           TimeOfDay(hour: _timeday.hour + 1, minute: _timeday.minute);
       _timeday = timeofday;
-      print("splitting day hour " + _timeday.hour.toString() + ":00");
     }
     getSplitCurrentDate(value);
   }
@@ -393,10 +375,8 @@ class TransactionRespository extends GetxController {
   Future getMonthlyRecord() async {
     var currentDate = DateTime.now();
     int days = daysInMonth(currentDate);
-    print("number of days in the months $days");
     List<DateTime> value = [];
     for (int i = 1; i < days; ++i) {
-      print("days number is $i");
       value.add(DateTime(currentDate.year, currentDate.month, i));
     }
     getSplitCurrentMonthly(value);
@@ -408,12 +388,9 @@ class TransactionRespository extends GetxController {
     DateTime endingYear = DateTime(currentDate.year);
     List<DateTime> value = [];
     for (int i = startingYear.year; i < endingYear.year + 1; ++i) {
-      print("year in list ${startingYear.year}");
-
       value.add(DateTime(startingYear.year));
       startingYear = DateTime(startingYear.year + 1);
     }
-    print("all year to be calculated ${value.length}");
     getSplitAllTime(value);
   }
 
@@ -456,18 +433,12 @@ class TransactionRespository extends GetxController {
         List<TransactionModel> currentTran = [];
 
         offlineTransactions.forEach((element) {
-          print(
-              "alltime testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
-
           if (element.entryDateTime != null &&
               DateTime(element.entryDateTime!.year)
                   .isAtSameMomentAs(DateTime(element1.year))) {
-            print("AllTime found");
             if (element.transactionType!.contains("INCOME")) {
               _currentHoursIncome.add(element);
-              print("AllTime is  $element1 amount ${element.totalAmount}");
               incomeTotalAmount = incomeTotalAmount + element.totalAmount;
-              print("AllTime is  $element1 amount $incomeTotalAmount");
 
               switch (element.entryDateTime!.weekday) {
                 case 7:
@@ -498,8 +469,6 @@ class TransactionRespository extends GetxController {
               _currentHoursExpenditure.add(element);
               expenditureTotalAmount =
                   expenditureTotalAmount + element.totalAmount ?? 0;
-              print(
-                  "expenditure AllTime is  $element1 amount $expenditureTotalAmount");
               switch (element.entryDateTime!.weekday) {
                 case 7:
                   sundayTotalExpenditure =
@@ -608,19 +577,13 @@ class TransactionRespository extends GetxController {
         dynamic expenditureTotalAmount = 0;
         List<TransactionModel> currentTran = [];
         offlineTransactions.forEach((element) {
-          print(
-              "monthly testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
-
           if (element.entryDateTime != null &&
               DateTime(
                       element.entryDateTime!.year, element.entryDateTime!.month)
                   .isAtSameMomentAs(DateTime(element1.year, element1.month))) {
-            print("today hour found");
             if (element.transactionType!.contains("INCOME")) {
               _currentHoursIncome.add(element);
-              print("income hour is  $element1 amount ${element.totalAmount}");
               incomeTotalAmount = incomeTotalAmount + element.totalAmount;
-              print("income hour is  $element1 amount $incomeTotalAmount");
 
               switch (element.entryDateTime!.weekday) {
                 case 7:
@@ -651,8 +614,6 @@ class TransactionRespository extends GetxController {
               _currentHoursExpenditure.add(element);
               expenditureTotalAmount =
                   expenditureTotalAmount + element.totalAmount ?? 0;
-              print(
-                  "expenditure hour is  $element1 amount $expenditureTotalAmount");
               switch (element.entryDateTime!.weekday) {
                 case 7:
                   sundayTotalExpenditure =
@@ -763,20 +724,14 @@ class TransactionRespository extends GetxController {
         dynamic expenditureTotalAmount = 0;
         List<TransactionModel> currentTran = [];
         offlineTransactions.forEach((element) {
-          print(
-              "monthly testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
-
           if (element.entryDateTime != null &&
               DateTime(element.entryDateTime!.year,
                       element.entryDateTime!.month, element.entryDateTime!.day)
                   .isAtSameMomentAs(
                       DateTime(element1.year, element1.month, element1.day))) {
-            print("today hour found");
             if (element.transactionType!.contains("INCOME")) {
               _currentHoursIncome.add(element);
-              print("income hour is  $element1 amount ${element.totalAmount}");
               incomeTotalAmount = incomeTotalAmount + element.totalAmount;
-              print("income hour is  $element1 amount $incomeTotalAmount");
 
               switch (element.entryDateTime!.weekday) {
                 case 7:
@@ -807,8 +762,6 @@ class TransactionRespository extends GetxController {
               _currentHoursExpenditure.add(element);
               expenditureTotalAmount =
                   expenditureTotalAmount + element.totalAmount ?? 0;
-              print(
-                  "expenditure hour is  $element1 amount $expenditureTotalAmount");
               switch (element.entryDateTime!.weekday) {
                 case 7:
                   sundayTotalExpenditure =
@@ -916,17 +869,13 @@ class TransactionRespository extends GetxController {
                   currentDate.day,
                   int.parse(element1),
                   59))) {
-            print("today hour found");
             if (element.transactionType!.contains("INCOME")) {
               _currentHoursIncome.add(element);
               incomeTotalAmount = incomeTotalAmount + element.totalAmount;
-              print("income hour is  $element1 amount $incomeTotalAmount");
             } else {
               _currentHoursExpenditure.add(element);
               expenditureTotalAmount =
                   expenditureTotalAmount + element.totalAmount;
-              print(
-                  "expenditure hour is  $element1 amount $expenditureTotalAmount");
             }
             currentTran.add(element);
           }
@@ -947,11 +896,9 @@ class TransactionRespository extends GetxController {
 
   Future getWeeklyRecordData() async {
     DateTime currentDate = DateTime.now();
-    print("today weekday is ${currentDate.weekday}");
 
     DateTime firstDay =
         currentDate.subtract(Duration(days: currentDate.weekday));
-    print("first day of the week is ${firstDay.toString()}");
     if (currentDate.weekday == 7) {
       firstDay = DateTime.now();
     }
@@ -966,7 +913,6 @@ class TransactionRespository extends GetxController {
   Future getDateRangeRecordData(DateTime startDate, DateTime endDate) async {
     int days = endDate.difference(startDate).inDays;
     customText = startDate.formatDate()! + " - " + endDate.formatDate()!;
-    print("days difference in range $days");
     List<DateTime> value = [];
     for (int i = 0; i <= days; ++i) {
       value.add(DateTime(startDate.year, startDate.month, startDate.day));
@@ -1041,20 +987,14 @@ class TransactionRespository extends GetxController {
         dynamic expenditureTotalAmount = 0;
         List<TransactionModel> currentTran = [];
         offlineTransactions.forEach((element) {
-          print(
-              "data range testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
-
           if (element.entryDateTime != null &&
               DateTime(element.entryDateTime!.year,
                       element.entryDateTime!.month, element.entryDateTime!.day)
                   .isAtSameMomentAs(
                       DateTime(element1.year, element1.month, element1.day))) {
-            print("data range found");
             if (element.transactionType!.contains("INCOME")) {
               _currentHoursIncome.add(element);
-              print("income hour is  $element1 amount ${element.totalAmount}");
               incomeTotalAmount = incomeTotalAmount + element.totalAmount;
-              print("income hour is  $element1 amount $incomeTotalAmount");
               switch (element.entryDateTime!.weekday) {
                 case 7:
                   sundayTotalIncome = sundayTotalIncome + element.totalAmount!;
@@ -1084,8 +1024,6 @@ class TransactionRespository extends GetxController {
               _currentHoursExpenditure.add(element);
               expenditureTotalAmount =
                   expenditureTotalAmount + element.totalAmount ?? 0;
-              print(
-                  "expenditure hour is  $element1 amount $expenditureTotalAmount");
               switch (element.entryDateTime!.weekday) {
                 case 7:
                   sundayTotalExpenditure =
@@ -1196,20 +1134,14 @@ class TransactionRespository extends GetxController {
         List<TransactionModel> currentTran = [];
 
         offlineTransactions.forEach((element) {
-          print(
-              "weekly testing $element1 ${element.entryDateTime!.toIso8601String()}");
-
           if (element.entryDateTime != null &&
               DateTime(element.entryDateTime!.year,
                       element.entryDateTime!.month, element.entryDateTime!.day)
                   .isAtSameMomentAs(
                       DateTime(element1.year, element1.month, element1.day))) {
-            print("today hour found");
             if (element.transactionType!.contains("INCOME")) {
               _currentHoursIncome.add(element);
-              print("income hour is  $element1 amount ${element.totalAmount}");
               incomeTotalAmount = incomeTotalAmount + element.totalAmount ?? 0;
-              print("income hour is  $element1 amount $incomeTotalAmount");
               switch (element.entryDateTime!.weekday) {
                 case 7:
                   sundayTotalIncome = sundayTotalIncome + element.totalAmount!;
@@ -1239,8 +1171,6 @@ class TransactionRespository extends GetxController {
               _currentHoursExpenditure.add(element);
               expenditureTotalAmount =
                   expenditureTotalAmount + element.totalAmount ?? 0;
-              print(
-                  "expenditure hour is  $element1 amount $expenditureTotalAmount");
               switch (element.entryDateTime!.weekday) {
                 case 7:
                   sundayTotalExpenditure =
@@ -1350,7 +1280,6 @@ class TransactionRespository extends GetxController {
       }
     });
     // print("does contain value ${pendingTransaction.first.isPending}");
-    print("item yet to be save yet ${pendingTransaction.length}");
     savePendingJob();
   }
 
@@ -1388,7 +1317,6 @@ class TransactionRespository extends GetxController {
     var month =
         now.month >= 10 ? now.month.toString() : "0" + now.month.toString();
     final date = "" + now.year.toString() + "-" + month + "-" + day;
-    print("today date is $date");
     final response = await http.get(
         Uri.parse(ApiLink.dashboardOverview +
             "?businessId=" +
@@ -1396,7 +1324,6 @@ class TransactionRespository extends GetxController {
             "&from=$date 00:00&to=$date 23:59"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
     var json = jsonDecode(response.body);
-    print("overview result $json");
     if (response.statusCode == 200) {
       var totalIncome = json['data']['totalIncomeAmount'];
       var totalExpenses = json['data']['totalExpenditureAmount'];
@@ -1518,8 +1445,9 @@ class TransactionRespository extends GetxController {
           customerId =
               await _customerController.addBusinessCustomerWithString(type);
         } else {
-          if (selectedCustomer != null)
+          if (selectedCustomer != null) {
             customerId = selectedCustomer!.customerId;
+          }
         }
       } else {
         customerId = null;
@@ -1528,7 +1456,6 @@ class TransactionRespository extends GetxController {
       if (time != null && date != null) {
 // date!.hour=time!.hour;
         date!.add(Duration(hours: time!.hour, minutes: time!.minute));
-        print("date Time to string ${date!.toIso8601String()}");
       }
 // String? timeday=date!.toIso8601String();
       String body = jsonEncode({
@@ -1549,7 +1476,6 @@ class TransactionRespository extends GetxController {
             ? amountPaidController.numberValue
             : 0
       });
-      print("transaction body $body");
       final response =
           await http.post(Uri.parse(ApiLink.getBusinessTransaction),
               headers: {
@@ -1558,7 +1484,6 @@ class TransactionRespository extends GetxController {
               },
               body: body);
 
-      print({"creating transaction response ${response.body}"});
       if (response.statusCode == 200) {
         _addingTransactionStatus(AddingTransactionStatus.Success);
 
@@ -1589,7 +1514,6 @@ class TransactionRespository extends GetxController {
         _addingTransactionStatus(AddingTransactionStatus.Error);
       }
     } catch (ex) {
-      print("error occurred here ${ex.toString()}");
       Get.snackbar("Error", "Error occurred here ${ex.toString()}");
       _addingTransactionStatus(AddingTransactionStatus.Error);
     }
@@ -1601,7 +1525,6 @@ class TransactionRespository extends GetxController {
       // print("comparing with ${element.id} to $id");
       if (element.id == id) {
         result = element;
-        print("search transaction is found");
         return;
       }
     });
@@ -1620,7 +1543,6 @@ class TransactionRespository extends GetxController {
 
       String basename = path.basename(image!.path);
       var newPath = appDocPath + basename;
-      print("new file path is $newPath");
       outFile = File(newPath);
       image!.copySync(outFile.path);
     }
@@ -1638,8 +1560,6 @@ class TransactionRespository extends GetxController {
     } else {
       customerId = null;
     }
-
-    print("trying to save offline");
 
     TransactionModel? value;
 
@@ -1682,8 +1602,6 @@ class TransactionRespository extends GetxController {
 
     value.businessTransactionPaymentHistoryList = transactionList;
 
-    print("offline saving to database ${value.toJson()}}");
-
     if (customerId != null) if (selectedPaymentMode == "DEPOSIT") {
       Debtor debtor = Debtor(
           businessTransactionId: value.id,
@@ -1718,18 +1636,13 @@ class TransactionRespository extends GetxController {
   }
 
   Future checkIfTransactionThatIsYetToBeAdded() async {
-    print("hoping transaction to be added");
     var list = await _businessController.sqliteDb.getOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
-    print("number of transaction is ${list.length}");
     list.forEach((element) {
       if (element.isPending) {
         pendingTransactionToBeAdded.add(element);
-        print("is pending to be added");
       }
     });
-    print(
-        "number of transaction that is yet to saved on server is ${pendingTransactionToBeAdded.length}");
     saveTransactionOnline();
   }
 
@@ -1739,15 +1652,11 @@ class TransactionRespository extends GetxController {
     }
 
 // pendingTransaction.forEach((e)async{
-    print("loading transaction to server ");
     try {
 // if(!isBusyAdding){
       var savenext = pendingTransactionToBeAdded.first;
       isBusyAdding = true;
-      print("saved next is ${savenext.toJson()}");
       if (savenext.customerId != null && savenext.customerId != " ") {
-        print("saved yet customer is not null");
-
         var customervalue = await _businessController.sqliteDb
             .getOfflineCustomer(savenext.customerId!);
         if (customervalue != null && customervalue.isCreatedFromTransaction!) {
@@ -1755,9 +1664,7 @@ class TransactionRespository extends GetxController {
               .addBusinessCustomerWithStringWithValue(customervalue);
           savenext.customerId = customerId;
           _businessController.sqliteDb.deleteCustomer(customervalue);
-        } else {
-          print("saved yet customer is null");
-        }
+        } else {}
       }
       if (savenext.businessTransactionFileStoreId != null &&
           savenext.businessTransactionFileStoreId != '') {
@@ -1768,10 +1675,8 @@ class TransactionRespository extends GetxController {
         savenext.businessTransactionFileStoreId = image;
         _file.deleteSync();
       }
-      print("server payment mode ${savenext.paymentMethod}");
 
       var firstItem = savenext.businessTransactionPaymentHistoryList![0];
-      print("server first payment is ${firstItem.toJson()} ");
 
       savenext.businessTransactionPaymentHistoryList!.remove(firstItem);
 //       savenext.businessTransactionPaymentHistoryList!.forEach((element) {
@@ -1799,8 +1704,6 @@ class TransactionRespository extends GetxController {
         // savenext.businessTransactionPaymentHistoryList!.map((e) => e.toJson()).toList()
       });
 
-      print(" transaction body $body");
-
       final response =
           await http.post(Uri.parse(ApiLink.getBusinessTransaction),
               headers: {
@@ -1809,10 +1712,7 @@ class TransactionRespository extends GetxController {
               },
               body: body);
 
-      print({"sending to server transaction response ${response.body}"});
-
       if (response.statusCode == 200) {
-        print("transaction response ${response.body}");
         var json = jsonDecode(response.body);
         if (savenext.businessTransactionPaymentHistoryList!.isNotEmpty) {
           var response = TransactionModel.fromJson(json['data']);
@@ -1820,7 +1720,6 @@ class TransactionRespository extends GetxController {
               savenext.businessTransactionPaymentHistoryList!;
           await updateTransactionHisotryList(response);
 //update Transaction
-
         }
         await deleteItem(savenext);
         var debtor = _debtorController.getDebtorByTransactionId(savenext.id!);
@@ -1836,14 +1735,12 @@ class TransactionRespository extends GetxController {
         // saveTransactionOnline();
 
         if (pendingTransactionToBeAdded.isNotEmpty) {
-          print("saved size  left is ${pendingTransactionToBeAdded.length}");
           saveTransactionOnline();
           // await GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
           //  getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
 
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
         } else {
-          print("done uploading  transaction to server ");
           await GetOfflineTransactions(
               _businessController.selectedBusiness.value!.businessId!);
           getOnlineTransaction(
@@ -1874,7 +1771,6 @@ class TransactionRespository extends GetxController {
   }
 
   clearValue() {
-    print("clearing value");
     itemNameController.text = "";
     amountController!.clear();
     quantityController.text = "1";
@@ -1912,16 +1808,12 @@ class TransactionRespository extends GetxController {
     _recordMoneyOut(Moneyout);
     _recordMoneyIn(MoneyIn);
     _recordBalance(Balance);
-    print("record money in  $MoneyIn");
-    print("record money out $recordMoneyOut");
-    print("record balance $Balance");
   }
 
   Future calculateOverView() async {
     dynamic todayBalance = 0;
     dynamic todayMoneyIn = 0;
     dynamic todayMoneyout = 0;
-    print("total transaction size is ${todayTransaction.length}");
     todayTransaction.forEach((element) {
       if (element.totalAmount == null) {
         return;
@@ -1929,7 +1821,6 @@ class TransactionRespository extends GetxController {
       if (element.transactionType == "INCOME") {
         todayMoneyIn = todayMoneyIn + (element.totalAmount - element.balance);
       } else {
-        print("total amount is ${element.totalAmount} ${element.toJson()}");
         todayMoneyout = todayMoneyout + (element.totalAmount - element.balance);
       }
     });
@@ -1941,9 +1832,8 @@ class TransactionRespository extends GetxController {
   }
 
   void addMoreProduct() {
-    print("qunatity text is ${amountController!.numberValue}");
     if (selectedValue == 0) {
-      if (selectedProduct != null)
+      if (selectedProduct != null) {
         productList.add(PaymentItem(
             productId: selectedProduct!.productId!,
             itemName: selectedProduct!.productName,
@@ -1962,15 +1852,17 @@ class TransactionRespository extends GetxController {
             quality: (quantityController.text.isEmpty)
                 ? 1
                 : int.parse(quantityController.text)));
+      }
     } else {
       if (itemNameController.text.isNotEmpty &&
-          amountController!.numberValue > 0)
+          amountController!.numberValue > 0) {
         productList.add(PaymentItem(
             itemName: itemNameController.text,
             quality: int.parse(quantityController.text),
             amount: amountController!.numberValue,
             totalAmount: amountController!.numberValue *
                 int.parse(quantityController.text)));
+      }
     }
 
     selectedProduct = null;
@@ -2013,7 +1905,6 @@ class TransactionRespository extends GetxController {
   Future updatePaymentHistoryOnline(String transactionId, String businessId,
       dynamic amount, String mode) async {
     try {
-      print("business id is $businessId");
       _addingTransactionStatus(AddingTransactionStatus.Loading);
       var response = await http.put(
           Uri.parse(ApiLink.getBusinessTransaction + "/" + transactionId),
@@ -2028,8 +1919,6 @@ class TransactionRespository extends GetxController {
             "Authorization": "Bearer ${_userController.token}",
             "Content-Type": "application/json"
           });
-      print(
-          "update payment history response status code is ${response.statusCode} ${response.body} ");
       if (response.statusCode == 200) {
 //
         var json = jsonDecode(response.body);
@@ -2051,7 +1940,6 @@ class TransactionRespository extends GetxController {
       }
     } catch (ex) {
       _addingTransactionStatus(AddingTransactionStatus.Empty);
-      print("error occurred ${ex.toString()}");
     } finally {
       _addingTransactionStatus(AddingTransactionStatus.Empty);
       Get.back();
@@ -2154,7 +2042,6 @@ class TransactionRespository extends GetxController {
                 "Authorization": "Bearer ${_userController.token}",
                 "Content-Type": "application/json"
               });
-          print("update history to server ${response.body}");
         }
       });
     } catch (ex) {
@@ -2188,7 +2075,6 @@ class TransactionRespository extends GetxController {
               "Authorization": "Bearer ${_userController.token}",
               "Content-Type": "application/json"
             });
-        print("update history to server ${response.body}");
       });
     } catch (ex) {
     } finally {
@@ -2205,7 +2091,6 @@ class TransactionRespository extends GetxController {
   Future deleteTransactionOnline(TransactionModel transactionModel) async {
     try {
       _transactionStatus(TransactionStatus.Loading);
-      print("deleting from online");
       var response = await http.delete(
           Uri.parse(
               ApiLink.getBusinessTransaction + "/" + transactionModel.id!),
@@ -2213,7 +2098,6 @@ class TransactionRespository extends GetxController {
             "Authorization": "Bearer ${_userController.token}",
             "Content-Type": "application/json"
           });
-      print("transaction deletion detail response ${response.body}}");
 
       if (response.statusCode == 200) {
         _transactionStatus(TransactionStatus.Available);
@@ -2243,9 +2127,7 @@ class TransactionRespository extends GetxController {
             _businessController.selectedBusiness.value!.businessId!);
         Get.back();
       }
-    } catch (ex) {
-      print("error from transaction deletion ${ex.toString()}");
-    }
+    } catch (ex) {}
   }
 
   Future deleteTransactionOffline(TransactionModel transactionModel) async {
@@ -2264,7 +2146,6 @@ class TransactionRespository extends GetxController {
     var debtor =
         _debtorController.getDebtorByTransactionId(transactionModel.id!);
     if (debtor != null) {
-      print("debtor foundsss ${debtor.toJson()}");
       _businessController.sqliteDb.deleteOfflineDebtor(debtor);
       _debtorController.getOfflineDebtor(
           _businessController.selectedBusiness.value!.businessId!);
@@ -2282,17 +2163,13 @@ class TransactionRespository extends GetxController {
   }
 
   Future checkPendingTransactionToBeDeletedOnServer() async {
-    print("checking transaction to be deleted");
     var list = await _businessController.sqliteDb.getOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
-    print("checking transaction to be deleted list ${list.length}");
     list.forEach((element) {
       if (element.deleted!) {
         pendingJobToBeDelete.add(element);
-        print("Transaction to be deleted is found ");
       }
     });
-    print("Transaction to be deleted ${pendingJobToBeDelete.length}");
     deletePendingJobToServer();
   }
 
