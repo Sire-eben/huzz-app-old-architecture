@@ -153,7 +153,8 @@ class _MyTeamState extends State<MyTeam> {
                           Text(
                             utf8.decode(_businessController
                                 .selectedBusiness.value!.businessName
-                                .toString().codeUnits),
+                                .toString()
+                                .codeUnits),
                             style:
                                 TextStyles.t12B.copyWith(color: Colors.black),
                           )
