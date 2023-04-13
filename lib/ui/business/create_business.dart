@@ -7,6 +7,7 @@ import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
+import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'package:huzz/ui/widget/custom_drop_field.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -21,9 +22,13 @@ class CreateBusiness extends StatefulWidget {
 }
 
 class _CreateBusinessState extends State<CreateBusiness> {
+  final pref = SharePref();
+
   @override
   void initState() {
     super.initState();
+
+    pref.init();
     _businessController.businessEmail.text = _userController.user!.email ?? "";
     _businessController.businessPhoneNumber.text =
         _userController.user!.phoneNumber ?? "";

@@ -6,9 +6,20 @@ import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/data/sharepreference/sharepref.dart';
+import 'package:huzz/ui/team/create_team_success.dart';
 
-class NoTeamWidget extends GetView<TeamRepository> {
-  final _businessController = Get.find<BusinessRespository>();
+class NoTeamWidget extends StatefulWidget {
+  const NoTeamWidget({super.key});
+
+  @override
+  State<NoTeamWidget> createState() => _NoTeamWidgetState();
+}
+
+class _NoTeamWidgetState extends State<NoTeamWidget> {
+  final controller = Get.find<TeamRepository>();
+  final pref = SharePref();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -63,10 +74,13 @@ class NoTeamWidget extends GetView<TeamRepository> {
               ),
               Obx(() {
                 return InkWell(
-                  onTap: () {
-                    final value = _businessController.selectedBusiness.value;
-                    // print(value!.businessName!);
-                    controller.createTeam(value!.businessId!);
+                  onTap: () async {
+                    await pref.setFirstTimeCreatingTeam(false);
+                    Get.snackbar(
+                      "Success",
+                      "Team created successfully",
+                    );
+                    Get.to(const CreateTeamSuccess());
                   },
                   child: Container(
                     height: 55,
