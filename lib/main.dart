@@ -18,10 +18,10 @@ void main() async {
 }
 
 class HuzzApp extends StatefulWidget {
-  const HuzzApp({Key? key}) : super(key: key);
+  const HuzzApp({super.key});
 
   @override
-  _HuzzAppState createState() => _HuzzAppState();
+  State<HuzzApp> createState() => _HuzzAppState();
 }
 
 class _HuzzAppState extends State<HuzzApp> {
