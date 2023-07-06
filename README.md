@@ -64,3 +64,4 @@ Such as the network, storage, analytics, etc.
 3. You need xcode and android studio for appstore and playstore respectively
 
 
+# huzz-app-old-architecture
