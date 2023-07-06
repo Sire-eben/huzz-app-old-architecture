@@ -97,7 +97,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 10
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 Container(

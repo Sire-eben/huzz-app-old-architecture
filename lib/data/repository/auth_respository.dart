@@ -73,7 +73,7 @@ class AuthRepository extends GetxController {
   late final firstNameController = TextEditingController();
   late final forgotOtpController = TextEditingController();
   late final forgetpinController = TextEditingController();
-  late final verifypinController = TextEditingController();
+  // late final verifypinController = TextEditingController();
   var confirmPinController = TextEditingController();
   var phoneNumberController = TextEditingController();
   late final updatePhoneNumberController = TextEditingController();

@@ -167,9 +167,7 @@ class _OverdueState extends State<Overdue> {
                                                           fontSize: 16,
                                                           color: Colors.black),
                                                     ),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
+                                                    const SizedBox(height: 5),
 
                                                     SizedBox(
                                                         height: MediaQuery.of(

@@ -493,111 +493,6 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                         )
                       : Container(),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  // InkWell(
-                  //   onTap: () {
-                  //     Get.bottomSheet(Container(
-                  //       decoration: BoxDecoration(
-                  //         color: Colors.white,
-                  //         borderRadius: const BorderRadius.only(
-                  //             topLeft: Radius.circular(16.0),
-                  //             topRight: Radius.circular(16.0)),
-                  //       ),
-                  //       child: Wrap(
-                  //         alignment: WrapAlignment.end,
-                  //         crossAxisAlignment: WrapCrossAlignment.end,
-                  //         children: [
-                  //           ListTile(
-                  //             leading: Icon(
-                  //               Icons.camera,
-                  //               color: AppColors.backgroundColor,
-                  //             ),
-                  //             title: Text('Camera'),
-                  //             onTap: () {
-                  //               Get.back();
-                  //               pickImgFromCamera();
-                  //             },
-                  //           ),
-                  //           ListTile(
-                  //             leading: Icon(
-                  //               Icons.image,
-                  //               color: AppColors.backgroundColor,
-                  //             ),
-                  //             title: Text('Gallery'),
-                  //             onTap: () {
-                  //               Get.back();
-                  //               pickImgFromGallery();
-                  //             },
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ));
-                  //   },
-                  //   child: Container(
-                  //     height: MediaQuery.of(context).size.height * 0.08,
-                  //     width: MediaQuery.of(context).size.width,
-                  //     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  //     decoration: BoxDecoration(
-                  //         color: image != null
-                  //             ? AppColors.backgroundColor.withOpacity(0.2)
-                  //             : Colors.white,
-                  //         borderRadius: BorderRadius.circular(10),
-                  //         border: image != null
-                  //             ? null
-                  //             : Border.all(
-                  //                 width: 2, color: AppColors.backgroundColor)),
-                  //     child: Row(
-                  //       children: [
-                  //         Expanded(
-                  //           child: Align(
-                  //             alignment: Alignment.centerLeft,
-                  //             child: Container(
-                  //               child: Image.asset(
-                  //                 'assets/images/image.png',
-                  //                 height: 40,
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //         Expanded(
-                  //           flex: 6,
-                  //           child: AutoSizeText(
-                  //             image != null
-                  //                 ? image!.path.toString()
-                  //                 : 'Add any supporting image (Optional)',
-                  //             maxLines: 1,
-                  //             overflow: TextOverflow.ellipsis,
-                  //             style: GoogleFonts.inter(
-                  //                 color: image != null ? Colors.black : Colors.grey,
-                  //                 fontSize: 12,
-                  //                 fontWeight: FontWeight.w400,
-                  //                 ),
-                  //           ),
-                  //         ),
-                  //         image != null
-                  //             ? Expanded(
-                  //                 child: SvgPicture.asset(
-                  //                   'assets/images/edit.svg',
-                  //                 ),
-                  //               )
-                  //             : Container(),
-                  //         image != null
-                  //             ? Expanded(
-                  //                 child: InkWell(
-                  //                   onTap: () {
-                  //                     myState(() {
-                  //                       image = null;
-                  //                     });
-                  //                   },
-                  //                   child: SvgPicture.asset(
-                  //                     'assets/images/delete.svg',
-                  //                   ),
-                  //                 ),
-                  //               )
-                  //             : Container(),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -706,8 +601,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                           ? Container(
                               width: 30,
                               height: 30,
-                              child: Center(
-                                  child: LoadingWidget()),
+                              child: Center(child: LoadingWidget()),
                             )
                           : Center(
                               child: Text(

@@ -65,7 +65,7 @@ class TransactionRespository extends GetxController {
   String customText = "";
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
-  MoneyMaskedTextController? amountController = new MoneyMaskedTextController(
+  MoneyMaskedTextController? amountController = MoneyMaskedTextController(
       decimalSeparator: '.', thousandSeparator: ',', precision: 1);
   final quantityController = TextEditingController(text: '1');
   final dateController = TextEditingController();
@@ -73,12 +73,9 @@ class TransactionRespository extends GetxController {
   final paymentController = TextEditingController();
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
-  MoneyMaskedTextController amountPaidController =
-      new MoneyMaskedTextController(
-          decimalSeparator: '.', thousandSeparator: ',', precision: 1);
+  MoneyMaskedTextController amountPaidController = MoneyMaskedTextController(
+      decimalSeparator: '.', thousandSeparator: ',', precision: 1);
 
-  // final TextEditingController dateController = TextEditingController();
-  // final TextEditingController timeController = TextEditingController();
   final TextEditingController contactName = TextEditingController();
   final TextEditingController contactPhone = TextEditingController();
   final TextEditingController contactMail = TextEditingController();
@@ -103,11 +100,12 @@ class TransactionRespository extends GetxController {
   String? valuePaymentSource;
   String? selectedPaymentSource;
   String? selectedCategoryExpenses;
-  Rx<List<TransactionModel>> _allTransactionList = Rx([]);
-  List<TransactionModel> get allTransactionList => _allTransactionList.value;
+  // Rx<List<TransactionModel>> _allTransactionList = Rx([]);
+  // List<TransactionModel> get allTransactionList => _allTransactionList.value;
   List<String> paymentMode = ["FULLY_PAID", "DEPOSIT"];
   String? valuePaymentMode;
   String? selectedPaymentMode;
+
   List<TransactionModel> pendingTransactionToBeAdded = [];
   List<TransactionModel> pendingJobToBeUpdated = [];
   List<TransactionModel> pendingJobToBeDelete = [];
@@ -282,7 +280,7 @@ class TransactionRespository extends GetxController {
     _transactionStatus(TransactionStatus.Loading);
     OnlineTransaction = [];
     var response = await http.get(
-        Uri.parse(ApiLink.getBusinessTransaction + "?businessId=" + businessId),
+        Uri.parse("${ApiLink.getBusinessTransaction}?businessId=$businessId"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
     var json = jsonDecode(response.body);
     if (response.statusCode == 200) {
@@ -291,7 +289,7 @@ class TransactionRespository extends GetxController {
 
       OnlineTransaction.addAll(result);
       totalOnlineRecords(result.length);
-      // getTodayTransaction();
+      getTodayTransaction();
       result.isNotEmpty
           ? _transactionStatus(TransactionStatus.Available)
           : _transactionStatus(TransactionStatus.Empty);
@@ -1340,85 +1338,6 @@ class TransactionRespository extends GetxController {
     }
   }
 
-//   Future createTransaction(String type) async {
-//     try {
-//       _addingTransactionStatus(AddingTransactionStatus.Loading);
-//       String? fileid;
-//       String? customerId;
-//       var productList = [];
-//       if (image != null) {
-//         fileid = await _uploadImageController.uploadFile(image!.path);
-//       }
-
-//       if (addCustomer) {
-//         if (customerType == 1) {
-//           customerId =
-//               await _customerController.addBusinessCustomerWithString(type);
-//         } else {
-//           if (selectedCustomer.value != null)
-//             customerId = selectedCustomer.value!.customerId;
-//         }
-//       }
-
-//       if (selectedValue == 0) {
-//         productList.add({
-//           "productId": selectedProduct!.productId!,
-//           "itemName": null,
-//           "quantity": null,
-//           "amount": null
-//         });
-//       } else {
-//         productList.add({
-//           "productId": null,
-//           "itemName": itemNameController.text,
-//           "quantity": null,
-//           "amount": amountController.text
-//         });
-//       }
-
-//       if (time != null && date != null) {
-// // date!.hour=time!.hour;
-//         date!.add(Duration(hours: time!.hour, minutes: time!.minute));
-//         print("date Time to string ${date!.toIso8601String()}");
-//       }
-// // String? timeday=date!.toIso8601String();
-//       String body = jsonEncode({
-//         "paymentItemRequestList": productList,
-//         "transactionType": type,
-//         "paymentSource": selectedPaymentSource,
-//         "businessId": _businessController.selectedBusiness.value!.businessId,
-//         "paymentMode": selectedPaymentMode,
-//         "customerId": customerId,
-//         "businessTransactionFileStoreId": fileid,
-//         "entyDateTime": date!.toIso8601String()
-//       });
-//       print("transaction body $body");
-//       final response =
-//           await http.post(Uri.parse(ApiLink.get_business_transaction),
-//               headers: {
-//                 "Authorization": "Bearer ${_userController.token}",
-//                 "Content-Type": "application/json"
-//               },
-//               body: body);
-
-//       print({"creatng transaction response ${response.body}"});
-//       if (response.statusCode == 200) {
-//         _addingTransactionStatus(AddingTransactionStatus.Success);
-//         Get.to(() => IncomeSuccess());
-//         getOnlineTransaction(
-//             _businessController.selectedBusiness.value!.businessId!);
-
-//         GetOfflineTransactions(
-//             _businessController.selectedBusiness.value!.businessId!);
-//         getSpending(_businessController.selectedBusiness.value!.businessId!);
-//       } else {
-//         _addingTransactionStatus(AddingTransactionStatus.Error);
-//       }
-//     } catch (ex) {
-//       print("error occurred ${ex.toString()}");
-//       _addingTransactionStatus(AddingTransactionStatus.Error);
-//     }
-//   }
   Future createBusinessTransaction(String type) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       createTransactionOnline(type);

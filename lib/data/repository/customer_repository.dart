@@ -301,7 +301,7 @@ class CustomerRepository extends GetxController {
             await _uploadFileController.uploadFile(CustomerImage.value!.path);
       }
       var response = await http
-          .put(Uri.parse(ApiLink.add_customer + "/" + customer.customerId!),
+          .put(Uri.parse("${ApiLink.add_customer}/${customer.customerId!}"),
               body: jsonEncode({
                 "email": emailController.text,
                 "phone": phoneNumberController.text,
@@ -525,8 +525,8 @@ class CustomerRepository extends GetxController {
 
   Future deleteCustomerOnline(Customer customer) async {
     var response = await http.delete(
-        Uri.parse(ApiLink.add_customer +
-            "/${customer.customerId}?businessId=${customer.businessId}"),
+        Uri.parse(
+            "${ApiLink.add_customer}/${customer.customerId}?businessId=${customer.businessId}"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
     print("delete response ${response.body}");
     if (response.statusCode == 200) {
@@ -654,7 +654,7 @@ class CustomerRepository extends GetxController {
       var updatenext = element;
 
       var response = await http
-          .put(Uri.parse(ApiLink.add_customer + "/" + updatenext.customerId!),
+          .put(Uri.parse("${ApiLink.add_customer}/${updatenext.customerId!}"),
               body: jsonEncode({
                 "email": updatenext.email,
                 "phone": updatenext.phone,
@@ -686,8 +686,8 @@ class CustomerRepository extends GetxController {
     pendingJobToBeDelete.forEach((element) async {
       var deletenext = pendingJobToBeDelete.first;
       var response = await http.delete(
-          Uri.parse(ApiLink.add_customer +
-              "/${deletenext.customerId}?businessId=${deletenext.businessId}"),
+          Uri.parse(
+              "${ApiLink.add_customer}/${deletenext.customerId}?businessId=${deletenext.businessId}"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
       print("previous deleted response ${response.body}");
       if (response.statusCode == 200) {
@@ -703,8 +703,8 @@ class CustomerRepository extends GetxController {
       pendingJobToBeDelete.forEach((element) async {
         var deletenext = pendingJobToBeDelete.first;
         var response = await http.delete(
-            Uri.parse(ApiLink.add_customer +
-                "/${deletenext.customerId}?businessId=${deletenext.businessId}"),
+            Uri.parse(
+                "${ApiLink.add_customer}/${deletenext.customerId}?businessId=${deletenext.businessId}"),
             headers: {"Authorization": "Bearer ${_userController.token}"});
         print("previous deleted response ${response.body}");
         if (response.statusCode == 200) {

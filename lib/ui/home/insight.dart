@@ -60,27 +60,27 @@ class _InsightState extends State<Insight> {
   List<RecordsData> item1 = [];
   List<RecordsData> item2 = [];
   String? value;
-  List<_SalesData> data = [
-    _SalesData('Nov 1', 35),
-    _SalesData('Nov 2', 28),
-    _SalesData('Nov 3', 34),
-    _SalesData('Nov 4', 32),
-    _SalesData('Nov 5', 40),
-    _SalesData('Nov 6', 28),
-    _SalesData('Nov 7', 34),
-    _SalesData('Nov 8', 32)
-  ];
+  // List<_SalesData> data = [
+  //   _SalesData('Nov 1', 35),
+  //   _SalesData('Nov 2', 28),
+  //   _SalesData('Nov 3', 34),
+  //   _SalesData('Nov 4', 32),
+  //   _SalesData('Nov 5', 40),
+  //   _SalesData('Nov 6', 28),
+  //   _SalesData('Nov 7', 34),
+  //   _SalesData('Nov 8', 32)
+  // ];
 
-  List<_SalesData> data2 = [
-    _SalesData('Nov 1', 15),
-    _SalesData('Nov 2', 10),
-    _SalesData('Nov 3', 40),
-    _SalesData('Nov 4', 32),
-    _SalesData('Nov 5', 20),
-    _SalesData('Nov 6', 15),
-    _SalesData('Nov 7', 40),
-    _SalesData('Nov 8', 32)
-  ];
+  // List<_SalesData> data2 = [
+  //   _SalesData('Nov 1', 15),
+  //   _SalesData('Nov 2', 10),
+  //   _SalesData('Nov 3', 40),
+  //   _SalesData('Nov 4', 32),
+  //   _SalesData('Nov 5', 20),
+  //   _SalesData('Nov 6', 15),
+  //   _SalesData('Nov 7', 40),
+  //   _SalesData('Nov 8', 32)
+  // ];
 
   List<_PieChartData> pieMoneyIn = [
     _PieChartData('Mon', 35, AppColors.orangeBorderColor),

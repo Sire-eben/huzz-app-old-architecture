@@ -129,7 +129,6 @@ class _AllState extends State<All> {
                                       child: GestureDetector(
                                         onTap: () async {
                                           final date = DateTime.now();
-                                          // ignore: unused_local_variable
                                           final dueDate =
                                               date.add(const Duration(days: 7));
 

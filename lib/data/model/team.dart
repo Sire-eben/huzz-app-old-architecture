@@ -44,18 +44,18 @@ class Team {
       isCreatedFromDebtors: json['isCreatedFromDebtors'] ?? false);
 
   Map<String, dynamic> toJson() => {
-        "name": this.name,
-        "phone": this.phone,
-        "email": this.email,
-        "id": this.teamMemberId,
-        "businessId": this.businessId,
-        "businessTransactionType": this.businessTransactionType,
+        "name": name,
+        "phone": phone,
+        "email": email,
+        "id": teamMemberId,
+        "businessId": businessId,
+        "businessTransactionType": businessTransactionType,
         "createdDateTime": createdTime == null
             ? DateTime.now().toIso8601String()
-            : this.createdTime!.toIso8601String(),
+            : createdTime!.toIso8601String(),
         "updatedDateTime": updatedTime == null
             ? DateTime.now().toIso8601String()
-            : this.updatedTime!.toIso8601String(),
+            : updatedTime!.toIso8601String(),
         "deleted": deleted,
         "isAddingPending": isAddingPending,
         "isUpdatingPending": isUpdatingPending,
@@ -123,7 +123,7 @@ class Teams {
         "phoneNumber": phoneNumber,
         "email": email,
         "teamId": businessId,
-        "roleSet": (roleSet != null && roleSet!.isNotEmpty) ? this.roleSet : [],
+        "roleSet": (roleSet != null && roleSet!.isNotEmpty) ? roleSet : [],
         "authoritySet": authoritySet,
         "teamMemberStatus": teamMemberStatus,
         "deleted": deleted,

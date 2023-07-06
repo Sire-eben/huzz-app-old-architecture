@@ -63,7 +63,7 @@ class SharePref {
   bool getFirstTimeOpen() {
     var value = _preferences!.getBool(firstTimeAppOpen);
     print("Am I a new User?  $value");
-    return value == null ? true : value;
+    return value ?? true;
   }
 
   void setDateTokenExpired(DateTime time) {
@@ -80,12 +80,12 @@ class SharePref {
 
   String getMiscellaneous() {
     var value = _preferences!.getString(miscellanous);
-    return value == null ? "" : value;
+    return value ?? "";
   }
 
   String getLastSelectedBusiness() {
     var value = _preferences!.getString(selectedLastBusiness);
-    return value == null ? "" : value;
+    return value ?? "";
   }
 
   DateTime getDateTokenExpired() {

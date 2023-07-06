@@ -260,10 +260,10 @@ class BusinessRespository extends GetxController {
     debugPrint("token ${_userController.token}");
     try {
       _createBusinessStatus(CreateBusinessStatus.Loading);
-      final currency = CountryPickerUtils.getCountryByIsoCode(
-              _userController.countryCodeFLag)
-          .currencyCode
-          .toString();
+      // final currency = CountryPickerUtils.getCountryByIsoCode(
+      //         _userController.countryCodeFLag)
+      //     .currencyCode
+      //     .toString();
       final response = await http.post(Uri.parse(ApiLink.createBusiness),
           body: jsonEncode(
             {

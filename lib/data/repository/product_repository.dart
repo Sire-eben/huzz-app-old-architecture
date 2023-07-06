@@ -368,7 +368,7 @@ class ProductRepository extends GetxController
       _productStatus(ProductStatus.Loading);
       print("trying to get product online");
       final response = await http.get(
-          Uri.parse(ApiLink.getBusinessProduct + "?businessId=" + businessId),
+          Uri.parse("${ApiLink.getBusinessProduct}?businessId=$businessId"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
       print("result of get product online ${response.body}");

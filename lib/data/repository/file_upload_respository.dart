@@ -13,7 +13,7 @@ class FileUploadRespository extends GetxController {
         .addAll({"Authorization": "Bearer ${_userController.token}"});
 
     request.files.add(await http.MultipartFile.fromPath("file", path,
-        contentType: new MediaType('image', 'jpeg')));
+        contentType: MediaType('image', 'jpeg')));
     var streamResponse = await request.send();
     String result = await streamResponse.stream.transform(Utf8Decoder()).single;
     print("uploaded file output $result");

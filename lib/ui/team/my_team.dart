@@ -341,7 +341,7 @@ class StatusWidget extends StatelessWidget {
           border: Border.all(width: 1, color: color!),
           color: color!.withOpacity(0.2)),
       child: Text(
-        text!,
+        text ?? "",
         style: GoogleFonts.inter(
             fontSize: 7, color: color!, fontWeight: FontWeight.w400),
       ),

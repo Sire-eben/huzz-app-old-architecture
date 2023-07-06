@@ -169,7 +169,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: CreateInvoiceInformationDialog(),
+                          content: const CreateInvoiceInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: const Text(
@@ -184,7 +184,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: CreateInvoiceInformationDialog(),
+                          content: const CreateInvoiceInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: const Text(
@@ -1212,7 +1212,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          CustomTextFieldOption(
+          const CustomTextFieldOption(
             label: "Address",
             validatorText: "email is needed",
           ),

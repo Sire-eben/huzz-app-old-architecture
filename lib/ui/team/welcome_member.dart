@@ -5,7 +5,6 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/ui/app_scaffold.dart';
-import 'package:huzz/ui/home/home_page.dart';
 
 class WelcomeNewMember extends StatefulWidget {
   const WelcomeNewMember({super.key});
@@ -19,7 +18,6 @@ class _WelcomeNewMemberState extends State<WelcomeNewMember> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      // final value = _businessController.selectedBusiness.value;
       return Scaffold(
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
