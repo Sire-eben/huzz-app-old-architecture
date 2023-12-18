@@ -88,8 +88,8 @@ class SharePref {
     return value ?? "";
   }
 
-  DateTime getDateTokenExpired() {
-    var expireTime = _preferences!.getString(dateTokenExpired);
-    return expireTime == null ? DateTime.now() : DateTime.parse(expireTime);
-  }
+  // DateTime getDateTokenExpired() {
+  //   var expireTime = _preferences!.getString(dateTokenExpired);
+  //   return expireTime == null ? DateTime.now() : DateTime.parse(expireTime);
+  // }
 }
